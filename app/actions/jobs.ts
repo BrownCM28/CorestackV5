@@ -13,7 +13,7 @@ export async function createJob(payload: CreateJobPayload): Promise<Job> {
 
   const { data, error } = await supabase
     .from('jobs')
-    .insert({ ...payload, posted_by: user.id, status: 'active' })
+    .insert({ ...payload, posted_by: user.id, status: 'pending' })
     .select()
     .single()
   if (error) throw error

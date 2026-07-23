@@ -9,7 +9,7 @@ export type Category =
   | 'energy_storage'
   | 'semiconductor_fabrication'
 
-export type JobStatus = 'active' | 'closed' | 'draft'
+export type JobStatus = 'active' | 'pending' | 'closed' | 'draft'
 export type ProfileRole = 'seeker' | 'employer'
 export type ResourceType = 'cert' | 'school' | 'program'
 
