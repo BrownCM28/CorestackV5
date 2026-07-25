@@ -28,6 +28,7 @@ export default function NavAuth() {
     const supabase = createClient()
     await supabase.auth.signOut()
     router.push('/')
+    router.refresh()
   }
 
   if (user) {

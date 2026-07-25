@@ -108,6 +108,22 @@ describe('AuthForm', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Sign In' }))
 
     await waitFor(() => expect(mocks.push).toHaveBeenCalledWith('/dashboard'))
+    expect(mocks.refresh).not.toHaveBeenCalled()
+  })
+
+  it('calls refresh after a same-route sign-in (e.g. the job-application modal)', async () => {
+    mocks.pathname = '/jobs/abc123'
+    render(<AuthForm mode="signin" />)
+    fireEvent.change(screen.getByLabelText('Email'), {
+      target: { value: 'test@example.com' },
+    })
+    fireEvent.change(screen.getByLabelText('Password'), {
+      target: { value: 'password123' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: 'Sign In' }))
+
+    await waitFor(() => expect(mocks.push).toHaveBeenCalledWith('/jobs/abc123'))
+    expect(mocks.refresh).toHaveBeenCalledTimes(1)
   })
 
   it('calls signUp with emailRedirectTo when in signup mode', async () => {

@@ -67,7 +67,9 @@ export default function AuthForm({ mode }: Props) {
     }
 
     router.push(next)
-    router.refresh()
+    if (next === pathname) {
+      router.refresh()
+    }
   }
 
   async function handleGithubSignIn() {
