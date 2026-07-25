@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
+import { resumeJobCheckout } from '@/app/actions/jobs'
 import type { Job } from '@/lib/types'
 
 interface Props {
@@ -12,7 +13,9 @@ interface Props {
 
 export default function EmployerJobActions({ job, onClosed }: Props) {
   const [closing, setClosing] = useState(false)
+  const [resuming, setResuming] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const busy = closing || resuming
 
   async function handleClose() {
     setClosing(true)
@@ -33,6 +36,17 @@ export default function EmployerJobActions({ job, onClosed }: Props) {
     onClosed(job.id)
   }
 
+  async function handleResume() {
+    setResuming(true)
+    setError(null)
+    try {
+      await resumeJobCheckout(job.id)
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Something went wrong. Please try again.')
+      setResuming(false)
+    }
+  }
+
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-center gap-2">
@@ -42,11 +56,21 @@ export default function EmployerJobActions({ job, onClosed }: Props) {
         >
           Edit
         </Link>
+        {!job.paid_at && (
+          <button
+            type="button"
+            onClick={handleResume}
+            disabled={busy}
+            className="border border-black px-4 py-2 text-sm font-medium bg-black text-white hover:bg-white hover:text-black disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-offset-0 outline-none transition-colors duration-150"
+          >
+            {resuming ? 'Redirecting…' : 'Resume Checkout'}
+          </button>
+        )}
         {job.status !== 'closed' && (
           <button
             type="button"
             onClick={handleClose}
-            disabled={closing}
+            disabled={busy}
             className="border border-black px-4 py-2 text-sm font-medium bg-white text-black hover:bg-black hover:text-white disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-offset-0 outline-none transition-colors duration-150"
           >
             {closing ? 'Closing…' : 'Close'}

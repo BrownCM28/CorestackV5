@@ -31,6 +31,7 @@ const mockJob: Job = {
   created_at: new Date().toISOString(),
   status: 'pending',
   paid_amount_cents: 9900,
+  paid_at: new Date().toISOString(),
 }
 
 describe('AdminJobActions', () => {

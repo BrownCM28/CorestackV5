@@ -10,7 +10,12 @@ export const metadata: Metadata = {
   description: 'Manage the jobs you have posted on Corestack.',
 }
 
-export default async function EmployerDashboardPage() {
+interface PageProps {
+  searchParams: Promise<{ checkout?: string }>
+}
+
+export default async function EmployerDashboardPage({ searchParams }: PageProps) {
+  const { checkout } = await searchParams
   const supabase = await createClient()
   const {
     data: { user },
@@ -33,6 +38,13 @@ export default async function EmployerDashboardPage() {
         <p className="text-sm text-black/50 mb-8">
           Manage the jobs you&apos;ve posted on Corestack.
         </p>
+
+        {checkout === 'canceled' && (
+          <p className="text-sm text-black border border-black px-3 py-2 mb-6">
+            Checkout was canceled. You can resume payment on the listing
+            below whenever you&apos;re ready.
+          </p>
+        )}
 
         {error && (
           <p

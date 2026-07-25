@@ -18,6 +18,7 @@ const makeJob = (id: string, title: string): Job => ({
   created_at: new Date().toISOString(),
   status: 'active',
   paid_amount_cents: 9900,
+  paid_at: new Date().toISOString(),
 })
 
 describe('JobGrid', () => {

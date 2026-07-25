@@ -28,6 +28,7 @@ export interface Job {
   created_at: string
   status: JobStatus
   paid_amount_cents: number
+  paid_at: string | null
 }
 
 export interface Application {

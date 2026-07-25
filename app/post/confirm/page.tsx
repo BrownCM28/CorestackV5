@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { createJob } from '@/app/actions/jobs'
+import { startJobCheckout } from '@/app/actions/jobs'
 import type { CreateJobPayload } from '@/lib/types'
 import { CATEGORY_LABELS } from '@/lib/constants'
 
@@ -30,9 +30,7 @@ export default function ConfirmPage() {
     setLoading(true)
     setError(null)
     try {
-      const job = await createJob(draft)
-      sessionStorage.removeItem('corestack_draft')
-      router.push(`/jobs/${job.id}`)
+      await startJobCheckout(draft)
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Something went wrong. Please try again.')
       setLoading(false)
@@ -89,7 +87,7 @@ export default function ConfirmPage() {
         </div>
 
         <p className="mt-4 text-xs text-black/40">
-          This is a mock checkout — no payment will be charged.
+          You&apos;ll be redirected to Stripe to complete payment.
         </p>
 
         {error && (
@@ -104,7 +102,7 @@ export default function ConfirmPage() {
             disabled={loading}
             className="bg-black text-white px-6 py-3 text-sm font-medium transition-colors duration-150 hover:bg-[#3ecf8e] hover:text-black disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-offset-0 outline-none"
           >
-            {loading ? 'Posting…' : `Complete Post — $${dollars}`}
+            {loading ? 'Redirecting…' : `Continue to Payment — $${dollars}`}
           </button>
           <a
             href="/post"

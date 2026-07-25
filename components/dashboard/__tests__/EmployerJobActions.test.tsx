@@ -6,6 +6,7 @@ import type { Job } from '@/lib/types'
 const mocks = vi.hoisted(() => ({
   update: vi.fn(),
   eq: vi.fn(),
+  resumeJobCheckout: vi.fn(),
 }))
 
 vi.mock('@/lib/supabase/client', () => ({
@@ -16,7 +17,11 @@ vi.mock('@/lib/supabase/client', () => ({
   }),
 }))
 
-function makeJob(status: Job['status']): Job {
+vi.mock('@/app/actions/jobs', () => ({
+  resumeJobCheckout: mocks.resumeJobCheckout,
+}))
+
+function makeJob(status: Job['status'], paidAt: string | null = new Date().toISOString()): Job {
   return {
     id: 'job-1',
     title: 'Data Center Technician',
@@ -32,6 +37,7 @@ function makeJob(status: Job['status']): Job {
     created_at: new Date().toISOString(),
     status,
     paid_amount_cents: 9900,
+    paid_at: paidAt,
   }
 }
 
@@ -39,6 +45,7 @@ describe('EmployerJobActions', () => {
   beforeEach(() => {
     mocks.eq.mockReset().mockResolvedValue({ error: null })
     mocks.update.mockReset().mockReturnValue({ eq: mocks.eq })
+    mocks.resumeJobCheckout.mockReset().mockResolvedValue(undefined)
   })
 
   it('renders an Edit link pointing at the edit route', () => {
@@ -92,5 +99,43 @@ describe('EmployerJobActions', () => {
     expect(await screen.findByRole('alert')).toHaveTextContent('Update failed')
     expect(onClosed).not.toHaveBeenCalled()
     expect(screen.getByRole('button', { name: 'Close' })).toBeEnabled()
+  })
+
+  it('renders a Resume Checkout button for an unpaid job', () => {
+    render(<EmployerJobActions job={makeJob('pending', null)} onClosed={vi.fn()} />)
+    expect(screen.getByRole('button', { name: 'Resume Checkout' })).toBeEnabled()
+  })
+
+  it('does not render a Resume Checkout button for a paid job', () => {
+    render(<EmployerJobActions job={makeJob('pending')} onClosed={vi.fn()} />)
+    expect(screen.queryByRole('button', { name: /resume checkout/i })).not.toBeInTheDocument()
+  })
+
+  it('calls resumeJobCheckout with the job id when Resume Checkout is clicked', async () => {
+    render(<EmployerJobActions job={makeJob('pending', null)} onClosed={vi.fn()} />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Resume Checkout' }))
+
+    await waitFor(() => expect(mocks.resumeJobCheckout).toHaveBeenCalledWith('job-1'))
+  })
+
+  it('disables Resume Checkout and Close while resuming checkout', async () => {
+    mocks.resumeJobCheckout.mockReturnValue(new Promise(() => {})) // never resolves
+    render(<EmployerJobActions job={makeJob('pending', null)} onClosed={vi.fn()} />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Resume Checkout' }))
+
+    expect(await screen.findByRole('button', { name: 'Redirecting…' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: 'Close' })).toBeDisabled()
+  })
+
+  it('shows an inline error when resuming checkout fails', async () => {
+    mocks.resumeJobCheckout.mockRejectedValue(new Error('Stripe error'))
+    render(<EmployerJobActions job={makeJob('pending', null)} onClosed={vi.fn()} />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Resume Checkout' }))
+
+    expect(await screen.findByRole('alert')).toHaveTextContent('Stripe error')
+    expect(screen.getByRole('button', { name: 'Resume Checkout' })).toBeEnabled()
   })
 })

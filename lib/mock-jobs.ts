@@ -22,6 +22,7 @@ export const MOCK_JOBS: Job[] = [
     created_at: ago(1),
     status: 'active',
     paid_amount_cents: 9900,
+    paid_at: new Date().toISOString(),
   },
   {
     id: 'mock-ops-2',
@@ -39,6 +40,7 @@ export const MOCK_JOBS: Job[] = [
     created_at: ago(2),
     status: 'active',
     paid_amount_cents: 9900,
+    paid_at: new Date().toISOString(),
   },
   {
     id: 'mock-ops-3',
@@ -56,6 +58,7 @@ export const MOCK_JOBS: Job[] = [
     created_at: ago(3),
     status: 'active',
     paid_amount_cents: 9900,
+    paid_at: new Date().toISOString(),
   },
   {
     id: 'mock-ops-4',
@@ -73,6 +76,7 @@ export const MOCK_JOBS: Job[] = [
     created_at: ago(5),
     status: 'active',
     paid_amount_cents: 9900,
+    paid_at: new Date().toISOString(),
   },
   {
     id: 'mock-ops-5',
@@ -90,6 +94,7 @@ export const MOCK_JOBS: Job[] = [
     created_at: ago(7),
     status: 'active',
     paid_amount_cents: 9900,
+    paid_at: new Date().toISOString(),
   },
 
   // Construction
@@ -109,6 +114,7 @@ export const MOCK_JOBS: Job[] = [
     created_at: ago(2),
     status: 'active',
     paid_amount_cents: 9900,
+    paid_at: new Date().toISOString(),
   },
   {
     id: 'mock-con-2',
@@ -126,6 +132,7 @@ export const MOCK_JOBS: Job[] = [
     created_at: ago(4),
     status: 'active',
     paid_amount_cents: 9900,
+    paid_at: new Date().toISOString(),
   },
   {
     id: 'mock-con-3',
@@ -143,6 +150,7 @@ export const MOCK_JOBS: Job[] = [
     created_at: ago(6),
     status: 'active',
     paid_amount_cents: 9900,
+    paid_at: new Date().toISOString(),
   },
   {
     id: 'mock-con-4',
@@ -160,6 +168,7 @@ export const MOCK_JOBS: Job[] = [
     created_at: ago(10),
     status: 'active',
     paid_amount_cents: 9900,
+    paid_at: new Date().toISOString(),
   },
 
   // Electrical / Power
@@ -179,6 +188,7 @@ export const MOCK_JOBS: Job[] = [
     created_at: ago(1),
     status: 'active',
     paid_amount_cents: 9900,
+    paid_at: new Date().toISOString(),
   },
   {
     id: 'mock-elec-2',
@@ -196,6 +206,7 @@ export const MOCK_JOBS: Job[] = [
     created_at: ago(3),
     status: 'active',
     paid_amount_cents: 9900,
+    paid_at: new Date().toISOString(),
   },
   {
     id: 'mock-elec-3',
@@ -213,6 +224,7 @@ export const MOCK_JOBS: Job[] = [
     created_at: ago(5),
     status: 'active',
     paid_amount_cents: 9900,
+    paid_at: new Date().toISOString(),
   },
   {
     id: 'mock-elec-4',
@@ -230,6 +242,7 @@ export const MOCK_JOBS: Job[] = [
     created_at: ago(8),
     status: 'active',
     paid_amount_cents: 9900,
+    paid_at: new Date().toISOString(),
   },
 
   // Cooling / Mechanical
@@ -249,6 +262,7 @@ export const MOCK_JOBS: Job[] = [
     created_at: ago(2),
     status: 'active',
     paid_amount_cents: 9900,
+    paid_at: new Date().toISOString(),
   },
   {
     id: 'mock-cool-2',
@@ -266,6 +280,7 @@ export const MOCK_JOBS: Job[] = [
     created_at: ago(4),
     status: 'active',
     paid_amount_cents: 9900,
+    paid_at: new Date().toISOString(),
   },
   {
     id: 'mock-cool-3',
@@ -283,6 +298,7 @@ export const MOCK_JOBS: Job[] = [
     created_at: ago(9),
     status: 'active',
     paid_amount_cents: 9900,
+    paid_at: new Date().toISOString(),
   },
   {
     id: 'mock-cool-4',
@@ -300,6 +316,7 @@ export const MOCK_JOBS: Job[] = [
     created_at: ago(11),
     status: 'active',
     paid_amount_cents: 9900,
+    paid_at: new Date().toISOString(),
   },
 
   // Networking
@@ -319,6 +336,7 @@ export const MOCK_JOBS: Job[] = [
     created_at: ago(1),
     status: 'active',
     paid_amount_cents: 9900,
+    paid_at: new Date().toISOString(),
   },
   {
     id: 'mock-net-2',
@@ -336,6 +354,7 @@ export const MOCK_JOBS: Job[] = [
     created_at: ago(3),
     status: 'active',
     paid_amount_cents: 9900,
+    paid_at: new Date().toISOString(),
   },
   {
     id: 'mock-net-3',
@@ -353,6 +372,7 @@ export const MOCK_JOBS: Job[] = [
     created_at: ago(6),
     status: 'active',
     paid_amount_cents: 9900,
+    paid_at: new Date().toISOString(),
   },
   {
     id: 'mock-net-4',
@@ -370,5 +390,6 @@ export const MOCK_JOBS: Job[] = [
     created_at: ago(13),
     status: 'active',
     paid_amount_cents: 9900,
+    paid_at: new Date().toISOString(),
   },
 ]

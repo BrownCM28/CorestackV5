@@ -24,6 +24,13 @@ const STATUS_BADGE_CLASSES: Record<JobStatus, string> = {
   draft: 'border-black/30 text-black/40',
 }
 
+function statusBadge(job: Job): { label: string; className: string } {
+  if (!job.paid_at) {
+    return { label: 'Awaiting Payment', className: 'border-black/30 text-black/40' }
+  }
+  return { label: STATUS_LABELS[job.status], className: STATUS_BADGE_CLASSES[job.status] }
+}
+
 function formatPostedDate(dateStr: string): string {
   return new Date(dateStr).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -53,9 +60,9 @@ export default function EmployerJobsList({ jobs: initialJobs }: Props) {
               </p>
             </div>
             <span
-              className={`text-xs border px-2 py-0.5 flex-shrink-0 ${STATUS_BADGE_CLASSES[job.status]}`}
+              className={`text-xs border px-2 py-0.5 flex-shrink-0 ${statusBadge(job).className}`}
             >
-              {STATUS_LABELS[job.status]}
+              {statusBadge(job).label}
             </span>
           </div>
 

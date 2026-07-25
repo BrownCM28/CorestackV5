@@ -16,6 +16,7 @@ export default async function AdminPage() {
     .from('jobs')
     .select('*')
     .eq('status', 'pending')
+    .not('paid_at', 'is', null)
     .order('created_at', { ascending: true })
 
   const jobs: Job[] = !error && data ? data : []

@@ -18,6 +18,7 @@ const mockJob: Job = {
   created_at: new Date().toISOString(),
   status: 'active',
   paid_amount_cents: 9900,
+  paid_at: new Date().toISOString(),
 }
 
 describe('JobCard', () => {
