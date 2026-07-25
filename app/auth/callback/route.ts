@@ -7,31 +7,34 @@ export async function GET(request: Request) {
   const code = searchParams.get('code')
   const next = sanitizeNextPath(searchParams.get('next'))
 
-  if (code) {
-    const supabase = await createClient()
-    const { error } = await supabase.auth.exchangeCodeForSession(code)
-    if (!error) {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
+  if (!code) {
+    return NextResponse.redirect(
+      `${origin}/signin?error=${encodeURIComponent('No confirmation code was provided.')}`
+    )
+  }
 
-      if (user) {
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('onboarding_completed')
-          .eq('id', user.id)
-          .single()
+  const supabase = await createClient()
+  const { error } = await supabase.auth.exchangeCodeForSession(code)
 
-        if (!profile?.onboarding_completed) {
-          return NextResponse.redirect(
-            `${origin}/onboarding?next=${encodeURIComponent(next)}`
-          )
-        }
-      }
+  if (error) {
+    return NextResponse.redirect(`${origin}/signin?error=${encodeURIComponent(error.message)}`)
+  }
 
-      return NextResponse.redirect(`${origin}${next}`)
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  if (user) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('onboarding_completed')
+      .eq('id', user.id)
+      .single()
+
+    if (!profile?.onboarding_completed) {
+      return NextResponse.redirect(`${origin}/onboarding?next=${encodeURIComponent(next)}`)
     }
   }
 
-  return NextResponse.redirect(`${origin}/signin?error=auth_callback_failed`)
+  return NextResponse.redirect(`${origin}${next}`)
 }

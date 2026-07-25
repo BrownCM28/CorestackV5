@@ -39,6 +39,14 @@ describe('AuthForm', () => {
     mocks.searchParams = new URLSearchParams()
   })
 
+  it('shows the callback error param on initial render, if present', () => {
+    mocks.searchParams = new URLSearchParams('error=No%20confirmation%20code%20was%20provided.')
+    render(<AuthForm mode="signin" />)
+    expect(screen.getByRole('alert')).toHaveTextContent(
+      'No confirmation code was provided.'
+    )
+  })
+
   it('renders an enabled Continue with GitHub button', () => {
     render(<AuthForm mode="signin" />)
     expect(

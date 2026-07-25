@@ -13,7 +13,7 @@ export default function AuthForm({ mode }: Props) {
   const router = useRouter()
   const params = useSearchParams()
   const pathname = usePathname()
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(params.get('error'))
   const [success, setSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
   const [githubLoading, setGithubLoading] = useState(false)
