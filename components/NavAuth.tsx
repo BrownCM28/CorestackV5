@@ -2,12 +2,13 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import type { User } from '@supabase/supabase-js'
 
 export default function NavAuth() {
   const router = useRouter()
+  const pathname = usePathname()
   const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
@@ -49,9 +50,11 @@ export default function NavAuth() {
     )
   }
 
+  const showNext = pathname !== '/signin' && pathname !== '/signup'
+
   return (
     <Link
-      href="/signin"
+      href={showNext ? `/signin?next=${encodeURIComponent(pathname)}` : '/signin'}
       className="flex items-center px-4 text-sm font-medium border-l border-black transition-colors duration-150 hover:bg-[#3ecf8e] hover:text-black focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-offset-0 outline-none whitespace-nowrap"
     >
       Sign In

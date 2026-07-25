@@ -9,7 +9,7 @@ export default async function AdminPage() {
     data: { user },
   } = await supabase.auth.getUser()
 
-  if (!user) redirect('/signin')
+  if (!user) redirect('/signin?next=/admin')
   if (user.email !== process.env.ADMIN_EMAIL) redirect('/')
 
   const { data, error } = await supabase

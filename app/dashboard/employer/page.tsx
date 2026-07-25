@@ -21,7 +21,7 @@ export default async function EmployerDashboardPage({ searchParams }: PageProps)
     data: { user },
   } = await supabase.auth.getUser()
 
-  if (!user) redirect('/signin')
+  if (!user) redirect('/signin?next=/dashboard/employer')
 
   const { data, error } = await supabase
     .from('jobs')

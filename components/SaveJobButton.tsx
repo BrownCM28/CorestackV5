@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { Bookmark } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import type { User } from '@supabase/supabase-js'
@@ -12,6 +12,7 @@ interface Props {
 
 export default function SaveJobButton({ jobId }: Props) {
   const router = useRouter()
+  const pathname = usePathname()
   const [user, setUser] = useState<User | null>(null)
   const [isSaved, setIsSaved] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
@@ -39,7 +40,7 @@ export default function SaveJobButton({ jobId }: Props) {
 
   async function handleClick() {
     if (!user) {
-      router.push('/signin')
+      router.push(`/signin?next=${encodeURIComponent(pathname)}`)
       return
     }
 

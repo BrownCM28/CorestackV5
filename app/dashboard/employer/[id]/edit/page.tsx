@@ -18,7 +18,7 @@ export default async function EditJobPage({ params }: PageProps) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  if (!user) redirect('/signin')
+  if (!user) redirect(`/signin?next=${encodeURIComponent(`/dashboard/employer/${id}/edit`)}`)
 
   const { data: job, error } = await supabase
     .from('jobs')

@@ -14,7 +14,7 @@ export default async function SavedJobsPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
-  if (!user) redirect('/signin')
+  if (!user) redirect('/signin?next=/dashboard/saved')
 
   const { data: savedData } = await supabase
     .from('saved_jobs')

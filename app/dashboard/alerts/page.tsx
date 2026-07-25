@@ -13,7 +13,7 @@ export default async function AlertsPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
-  if (!user) redirect('/signin')
+  if (!user) redirect('/signin?next=/dashboard/alerts')
 
   const { data: alerts } = await supabase
     .from('job_alerts')

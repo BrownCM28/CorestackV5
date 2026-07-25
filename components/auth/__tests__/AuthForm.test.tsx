@@ -58,7 +58,7 @@ describe('AuthForm', () => {
     await waitFor(() => expect(mocks.signInWithOAuth).toHaveBeenCalledTimes(1))
     const call = mocks.signInWithOAuth.mock.calls[0][0]
     expect(call.provider).toBe('github')
-    expect(call.options.redirectTo).toContain('/auth/callback?next=%2Fdashboard')
+    expect(call.options.redirectTo).toContain('/auth/callback?next=%2F')
   })
 
   it('includes an explicit next param in the GitHub redirect when present', async () => {
@@ -97,7 +97,7 @@ describe('AuthForm', () => {
     )
   })
 
-  it('still redirects to /dashboard after password sign-in with no next param', async () => {
+  it('redirects to the homepage after password sign-in with no next param', async () => {
     render(<AuthForm mode="signin" />)
     fireEvent.change(screen.getByLabelText('Email'), {
       target: { value: 'test@example.com' },
@@ -107,8 +107,22 @@ describe('AuthForm', () => {
     })
     fireEvent.click(screen.getByRole('button', { name: 'Sign In' }))
 
-    await waitFor(() => expect(mocks.push).toHaveBeenCalledWith('/dashboard'))
+    await waitFor(() => expect(mocks.push).toHaveBeenCalledWith('/'))
     expect(mocks.refresh).not.toHaveBeenCalled()
+  })
+
+  it('redirects to an explicit next param after password sign-in (e.g. a protected page bounce)', async () => {
+    mocks.searchParams = new URLSearchParams('next=/dashboard/saved')
+    render(<AuthForm mode="signin" />)
+    fireEvent.change(screen.getByLabelText('Email'), {
+      target: { value: 'test@example.com' },
+    })
+    fireEvent.change(screen.getByLabelText('Password'), {
+      target: { value: 'password123' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: 'Sign In' }))
+
+    await waitFor(() => expect(mocks.push).toHaveBeenCalledWith('/dashboard/saved'))
   })
 
   it('calls refresh after a same-route sign-in (e.g. the job-application modal)', async () => {

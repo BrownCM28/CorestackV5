@@ -20,7 +20,7 @@ export default function AuthForm({ mode }: Props) {
 
   const next =
     params.get('next') ??
-    (pathname === '/signin' || pathname === '/signup' ? '/dashboard' : pathname)
+    (pathname === '/signin' || pathname === '/signup' ? '/' : pathname)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
