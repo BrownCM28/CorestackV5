@@ -56,14 +56,12 @@ export default function AuthForm({ mode }: Props) {
 
       if (authError) {
         setError(authError.message)
-        setLoading(false)
         setTimeout(() => errorRef.current?.focus(), 0)
         return
       }
 
       if (mode === 'signup') {
         setSuccess(true)
-        setLoading(false)
         return
       }
 
@@ -73,8 +71,9 @@ export default function AuthForm({ mode }: Props) {
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
-      setLoading(false)
       setTimeout(() => errorRef.current?.focus(), 0)
+    } finally {
+      setLoading(false)
     }
   }
 

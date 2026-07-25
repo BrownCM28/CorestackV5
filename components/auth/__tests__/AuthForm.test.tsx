@@ -126,6 +126,21 @@ describe('AuthForm', () => {
     expect(mocks.refresh).toHaveBeenCalledTimes(1)
   })
 
+  it('resets loading and re-enables the button after a successful same-route sign-in', async () => {
+    mocks.pathname = '/jobs/abc123'
+    render(<AuthForm mode="signin" />)
+    fireEvent.change(screen.getByLabelText('Email'), {
+      target: { value: 'test@example.com' },
+    })
+    fireEvent.change(screen.getByLabelText('Password'), {
+      target: { value: 'password123' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: 'Sign In' }))
+
+    await waitFor(() => expect(mocks.refresh).toHaveBeenCalledTimes(1))
+    expect(screen.getByRole('button', { name: 'Sign In' })).toBeEnabled()
+  })
+
   it('does not get stuck on "Please wait…" when signInWithPassword rejects', async () => {
     mocks.signInWithPassword.mockRejectedValue(new Error('Failed to fetch'))
     render(<AuthForm mode="signin" />)
