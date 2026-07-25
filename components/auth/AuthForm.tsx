@@ -17,6 +17,7 @@ export default function AuthForm({ mode }: Props) {
   const [success, setSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
   const [githubLoading, setGithubLoading] = useState(false)
+  const [googleLoading, setGoogleLoading] = useState(false)
   const errorRef = useRef<HTMLParagraphElement>(null)
 
   const next = sanitizeNextPath(
@@ -104,6 +105,31 @@ export default function AuthForm({ mode }: Props) {
     }
   }
 
+  async function handleGoogleSignIn() {
+    setError(null)
+    setGoogleLoading(true)
+
+    try {
+      const supabase = createClient()
+      const { error: authError } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
+        },
+      })
+
+      if (authError) {
+        setError(authError.message)
+        setGoogleLoading(false)
+        setTimeout(() => errorRef.current?.focus(), 0)
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+      setGoogleLoading(false)
+      setTimeout(() => errorRef.current?.focus(), 0)
+    }
+  }
+
   if (success) {
     return (
       <div className="border border-black px-5 py-6 bg-[#3ecf8e]/10">
@@ -184,7 +210,7 @@ export default function AuthForm({ mode }: Props) {
 
       <button
         type="submit"
-        disabled={loading || githubLoading}
+        disabled={loading || githubLoading || googleLoading}
         className="bg-black text-white px-4 py-2.5 text-sm font-medium transition-colors duration-150 hover:bg-[#3ecf8e] hover:text-black disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-offset-0 outline-none"
       >
         {loading
@@ -198,7 +224,7 @@ export default function AuthForm({ mode }: Props) {
         <button
           type="button"
           onClick={handleGithubSignIn}
-          disabled={loading || githubLoading}
+          disabled={loading || githubLoading || googleLoading}
           className="w-full border border-black px-4 py-2.5 text-sm font-medium flex items-center justify-center gap-2 transition-colors duration-150 hover:bg-black hover:text-white disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-offset-0 outline-none"
         >
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
@@ -209,11 +235,17 @@ export default function AuthForm({ mode }: Props) {
 
         <button
           type="button"
-          disabled
-          className="w-full border border-black px-4 py-2.5 text-sm font-medium opacity-40 cursor-not-allowed"
-          aria-label="Continue with Google (coming soon)"
+          onClick={handleGoogleSignIn}
+          disabled={loading || githubLoading || googleLoading}
+          className="w-full border border-black px-4 py-2.5 text-sm font-medium flex items-center justify-center gap-2 transition-colors duration-150 hover:bg-black hover:text-white disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-offset-0 outline-none"
         >
-          Continue with Google
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+            <path fill="#4285F4" d="M23.52 12.27c0-.85-.08-1.67-.22-2.45H12v4.64h6.47c-.28 1.49-1.13 2.76-2.4 3.6v3h3.87c2.27-2.09 3.58-5.17 3.58-8.79z" />
+            <path fill="#34A853" d="M12 24c3.24 0 5.95-1.07 7.94-2.9l-3.87-3c-1.08.72-2.46 1.15-4.07 1.15-3.13 0-5.78-2.11-6.73-4.96H1.28v3.11C3.26 21.3 7.31 24 12 24z" />
+            <path fill="#FBBC05" d="M5.27 14.29c-.24-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.6H1.28C.47 8.24 0 10.06 0 12s.47 3.76 1.28 5.4l3.99-3.11z" />
+            <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.28 6.6l3.99 3.11C6.22 6.86 8.87 4.75 12 4.75z" />
+          </svg>
+          {googleLoading ? 'Redirecting…' : 'Continue with Google'}
         </button>
       </div>
     </form>

@@ -54,9 +54,9 @@ describe('AuthForm', () => {
     ).toBeEnabled()
   })
 
-  it('still renders the disabled Google placeholder', () => {
+  it('renders an enabled Continue with Google button', () => {
     render(<AuthForm mode="signin" />)
-    expect(screen.getByRole('button', { name: /google/i })).toBeDisabled()
+    expect(screen.getByRole('button', { name: /continue with google/i })).toBeEnabled()
   })
 
   it('calls signInWithOAuth with the github provider on click', async () => {
@@ -103,6 +103,71 @@ describe('AuthForm', () => {
     expect(await screen.findByRole('alert')).toHaveTextContent(
       'OAuth provider not enabled'
     )
+  })
+
+  it('calls signInWithOAuth with the google provider on click', async () => {
+    render(<AuthForm mode="signin" />)
+    fireEvent.click(screen.getByRole('button', { name: /continue with google/i }))
+
+    await waitFor(() => expect(mocks.signInWithOAuth).toHaveBeenCalledTimes(1))
+    const call = mocks.signInWithOAuth.mock.calls[0][0]
+    expect(call.provider).toBe('google')
+    expect(call.options.redirectTo).toContain('/auth/callback?next=%2F')
+  })
+
+  it('includes an explicit next param in the Google redirect when present', async () => {
+    mocks.searchParams = new URLSearchParams('next=/jobs/abc123')
+    render(<AuthForm mode="signin" />)
+    fireEvent.click(screen.getByRole('button', { name: /continue with google/i }))
+
+    await waitFor(() => expect(mocks.signInWithOAuth).toHaveBeenCalledTimes(1))
+    const call = mocks.signInWithOAuth.mock.calls[0][0]
+    expect(call.options.redirectTo).toContain(
+      `/auth/callback?next=${encodeURIComponent('/jobs/abc123')}`
+    )
+  })
+
+  it('uses the current path as the Google redirect target when embedded outside signin/signup', async () => {
+    mocks.pathname = '/jobs/abc123'
+    render(<AuthForm mode="signin" />)
+    fireEvent.click(screen.getByRole('button', { name: /continue with google/i }))
+
+    await waitFor(() => expect(mocks.signInWithOAuth).toHaveBeenCalledTimes(1))
+    const call = mocks.signInWithOAuth.mock.calls[0][0]
+    expect(call.options.redirectTo).toContain(
+      `/auth/callback?next=${encodeURIComponent('/jobs/abc123')}`
+    )
+  })
+
+  it('shows an error message when Google signInWithOAuth fails', async () => {
+    mocks.signInWithOAuth.mockResolvedValue({
+      error: { message: 'OAuth provider not enabled' },
+    })
+    render(<AuthForm mode="signin" />)
+    fireEvent.click(screen.getByRole('button', { name: /continue with google/i }))
+
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      'OAuth provider not enabled'
+    )
+  })
+
+  it('does not get stuck on "Redirecting…" when Google signInWithOAuth rejects', async () => {
+    mocks.signInWithOAuth.mockRejectedValue(new Error('Failed to fetch'))
+    render(<AuthForm mode="signin" />)
+    fireEvent.click(screen.getByRole('button', { name: /continue with google/i }))
+
+    expect(await screen.findByRole('alert')).toHaveTextContent('Failed to fetch')
+    expect(screen.getByRole('button', { name: /continue with google/i })).toBeEnabled()
+  })
+
+  it('disables the email, GitHub, and Google buttons while Google sign-in is in flight', async () => {
+    mocks.signInWithOAuth.mockReturnValue(new Promise(() => {})) // never resolves
+    render(<AuthForm mode="signin" />)
+    fireEvent.click(screen.getByRole('button', { name: /continue with google/i }))
+
+    expect(await screen.findByRole('button', { name: /redirecting/i })).toBeDisabled()
+    expect(screen.getByRole('button', { name: 'Sign In' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: /continue with github/i })).toBeDisabled()
   })
 
   it('redirects to the homepage after password sign-in with no next param', async () => {
