@@ -41,34 +41,40 @@ export default function AuthForm({ mode }: Props) {
       }
     }
 
-    const supabase = createClient()
-    const { error: authError } =
-      mode === 'signin'
-        ? await supabase.auth.signInWithPassword({ email, password })
-        : await supabase.auth.signUp({
-            email,
-            password,
-            options: {
-              emailRedirectTo: `${window.location.origin}/auth/callback`,
-            },
-          })
+    try {
+      const supabase = createClient()
+      const { error: authError } =
+        mode === 'signin'
+          ? await supabase.auth.signInWithPassword({ email, password })
+          : await supabase.auth.signUp({
+              email,
+              password,
+              options: {
+                emailRedirectTo: `${window.location.origin}/auth/callback`,
+              },
+            })
 
-    if (authError) {
-      setError(authError.message)
+      if (authError) {
+        setError(authError.message)
+        setLoading(false)
+        setTimeout(() => errorRef.current?.focus(), 0)
+        return
+      }
+
+      if (mode === 'signup') {
+        setSuccess(true)
+        setLoading(false)
+        return
+      }
+
+      router.push(next)
+      if (next === pathname) {
+        router.refresh()
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
       setLoading(false)
       setTimeout(() => errorRef.current?.focus(), 0)
-      return
-    }
-
-    if (mode === 'signup') {
-      setSuccess(true)
-      setLoading(false)
-      return
-    }
-
-    router.push(next)
-    if (next === pathname) {
-      router.refresh()
     }
   }
 
@@ -76,16 +82,22 @@ export default function AuthForm({ mode }: Props) {
     setError(null)
     setGithubLoading(true)
 
-    const supabase = createClient()
-    const { error: authError } = await supabase.auth.signInWithOAuth({
-      provider: 'github',
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
-      },
-    })
+    try {
+      const supabase = createClient()
+      const { error: authError } = await supabase.auth.signInWithOAuth({
+        provider: 'github',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
+        },
+      })
 
-    if (authError) {
-      setError(authError.message)
+      if (authError) {
+        setError(authError.message)
+        setGithubLoading(false)
+        setTimeout(() => errorRef.current?.focus(), 0)
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
       setGithubLoading(false)
       setTimeout(() => errorRef.current?.focus(), 0)
     }

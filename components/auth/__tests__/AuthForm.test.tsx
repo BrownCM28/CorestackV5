@@ -126,6 +126,31 @@ describe('AuthForm', () => {
     expect(mocks.refresh).toHaveBeenCalledTimes(1)
   })
 
+  it('does not get stuck on "Please wait…" when signInWithPassword rejects', async () => {
+    mocks.signInWithPassword.mockRejectedValue(new Error('Failed to fetch'))
+    render(<AuthForm mode="signin" />)
+    fireEvent.change(screen.getByLabelText('Email'), {
+      target: { value: 'test@example.com' },
+    })
+    fireEvent.change(screen.getByLabelText('Password'), {
+      target: { value: 'password123' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: 'Sign In' }))
+
+    expect(await screen.findByRole('alert')).toHaveTextContent('Failed to fetch')
+    expect(screen.getByRole('button', { name: 'Sign In' })).toBeEnabled()
+    expect(mocks.push).not.toHaveBeenCalled()
+  })
+
+  it('does not get stuck on "Redirecting…" when signInWithOAuth rejects', async () => {
+    mocks.signInWithOAuth.mockRejectedValue(new Error('Failed to fetch'))
+    render(<AuthForm mode="signin" />)
+    fireEvent.click(screen.getByRole('button', { name: /continue with github/i }))
+
+    expect(await screen.findByRole('alert')).toHaveTextContent('Failed to fetch')
+    expect(screen.getByRole('button', { name: /continue with github/i })).toBeEnabled()
+  })
+
   it('calls signUp with emailRedirectTo when in signup mode', async () => {
     mocks.pathname = '/signup'
     render(<AuthForm mode="signup" />)
