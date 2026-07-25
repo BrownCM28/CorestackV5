@@ -1,13 +1,20 @@
 import Stripe from 'stripe'
 import type { Job } from './types'
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
+let stripeInstance: Stripe | null = null
+
+export function getStripe(): Stripe {
+  if (!stripeInstance) {
+    stripeInstance = new Stripe(process.env.STRIPE_SECRET_KEY!)
+  }
+  return stripeInstance
+}
 
 export async function createJobCheckoutSession(
   job: Job,
   origin: string
 ): Promise<string> {
-  const session = await stripe.checkout.sessions.create({
+  const session = await getStripe().checkout.sessions.create({
     mode: 'payment',
     payment_method_types: ['card'],
     line_items: [

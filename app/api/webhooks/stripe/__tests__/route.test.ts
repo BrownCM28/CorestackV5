@@ -8,11 +8,11 @@ const mocks = vi.hoisted(() => ({
 }))
 
 vi.mock('@/lib/stripe', () => ({
-  stripe: {
+  getStripe: () => ({
     webhooks: {
       constructEvent: mocks.constructEvent,
     },
-  },
+  }),
 }))
 
 vi.mock('@/lib/supabase/admin', () => ({
