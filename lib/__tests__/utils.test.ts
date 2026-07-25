@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { formatSalary, daysAgo } from '../utils'
+import { formatSalary, daysAgo, sanitizeNextPath } from '../utils'
 
 describe('formatSalary', () => {
   it('formats both min and max', () => {
@@ -39,5 +39,36 @@ describe('daysAgo', () => {
   it('returns months ago for older dates', () => {
     const twoMonthsAgo = new Date(Date.now() - 65 * 86400000).toISOString()
     expect(daysAgo(twoMonthsAgo)).toBe('2 months ago')
+  })
+})
+
+describe('sanitizeNextPath', () => {
+  it('returns a plain relative path unchanged', () => {
+    expect(sanitizeNextPath('/dashboard/saved')).toBe('/dashboard/saved')
+  })
+
+  it('falls back to "/" for null', () => {
+    expect(sanitizeNextPath(null)).toBe('/')
+  })
+
+  it('falls back to "/" for an empty string', () => {
+    expect(sanitizeNextPath('')).toBe('/')
+  })
+
+  it('falls back for an absolute URL (open-redirect payload)', () => {
+    expect(sanitizeNextPath('https://evil.com')).toBe('/')
+  })
+
+  it('falls back for a protocol-relative URL (open-redirect payload)', () => {
+    expect(sanitizeNextPath('//evil.com')).toBe('/')
+  })
+
+  it('falls back for a path with no leading slash', () => {
+    expect(sanitizeNextPath('dashboard')).toBe('/')
+  })
+
+  it('uses a custom fallback when provided', () => {
+    expect(sanitizeNextPath(null, '/dashboard')).toBe('/dashboard')
+    expect(sanitizeNextPath('https://evil.com', '/dashboard')).toBe('/dashboard')
   })
 })

@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
+import { sanitizeNextPath } from '@/lib/utils'
 
 interface Props {
   mode: 'signin' | 'signup'
@@ -18,9 +19,10 @@ export default function AuthForm({ mode }: Props) {
   const [githubLoading, setGithubLoading] = useState(false)
   const errorRef = useRef<HTMLParagraphElement>(null)
 
-  const next =
-    params.get('next') ??
-    (pathname === '/signin' || pathname === '/signup' ? '/' : pathname)
+  const next = sanitizeNextPath(
+    params.get('next'),
+    pathname === '/signin' || pathname === '/signup' ? '/' : pathname
+  )
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -50,7 +52,7 @@ export default function AuthForm({ mode }: Props) {
               email,
               password,
               options: {
-                emailRedirectTo: `${window.location.origin}/auth/callback`,
+                emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
               },
             })
 

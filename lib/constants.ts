@@ -24,6 +24,20 @@ export const CATEGORY_LIST: Category[] = [
   'semiconductor_fabrication',
 ]
 
+export const MARKET_LIST = [
+  'Northern Virginia',
+  'Dallas–Fort Worth',
+  'Phoenix',
+  'Atlanta',
+  'Columbus',
+  'Chicago',
+  'Silicon Valley',
+  'Portland/Hillsboro',
+  'Salt Lake City',
+  'Remote',
+  'Other',
+] as const
+
 export const PRICE_MIN = 5
 export const PRICE_MAX = 500
 export const PRICE_DEFAULT = 99

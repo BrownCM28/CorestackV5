@@ -197,7 +197,29 @@ describe('AuthForm', () => {
     await waitFor(() => expect(mocks.signUp).toHaveBeenCalledTimes(1))
     const call = mocks.signUp.mock.calls[0][0]
     expect(call.options.emailRedirectTo).toBe(
-      `${window.location.origin}/auth/callback`
+      `${window.location.origin}/auth/callback?next=%2F`
+    )
+  })
+
+  it('includes an explicit next param in the signup emailRedirectTo when present', async () => {
+    mocks.pathname = '/signup'
+    mocks.searchParams = new URLSearchParams('next=/dashboard/saved')
+    render(<AuthForm mode="signup" />)
+    fireEvent.change(screen.getByLabelText('Email'), {
+      target: { value: 'test@example.com' },
+    })
+    fireEvent.change(screen.getByLabelText('Password'), {
+      target: { value: 'password123' },
+    })
+    fireEvent.change(screen.getByLabelText('Confirm Password'), {
+      target: { value: 'password123' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: 'Create Account' }))
+
+    await waitFor(() => expect(mocks.signUp).toHaveBeenCalledTimes(1))
+    const call = mocks.signUp.mock.calls[0][0]
+    expect(call.options.emailRedirectTo).toBe(
+      `${window.location.origin}/auth/callback?next=${encodeURIComponent('/dashboard/saved')}`
     )
   })
 })

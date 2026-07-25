@@ -22,6 +22,18 @@ export function formatSalary(
   return 'Salary not listed'
 }
 
+/**
+ * Guards against open-redirect payloads (absolute URLs, protocol-relative
+ * `//evil.com`) in a `?next=` query param before it's used as a redirect
+ * target. Falls back to `fallback` for anything that isn't a same-origin
+ * relative path.
+ */
+export function sanitizeNextPath(raw: string | null | undefined, fallback = '/'): string {
+  if (!raw) return fallback
+  if (!raw.startsWith('/') || raw.startsWith('//')) return fallback
+  return raw
+}
+
 export function daysAgo(dateStr: string): string {
   const diff = Date.now() - new Date(dateStr).getTime()
   const days = Math.floor(diff / (1000 * 60 * 60 * 24))
