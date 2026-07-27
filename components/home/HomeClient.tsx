@@ -13,18 +13,6 @@ import { track } from '@/lib/analytics'
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
-const CAT_COLOR: Record<Category, string> = {
-  operations: '#f97316',
-  construction: '#3b82f6',
-  electrical_power: '#eab308',
-  cooling_mechanical: '#8b5cf6',
-  networking: '#22c55e',
-  fiber_networks: '#06b6d4',
-  power_generation: '#ef4444',
-  energy_storage: '#10b981',
-  semiconductor_fabrication: '#a855f7',
-}
-
 const MARKET_PULSE = [
   { label: 'MW Under Construction', value: '34,200', delta: '+18.4% YoY' },
   { label: 'Transformer Lead Time', value: '104 wks', delta: '+12 wks QoQ' },
@@ -142,9 +130,6 @@ export default function HomeClient({ jobs, news }: Props) {
     })
     return applySort(result, sort)
   }, [jobs, keyword, location, activeCategory, sort])
-
-  const countFor = (cat: Category | 'all') =>
-    cat === 'all' ? jobs.length : jobs.filter((j) => j.category === cat).length
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault()
@@ -308,16 +293,13 @@ export default function HomeClient({ jobs, news }: Props) {
 
             {/* Category tiles */}
             <div
-              className="grid border-b border-black overflow-x-auto"
-              style={{ gridTemplateColumns: 'repeat(6, minmax(0, 1fr))' }}
+              className="flex items-stretch h-11 border-b border-black overflow-x-auto"
               role="group"
               aria-label="Filter by category"
             >
               {(['all', ...CATEGORY_LIST] as const).map((cat, i) => {
                 const isActive = activeCategory === cat
-                const isAll = cat === 'all'
-                const label = isAll ? 'All Categories' : CATEGORY_LABELS[cat]
-                const color = !isAll ? CAT_COLOR[cat] : '#000'
+                const label = cat === 'all' ? 'All Categories' : CATEGORY_LABELS[cat]
                 return (
                   <button
                     key={cat}
@@ -325,29 +307,12 @@ export default function HomeClient({ jobs, news }: Props) {
                     onClick={() => { setActiveCategory(cat); track('category_filter', { category: cat }) }}
                     aria-pressed={isActive}
                     className={[
-                      'p-5 text-left transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-inset outline-none relative',
-                      i > 0 ? 'border-l border-black' : '',
-                      isActive ? 'bg-white/80 backdrop-blur-sm' : 'hover:bg-white/50',
+                      'flex items-center px-4 text-sm font-medium whitespace-nowrap border-black transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-inset outline-none',
+                      i > 0 ? 'border-l' : '',
+                      isActive ? 'bg-black text-white' : 'hover:bg-[#3ecf8e] hover:text-black',
                     ].join(' ')}
                   >
-                    {/* Colour dot */}
-                    <span
-                      className="block w-2.5 h-2.5 mb-3"
-                      style={{ backgroundColor: isActive ? color : '#d1d5db' }}
-                      aria-hidden="true"
-                    />
-                    <p className="font-semibold text-xs leading-snug line-clamp-2">{label}</p>
-                    <p className="text-[11px] text-black/40 mt-1 tabular-nums">
-                      {countFor(cat)} roles
-                    </p>
-                    {/* Active underline */}
-                    {isActive && (
-                      <span
-                        className="absolute bottom-0 left-0 right-0 h-0.5"
-                        style={{ backgroundColor: color }}
-                        aria-hidden="true"
-                      />
-                    )}
+                    {label}
                   </button>
                 )
               })}
