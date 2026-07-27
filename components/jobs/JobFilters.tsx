@@ -2,8 +2,8 @@
 
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback } from 'react'
+import { Search, MapPin } from 'lucide-react'
 import { CATEGORY_LABELS, CATEGORY_LIST } from '@/lib/constants'
-import type { Category } from '@/lib/types'
 
 export default function JobFilters() {
   const router = useRouter()
@@ -22,65 +22,87 @@ export default function JobFilters() {
     [router, params]
   )
 
+  const activeCategory = params.get('category') ?? ''
+
   return (
-    <div
-      role="search"
-      aria-label="Filter jobs"
-      className="flex flex-wrap border border-black"
-    >
-      {/* Search */}
-      <div className="flex items-center border-r border-black">
-        <label htmlFor="job-search" className="sr-only">
-          Search jobs
-        </label>
-        <input
-          id="job-search"
-          type="search"
-          placeholder="Search jobs…"
-          defaultValue={params.get('search') ?? ''}
-          onChange={(e) => updateParam('search', e.target.value || null)}
-          className="px-4 py-2.5 text-sm bg-white focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-inset outline-none min-w-48 placeholder:text-black/40"
-          autoComplete="off"
-        />
-      </div>
+    <div role="search" aria-label="Filter jobs">
+      {/* Search + location + remote */}
+      <div className="flex flex-wrap w-full border border-black bg-white">
+        <div className="flex flex-1 items-center border-r border-black px-4 min-w-48">
+          <Search size={14} className="text-black/30 flex-shrink-0 mr-3" aria-hidden="true" />
+          <label htmlFor="job-search" className="sr-only">
+            Search jobs
+          </label>
+          <input
+            id="job-search"
+            type="search"
+            placeholder="Job title or keyword…"
+            defaultValue={params.get('search') ?? ''}
+            onChange={(e) => updateParam('search', e.target.value || null)}
+            className="flex-1 py-3.5 text-sm bg-transparent outline-none placeholder:text-black/30 min-w-0"
+            autoComplete="off"
+          />
+        </div>
 
-      {/* Category */}
-      <div className="flex items-center border-r border-black">
-        <label htmlFor="job-category" className="sr-only">
-          Filter by category
-        </label>
-        <select
-          id="job-category"
-          value={params.get('category') ?? ''}
-          onChange={(e) => updateParam('category', e.target.value || null)}
-          className="px-4 py-2.5 text-sm bg-white focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-inset outline-none appearance-none cursor-pointer pr-8"
-          style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 12 12\'%3E%3Cpath fill=\'%23000\' d=\'M6 8L1 3h10z\'/%3E%3C/svg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 12px center' }}
+        <div className="flex flex-1 items-center border-r border-black px-4 min-w-48">
+          <MapPin size={14} className="text-black/30 flex-shrink-0 mr-3" aria-hidden="true" />
+          <label htmlFor="job-location" className="sr-only">
+            Location
+          </label>
+          <input
+            id="job-location"
+            type="search"
+            placeholder="Location"
+            defaultValue={params.get('location') ?? ''}
+            onChange={(e) => updateParam('location', e.target.value || null)}
+            className="flex-1 py-3.5 text-sm bg-transparent outline-none placeholder:text-black/30 min-w-0"
+            autoComplete="off"
+          />
+        </div>
+
+        <label
+          htmlFor="job-remote"
+          className="flex items-center gap-2 px-4 text-sm cursor-pointer select-none whitespace-nowrap hover:bg-[#3ecf8e]/10 transition-colors duration-150"
         >
-          <option value="">All categories</option>
-          {CATEGORY_LIST.map((cat) => (
-            <option key={cat} value={cat}>
-              {CATEGORY_LABELS[cat]}
-            </option>
-          ))}
-        </select>
+          <input
+            id="job-remote"
+            type="checkbox"
+            checked={params.get('remote') === 'true'}
+            onChange={(e) =>
+              updateParam('remote', e.target.checked ? 'true' : null)
+            }
+            className="w-4 h-4 border border-black focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none accent-[#3ecf8e]"
+          />
+          Remote only
+        </label>
       </div>
 
-      {/* Remote toggle */}
-      <label
-        htmlFor="job-remote"
-        className="flex items-center gap-2 px-4 py-2.5 text-sm cursor-pointer select-none hover:bg-[#3ecf8e]/10 transition-colors duration-150"
+      {/* Category buttons */}
+      <div
+        className="flex items-stretch h-11 border-x border-b border-black overflow-x-auto"
+        role="group"
+        aria-label="Filter by category"
       >
-        <input
-          id="job-remote"
-          type="checkbox"
-          checked={params.get('remote') === 'true'}
-          onChange={(e) =>
-            updateParam('remote', e.target.checked ? 'true' : null)
-          }
-          className="w-4 h-4 border border-black focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none accent-[#3ecf8e]"
-        />
-        Remote only
-      </label>
+        {(['', ...CATEGORY_LIST] as const).map((cat, i) => {
+          const isActive = activeCategory === cat
+          const label = cat === '' ? 'All Categories' : CATEGORY_LABELS[cat]
+          return (
+            <button
+              key={cat}
+              type="button"
+              onClick={() => updateParam('category', cat || null)}
+              aria-pressed={isActive}
+              className={[
+                'flex items-center px-4 text-sm font-medium whitespace-nowrap border-black transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-inset outline-none',
+                i > 0 ? 'border-l' : '',
+                isActive ? 'bg-black text-white' : 'hover:bg-[#3ecf8e] hover:text-black',
+              ].join(' ')}
+            >
+              {label}
+            </button>
+          )
+        })}
+      </div>
     </div>
   )
 }
