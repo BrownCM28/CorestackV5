@@ -7,8 +7,8 @@ import Image from 'next/image'
 import type { Job, NewsItem } from '@/lib/types'
 import type { Category } from '@/lib/types'
 import { CATEGORY_LABELS, CATEGORY_LIST } from '@/lib/constants'
-import { formatSalary, daysAgo } from '@/lib/utils'
 import CompanyLogo from '@/components/jobs/CompanyLogo'
+import JobCard from '@/components/jobs/JobCard'
 import { track } from '@/lib/analytics'
 
 // ── Constants ─────────────────────────────────────────────────────────────────
@@ -54,16 +54,6 @@ const FEATURED_PROGRAMS = [
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-function getBadge(job: Job): { label: string; cls: string } | null {
-  const ageHours = (Date.now() - new Date(job.created_at).getTime()) / 3_600_000
-  if (ageHours < 24) return { label: 'NEW', cls: 'bg-[#3ecf8e] text-black' }
-  if ((job.salary_min ?? 0) >= 110000)
-    return { label: 'FEATURED', cls: 'bg-amber-100 text-amber-800 border border-amber-300' }
-  if ((job.salary_min ?? 0) >= 90000)
-    return { label: 'HOT', cls: 'bg-red-100 text-red-700 border border-red-200' }
-  return null
-}
-
 type SortKey = 'newest' | 'salary' | 'relevance'
 
 function applySort(jobs: Job[], sort: SortKey): Job[] {
@@ -74,16 +64,6 @@ function applySort(jobs: Job[], sort: SortKey): Job[] {
     const diff = (b.paid_amount_cents ?? 0) - (a.paid_amount_cents ?? 0)
     return diff !== 0 ? diff : new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
   })
-}
-
-function excerpt(text: string, max = 140): string {
-  const plain = text
-    .replace(/#{1,6}\s+/g, '')
-    .replace(/[*_`~]/g, '')
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-    .replace(/\n+/g, ' ')
-    .trim()
-  return plain.length <= max ? plain : plain.slice(0, max).trimEnd() + '…'
 }
 
 // ── Main component ────────────────────────────────────────────────────────────
@@ -388,7 +368,7 @@ export default function HomeClient({ jobs, news }: Props) {
                       key={job.id}
                       className="border-r border-b border-black bg-white/75 backdrop-blur-sm"
                     >
-                      <MosaicJobCard job={job} />
+                      <JobCard job={job} />
                     </li>
                   ))}
                 </ul>
@@ -622,79 +602,5 @@ export default function HomeClient({ jobs, news }: Props) {
 
       </section>
     </>
-  )
-}
-
-// ── Mosaic job card ───────────────────────────────────────────────────────────
-
-function MosaicJobCard({ job }: { job: Job }) {
-  const badge = getBadge(job)
-  const salary = formatSalary(job.salary_min, job.salary_max)
-  const hasSalary = job.salary_min !== null || job.salary_max !== null
-
-  return (
-    <Link
-      href={`/jobs/${job.id}`}
-      onClick={() => track('job_click', { job_id: job.id, title: job.title, company: job.company })}
-      className="flex items-start gap-6 px-8 py-7 min-h-[140px] group transition-colors duration-150 hover:bg-black/[0.02] focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-inset outline-none"
-    >
-      {/* Left: logo */}
-      <div className="flex-shrink-0 pt-0.5">
-        <CompanyLogo company={job.company} size={52} />
-      </div>
-
-      {/* Centre: title, company, description */}
-      <div className="flex-1 min-w-0">
-        <div className="flex items-start gap-3 mb-1.5">
-          <h3 className="font-bold text-base leading-snug group-hover:text-black/70 transition-colors">
-            {job.title}
-          </h3>
-          {badge && (
-            <span
-              className={`text-[10px] font-bold px-2 py-0.5 uppercase tracking-wide flex-shrink-0 mt-0.5 ${badge.cls}`}
-            >
-              {badge.label}
-            </span>
-          )}
-        </div>
-
-        <p className="text-sm text-black/50 mb-2.5">
-          {job.company}
-          <span className="mx-1.5 text-black/20">·</span>
-          {job.location}
-          {job.remote && (
-            <>
-              <span className="mx-1.5 text-black/20">·</span>
-              <span className="text-black/40">Remote</span>
-            </>
-          )}
-        </p>
-
-        <p className="text-xs text-black/40 leading-relaxed line-clamp-2 max-w-2xl">
-          {excerpt(job.description)}
-        </p>
-
-        <div className="flex items-center gap-2 mt-3 flex-wrap">
-          <span className="text-[11px] border border-black/15 px-2.5 py-0.5">
-            {CATEGORY_LABELS[job.category]}
-          </span>
-          <span className="text-[11px] text-black/30">{daysAgo(job.created_at)}</span>
-        </div>
-      </div>
-
-      {/* Right: salary + Apply button */}
-      <div className="flex-shrink-0 flex flex-col items-end justify-between self-stretch py-0.5">
-        {hasSalary ? (
-          <span className="text-sm font-semibold text-[#3ecf8e] tabular-nums">
-            {salary}
-          </span>
-        ) : (
-          <span />
-        )}
-        <span className="mt-4 border border-black px-5 py-2 text-xs font-semibold uppercase tracking-wide transition-colors group-hover:bg-[#3ecf8e] group-hover:text-black">
-          Apply
-        </span>
-      </div>
-    </Link>
   )
 }

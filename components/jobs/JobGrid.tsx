@@ -15,12 +15,12 @@ export default function JobGrid({ jobs }: Props) {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 border-l border-t border-black">
+    <ul role="list" className="grid grid-cols-1 border-l border-t border-black">
       {jobs.map((job) => (
-        <div key={job.id} className="border-r border-b border-black">
+        <li key={job.id} className="border-r border-b border-black">
           <JobCard job={job} />
-        </div>
+        </li>
       ))}
-    </div>
+    </ul>
   )
 }

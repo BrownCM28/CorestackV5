@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
+import type { Job } from "./types"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -43,4 +44,24 @@ export function daysAgo(dateStr: string): string {
   const months = Math.floor(days / 30)
   if (months === 1) return '1 month ago'
   return `${months} months ago`
+}
+
+export function excerpt(text: string, max = 140): string {
+  const plain = text
+    .replace(/#{1,6}\s+/g, '')
+    .replace(/[*_`~]/g, '')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/\n+/g, ' ')
+    .trim()
+  return plain.length <= max ? plain : plain.slice(0, max).trimEnd() + '…'
+}
+
+export function getBadge(job: Job): { label: string; cls: string } | null {
+  const ageHours = (Date.now() - new Date(job.created_at).getTime()) / 3_600_000
+  if (ageHours < 24) return { label: 'NEW', cls: 'bg-[#3ecf8e] text-black' }
+  if ((job.salary_min ?? 0) >= 110000)
+    return { label: 'FEATURED', cls: 'bg-amber-100 text-amber-800 border border-amber-300' }
+  if ((job.salary_min ?? 0) >= 90000)
+    return { label: 'HOT', cls: 'bg-red-100 text-red-700 border border-red-200' }
+  return null
 }
