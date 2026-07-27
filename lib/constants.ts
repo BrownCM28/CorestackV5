@@ -41,3 +41,23 @@ export const MARKET_LIST = [
 export const PRICE_MIN = 5
 export const PRICE_MAX = 500
 export const PRICE_DEFAULT = 99
+
+export const SKILL_LIST = [
+  'CompTIA Server+',
+  'CompTIA Network+',
+  'CDCP',
+  'CDCS',
+  'BICSI Installer 2',
+  'BICSI DCDC',
+  'OSHA 30',
+  'PMP',
+  'PE License',
+] as const
+
+export const DATE_POSTED_OPTIONS = [
+  { value: '24h', label: 'Past 24 hours' },
+  { value: '7d', label: 'Past week' },
+  { value: '30d', label: 'Past month' },
+] as const
+
+export type DatePosted = (typeof DATE_POSTED_OPTIONS)[number]['value']

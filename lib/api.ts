@@ -30,10 +30,40 @@ export async function getJobs(filters?: JobFilters): Promise<Job[]> {
       `title.ilike.%${filters.search}%,company.ilike.%${filters.search}%`
     )
   }
+  if (filters?.companies && filters.companies.length > 0) {
+    query = query.in('company', filters.companies)
+  }
+  if (filters?.postedWithin) {
+    const hours = { '24h': 24, '7d': 24 * 7, '30d': 24 * 30 }[filters.postedWithin]
+    const cutoff = new Date(Date.now() - hours * 3_600_000).toISOString()
+    query = query.gte('created_at', cutoff)
+  }
+  if (filters?.skills && filters.skills.length > 0) {
+    query = query.or(
+      filters.skills.map((skill) => `description.ilike.%${skill}%`).join(',')
+    )
+  }
 
   const { data, error } = await query
   if (error) throw error
   return data ?? []
+}
+
+export async function getJobCompanies(): Promise<{ company: string; count: number }[]> {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('jobs')
+    .select('company')
+    .eq('status', 'active')
+  if (error) throw error
+
+  const counts = new Map<string, number>()
+  for (const { company } of data ?? []) {
+    counts.set(company, (counts.get(company) ?? 0) + 1)
+  }
+  return Array.from(counts, ([company, count]) => ({ company, count })).sort(
+    (a, b) => b.count - a.count
+  )
 }
 
 export async function getJob(id: string): Promise<Job> {
