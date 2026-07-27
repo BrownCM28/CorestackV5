@@ -4,7 +4,6 @@ import OnboardingFlow from '../OnboardingFlow'
 
 const mocks = vi.hoisted(() => ({
   push: vi.fn(),
-  getUser: vi.fn(),
   update: vi.fn(),
   eq: vi.fn(),
   searchParams: new URLSearchParams(),
@@ -17,9 +16,6 @@ vi.mock('next/navigation', () => ({
 
 vi.mock('@/lib/supabase/client', () => ({
   createClient: () => ({
-    auth: {
-      getUser: mocks.getUser,
-    },
     from: () => ({
       update: mocks.update,
     }),
@@ -38,26 +34,25 @@ describe('OnboardingFlow', () => {
     mocks.push.mockReset()
     mocks.eq.mockReset().mockResolvedValue({ error: null })
     mocks.update.mockReset().mockReturnValue({ eq: mocks.eq })
-    mocks.getUser.mockReset().mockResolvedValue({ data: { user: { id: 'user-1' } } })
     mocks.searchParams = new URLSearchParams()
   })
 
   it('shows step 1 of 3 with two selectable cards', () => {
-    render(<OnboardingFlow />)
+    render(<OnboardingFlow userId="user-1" />)
     expect(screen.getByText('1 of 3')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: "I'm looking for work" })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: "I'm hiring" })).toBeInTheDocument()
   })
 
   it('advances to step 2 automatically after selecting a user type', () => {
-    render(<OnboardingFlow />)
+    render(<OnboardingFlow userId="user-1" />)
     fireEvent.click(screen.getByRole('button', { name: "I'm looking for work" }))
     expect(screen.getByText('2 of 3')).toBeInTheDocument()
     expect(screen.getByText('What are you looking for?')).toBeInTheDocument()
   })
 
   it('keeps Continue disabled on the job_seeker step until a category and a market are picked', () => {
-    render(<OnboardingFlow />)
+    render(<OnboardingFlow userId="user-1" />)
     fireEvent.click(screen.getByRole('button', { name: "I'm looking for work" }))
 
     const continueButton = screen.getByRole('button', { name: 'Continue' })
@@ -71,7 +66,7 @@ describe('OnboardingFlow', () => {
   })
 
   it('shows company name + category chips for the employer path', () => {
-    render(<OnboardingFlow />)
+    render(<OnboardingFlow userId="user-1" />)
     fireEvent.click(screen.getByRole('button', { name: "I'm hiring" }))
 
     expect(screen.getByText('Tell us about your company')).toBeInTheDocument()
@@ -90,7 +85,7 @@ describe('OnboardingFlow', () => {
   })
 
   it('shows employer-specific urgency labels on step 3 for the employer path', () => {
-    render(<OnboardingFlow />)
+    render(<OnboardingFlow userId="user-1" />)
     fireEvent.click(screen.getByRole('button', { name: "I'm hiring" }))
     fireEvent.change(screen.getByLabelText('Company name'), {
       target: { value: 'Acme Data Centers' },
@@ -103,7 +98,7 @@ describe('OnboardingFlow', () => {
   })
 
   it('shows seeker-specific urgency labels on step 3 for the job_seeker path', () => {
-    render(<OnboardingFlow />)
+    render(<OnboardingFlow userId="user-1" />)
     fireEvent.click(screen.getByRole('button', { name: "I'm looking for work" }))
     fireEvent.click(screen.getByRole('button', { name: 'Operations' }))
     fireEvent.click(screen.getByRole('button', { name: 'Remote' }))
@@ -114,7 +109,7 @@ describe('OnboardingFlow', () => {
   })
 
   it('keeps the final Continue disabled until urgency and referral source are both picked', () => {
-    render(<OnboardingFlow />)
+    render(<OnboardingFlow userId="user-1" />)
     selectJobSeekerThroughStep2()
 
     const continueButton = screen.getByRole('button', { name: 'Continue' })
@@ -128,7 +123,7 @@ describe('OnboardingFlow', () => {
   })
 
   it('writes the full profile update and redirects to / by default on completion', async () => {
-    render(<OnboardingFlow />)
+    render(<OnboardingFlow userId="user-1" />)
     selectJobSeekerThroughStep2()
     fireEvent.click(screen.getByRole('button', { name: 'Actively applying' }))
     fireEvent.click(screen.getByRole('button', { name: 'LinkedIn' }))
@@ -151,7 +146,7 @@ describe('OnboardingFlow', () => {
 
   it('redirects to a sanitized next param instead of / when present', async () => {
     mocks.searchParams = new URLSearchParams('next=/dashboard/saved')
-    render(<OnboardingFlow />)
+    render(<OnboardingFlow userId="user-1" />)
     selectJobSeekerThroughStep2()
     fireEvent.click(screen.getByRole('button', { name: 'Actively applying' }))
     fireEvent.click(screen.getByRole('button', { name: 'LinkedIn' }))
@@ -162,7 +157,7 @@ describe('OnboardingFlow', () => {
 
   it('falls back to / when next is an open-redirect payload', async () => {
     mocks.searchParams = new URLSearchParams('next=https://evil.com')
-    render(<OnboardingFlow />)
+    render(<OnboardingFlow userId="user-1" />)
     selectJobSeekerThroughStep2()
     fireEvent.click(screen.getByRole('button', { name: 'Actively applying' }))
     fireEvent.click(screen.getByRole('button', { name: 'LinkedIn' }))
@@ -173,7 +168,7 @@ describe('OnboardingFlow', () => {
 
   it('shows an inline error and re-enables Continue when the update fails', async () => {
     mocks.eq.mockResolvedValue({ error: { message: 'Update failed' } })
-    render(<OnboardingFlow />)
+    render(<OnboardingFlow userId="user-1" />)
     selectJobSeekerThroughStep2()
     fireEvent.click(screen.getByRole('button', { name: 'Actively applying' }))
     fireEvent.click(screen.getByRole('button', { name: 'LinkedIn' }))

@@ -3,7 +3,6 @@ import { GET } from '../route'
 
 const mocks = vi.hoisted(() => ({
   exchangeCodeForSession: vi.fn(),
-  getUser: vi.fn(),
   single: vi.fn(),
 }))
 
@@ -11,7 +10,6 @@ vi.mock('@/lib/supabase/server', () => ({
   createClient: async () => ({
     auth: {
       exchangeCodeForSession: mocks.exchangeCodeForSession,
-      getUser: mocks.getUser,
     },
     from: () => ({
       select: () => ({
@@ -29,8 +27,9 @@ function makeRequest(query: string): Request {
 
 describe('GET /auth/callback', () => {
   beforeEach(() => {
-    mocks.exchangeCodeForSession.mockReset().mockResolvedValue({ error: null })
-    mocks.getUser.mockReset().mockResolvedValue({ data: { user: { id: 'user-1' } } })
+    mocks.exchangeCodeForSession
+      .mockReset()
+      .mockResolvedValue({ data: { user: { id: 'user-1' } }, error: null })
     mocks.single.mockReset().mockResolvedValue({ data: { onboarding_completed: true } })
   })
 
