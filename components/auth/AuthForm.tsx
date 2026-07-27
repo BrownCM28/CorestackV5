@@ -46,7 +46,7 @@ export default function AuthForm({ mode }: Props) {
 
     try {
       const supabase = createClient()
-      const { error: authError } =
+      const { data, error: authError } =
         mode === 'signin'
           ? await supabase.auth.signInWithPassword({ email, password })
           : await supabase.auth.signUp({
@@ -63,11 +63,17 @@ export default function AuthForm({ mode }: Props) {
         return
       }
 
-      if (mode === 'signup') {
+      if (mode === 'signup' && !data.session) {
+        // Email confirmation is required — there's no session yet, so there's
+        // nothing to send onward to until they click the link in their inbox.
         setSuccess(true)
         return
       }
 
+      // Either a sign-in, or a signup that returned an active session right
+      // away (email confirmation disabled). Either way the middleware's
+      // onboarding gate — the single source of truth for that check — will
+      // immediately bounce a not-yet-onboarded user to /onboarding.
       router.push(next)
       if (next === pathname) {
         router.refresh()

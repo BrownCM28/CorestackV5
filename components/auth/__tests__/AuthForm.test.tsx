@@ -34,7 +34,7 @@ describe('AuthForm', () => {
     mocks.refresh.mockReset()
     mocks.signInWithOAuth.mockReset().mockResolvedValue({ error: null })
     mocks.signInWithPassword.mockReset().mockResolvedValue({ error: null })
-    mocks.signUp.mockReset().mockResolvedValue({ error: null })
+    mocks.signUp.mockReset().mockResolvedValue({ data: { session: null }, error: null })
     mocks.pathname = '/signin'
     mocks.searchParams = new URLSearchParams()
   })
@@ -294,5 +294,46 @@ describe('AuthForm', () => {
     expect(call.options.emailRedirectTo).toBe(
       `${window.location.origin}/auth/callback?next=${encodeURIComponent('/dashboard/saved')}`
     )
+  })
+
+  it('shows the "check your email" message when signup requires email confirmation (no session yet)', async () => {
+    mocks.pathname = '/signup'
+    mocks.signUp.mockResolvedValue({ data: { session: null }, error: null })
+    render(<AuthForm mode="signup" />)
+    fireEvent.change(screen.getByLabelText('Email'), {
+      target: { value: 'test@example.com' },
+    })
+    fireEvent.change(screen.getByLabelText('Password'), {
+      target: { value: 'password123' },
+    })
+    fireEvent.change(screen.getByLabelText('Confirm Password'), {
+      target: { value: 'password123' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: 'Create Account' }))
+
+    expect(await screen.findByText('Check your email to confirm your account')).toBeInTheDocument()
+    expect(mocks.push).not.toHaveBeenCalled()
+  })
+
+  it('sends the user onward immediately when signup returns an active session (email confirmation disabled)', async () => {
+    mocks.pathname = '/signup'
+    mocks.signUp.mockResolvedValue({ data: { session: { access_token: 'tok' } }, error: null })
+    render(<AuthForm mode="signup" />)
+    fireEvent.change(screen.getByLabelText('Email'), {
+      target: { value: 'test@example.com' },
+    })
+    fireEvent.change(screen.getByLabelText('Password'), {
+      target: { value: 'password123' },
+    })
+    fireEvent.change(screen.getByLabelText('Confirm Password'), {
+      target: { value: 'password123' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: 'Create Account' }))
+
+    // The middleware's onboarding gate — not this component — is what actually
+    // routes a fresh signup to /onboarding, so this should push to `next` just
+    // like sign-in does; the gate then bounces it to /onboarding server-side.
+    await waitFor(() => expect(mocks.push).toHaveBeenCalledWith('/'))
+    expect(screen.queryByText('Check your email to confirm your account')).not.toBeInTheDocument()
   })
 })
