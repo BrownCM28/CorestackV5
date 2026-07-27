@@ -14,15 +14,13 @@ export async function GET(request: Request) {
   }
 
   const supabase = await createClient()
-  const { error } = await supabase.auth.exchangeCodeForSession(code)
+  const { data, error } = await supabase.auth.exchangeCodeForSession(code)
 
   if (error) {
     return NextResponse.redirect(`${origin}/signin?error=${encodeURIComponent(error.message)}`)
   }
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  const user = data.user
 
   if (user) {
     const { data: profile } = await supabase

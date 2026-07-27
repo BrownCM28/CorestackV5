@@ -18,7 +18,7 @@ export default async function OnboardingPage() {
 
   return (
     <Suspense fallback={null}>
-      <OnboardingFlow />
+      <OnboardingFlow userId={user.id} />
     </Suspense>
   )
 }

@@ -28,7 +28,11 @@ const REFERRAL_SOURCES = [
   { value: 'other', label: 'Other' },
 ] as const
 
-export default function OnboardingFlow() {
+interface Props {
+  userId: string
+}
+
+export default function OnboardingFlow({ userId }: Props) {
   const router = useRouter()
   const params = useSearchParams()
   const next = sanitizeNextPath(params.get('next'))
@@ -65,39 +69,34 @@ export default function OnboardingFlow() {
     setSubmitting(true)
     setError(null)
 
-    const supabase = createClient()
-    const {
-      data: { user },
-    } = await supabase.auth.getUser()
+    try {
+      const supabase = createClient()
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .update({
+          user_type: userType,
+          interested_categories: categories,
+          preferred_markets: userType === 'job_seeker' ? markets : null,
+          company_name: userType === 'employer' ? companyName.trim() : null,
+          search_urgency: urgency,
+          referral_source: referralSource,
+          onboarding_completed: true,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', userId)
 
-    if (!user) {
-      setError('You must be signed in to complete onboarding.')
+      if (updateError) {
+        setError(updateError.message)
+        return
+      }
+
+      document.cookie = 'cs_onboarded=1; path=/; max-age=31536000'
+      router.push(next)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+    } finally {
       setSubmitting(false)
-      return
     }
-
-    const { error: updateError } = await supabase
-      .from('profiles')
-      .update({
-        user_type: userType,
-        interested_categories: categories,
-        preferred_markets: userType === 'job_seeker' ? markets : null,
-        company_name: userType === 'employer' ? companyName.trim() : null,
-        search_urgency: urgency,
-        referral_source: referralSource,
-        onboarding_completed: true,
-        updated_at: new Date().toISOString(),
-      })
-      .eq('id', user.id)
-
-    if (updateError) {
-      setError(updateError.message)
-      setSubmitting(false)
-      return
-    }
-
-    document.cookie = 'cs_onboarded=1; path=/; max-age=31536000'
-    router.push(next)
   }
 
   return (
