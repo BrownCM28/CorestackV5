@@ -299,7 +299,7 @@ export default function HomeClient({ jobs, news }: Props) {
             </div>
 
             {/* Sort bar */}
-            <div className="flex items-center justify-between px-5 py-3 border-b border-black bg-white/60 backdrop-blur-md sticky top-0 z-10">
+            <div className="flex flex-wrap items-center justify-between gap-y-2 px-4 sm:px-5 py-3 border-b border-black bg-white/60 backdrop-blur-md sticky top-0 z-10">
               <div className="flex items-center gap-3">
                 <span className="text-xs text-black/50">
                   <span className="font-semibold text-black tabular-nums">{filtered.length}</span>{' '}
@@ -374,7 +374,7 @@ export default function HomeClient({ jobs, news }: Props) {
                 </ul>
 
                 {/* Explore more jobs */}
-                <div className="border-l border-r border-b border-black bg-white/70 backdrop-blur-sm px-8 py-6 flex items-center justify-between gap-4">
+                <div className="border-l border-r border-b border-black bg-white/70 backdrop-blur-sm px-5 sm:px-8 py-6 flex flex-wrap items-center justify-between gap-4">
                   <p className="text-xs text-black/40 tabular-nums">
                     Showing {Math.min(JOBS_PREVIEW, filtered.length)} of {filtered.length} roles
                   </p>
@@ -587,7 +587,7 @@ export default function HomeClient({ jobs, news }: Props) {
         </div>
 
         {/* CTA row */}
-        <div className="flex items-center justify-between gap-6 px-8 py-6 bg-white/70 backdrop-blur-sm">
+        <div className="flex flex-wrap items-center justify-between gap-6 px-5 sm:px-8 py-6 bg-white/70 backdrop-blur-sm">
           <p className="text-sm text-black/50">
             <span className="font-semibold text-black">6 programs · 6 certifications · 5 schools</span>
             {' '}tracked in the Corestack directory.
