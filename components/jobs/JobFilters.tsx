@@ -1,33 +1,23 @@
 'use client'
 
-import { useRouter, useSearchParams } from 'next/navigation'
-import { useCallback } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { Search, MapPin } from 'lucide-react'
 import { CATEGORY_LABELS, CATEGORY_LIST } from '@/lib/constants'
+import { useUpdateParam } from '@/lib/useUpdateParam'
 
 export default function JobFilters() {
-  const router = useRouter()
   const params = useSearchParams()
-
-  const updateParam = useCallback(
-    (key: string, value: string | null) => {
-      const next = new URLSearchParams(params.toString())
-      if (value) {
-        next.set(key, value)
-      } else {
-        next.delete(key)
-      }
-      router.replace(`/jobs?${next.toString()}`)
-    },
-    [router, params]
-  )
+  const updateParam = useUpdateParam('/jobs')
 
   const activeCategory = params.get('category') ?? ''
 
   return (
     <div role="search" aria-label="Filter jobs">
       {/* Search + location + remote */}
-      <div className="flex flex-wrap w-full border border-black bg-white">
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className="flex flex-wrap w-full border border-black bg-white"
+      >
         <div className="flex flex-1 items-center border-r border-black px-4 min-w-48">
           <Search size={14} className="text-black/30 flex-shrink-0 mr-3" aria-hidden="true" />
           <label htmlFor="job-search" className="sr-only">
@@ -75,7 +65,14 @@ export default function JobFilters() {
           />
           Remote only
         </label>
-      </div>
+
+        <button
+          type="submit"
+          className="bg-black text-white px-6 text-sm font-medium whitespace-nowrap transition-colors duration-150 hover:bg-[#3ecf8e] hover:text-black focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-inset outline-none"
+        >
+          Search
+        </button>
+      </form>
 
       {/* Category buttons */}
       <div

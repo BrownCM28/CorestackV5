@@ -1,9 +1,11 @@
 import { Suspense } from 'react'
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import { getJobs } from '@/lib/api'
+import { getJobs, getJobCompanies } from '@/lib/api'
 import JobGrid from '@/components/jobs/JobGrid'
 import JobFilters from '@/components/jobs/JobFilters'
+import JobsSidebar from '@/components/jobs/JobsSidebar'
+import type { DatePosted } from '@/lib/constants'
 import type { JobFilters as Filters, Category } from '@/lib/types'
 
 export const metadata: Metadata = {
@@ -26,6 +28,9 @@ interface PageProps {
     location?: string
     remote?: string
     search?: string
+    companies?: string
+    posted?: string
+    skills?: string
   }>
 }
 
@@ -37,12 +42,27 @@ export default async function JobsPage({ searchParams }: PageProps) {
   if (sp.location) filters.location = sp.location
   if (sp.remote === 'true') filters.remote = true
   if (sp.search) filters.search = sp.search
+  if (sp.companies) filters.companies = sp.companies.split(',').filter(Boolean)
+  if (sp.posted) filters.postedWithin = sp.posted as DatePosted
+  if (sp.skills) filters.skills = sp.skills.split(',').filter(Boolean)
 
-  const jobs = await getJobs(filters).catch(() => [])
+  const [jobs, companies] = await Promise.all([
+    getJobs(filters).catch(() => []),
+    getJobCompanies().catch(() => []),
+  ])
 
   return (
-    <div className="px-6 py-10">
-      <div className="max-w-6xl mx-auto">
+    <div
+      className="px-6 py-10"
+      style={{
+        backgroundImage:
+          'radial-gradient(circle, rgba(0,0,0,0.07) 1.2px, transparent 1.2px)',
+        backgroundSize: '22px 22px',
+        backgroundColor: '#ffffff',
+        minHeight: '100vh',
+      }}
+    >
+      <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold mb-8">Browse Jobs</h1>
 
         <Suspense fallback={null}>
@@ -58,11 +78,17 @@ export default async function JobsPage({ searchParams }: PageProps) {
           </Link>
         </div>
 
-        <div className="mt-8">
-          <p className="text-sm text-black/50 mb-4 tabular-nums">
-            {jobs.length} {jobs.length === 1 ? 'role' : 'roles'} found
-          </p>
-          <JobGrid jobs={jobs} />
+        <div className="mt-8 flex gap-6 items-start">
+          <div className="flex-1 min-w-0">
+            <p className="text-sm text-black/50 mb-4 tabular-nums">
+              {jobs.length} {jobs.length === 1 ? 'role' : 'roles'} found
+            </p>
+            <JobGrid jobs={jobs} />
+          </div>
+
+          <Suspense fallback={null}>
+            <JobsSidebar companies={companies} />
+          </Suspense>
         </div>
       </div>
     </div>

@@ -93,6 +93,9 @@ export interface JobFilters {
   location?: string
   remote?: boolean
   search?: string
+  companies?: string[]
+  postedWithin?: '24h' | '7d' | '30d'
+  skills?: string[]
 }
 
 export interface CreateJobPayload {
