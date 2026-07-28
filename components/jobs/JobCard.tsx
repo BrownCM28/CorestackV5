@@ -26,7 +26,7 @@ export default function JobCard({ job, preview = false }: Props) {
       <div className="flex items-start gap-4 sm:contents">
         {/* Left: logo */}
         <div className="flex-shrink-0 pt-0.5">
-          <CompanyLogo company={job.company} size={52} />
+          <CompanyLogo company={job.company} size={64} />
         </div>
 
         {/* Centre: title, company, description */}
