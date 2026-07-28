@@ -3,8 +3,19 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { startJobCheckout } from '@/app/actions/jobs'
-import type { CreateJobPayload } from '@/lib/types'
-import { CATEGORY_LABELS } from '@/lib/constants'
+import type { CreateJobPayload, Job } from '@/lib/types'
+import JobCard from '@/components/jobs/JobCard'
+
+function toPreviewJob(draft: CreateJobPayload): Job {
+  return {
+    ...draft,
+    id: 'preview',
+    posted_by: null,
+    created_at: new Date().toISOString(),
+    status: 'active',
+    paid_at: null,
+  }
+}
 
 export default function ConfirmPage() {
   const router = useRouter()
@@ -52,38 +63,14 @@ export default function ConfirmPage() {
       <div className="max-w-xl mx-auto">
         <h1 className="text-2xl font-bold mb-8">Review Your Listing</h1>
 
-        {/* Summary card */}
-        <div className="border border-black p-6 flex flex-col gap-3">
-          <div>
-            <p className="font-semibold text-lg">{draft.title}</p>
-            <p className="text-black/60 text-sm mt-0.5">
-              {draft.company}
-              <span className="mx-2 text-black/30">·</span>
-              {draft.location}
-              {draft.remote && <span className="ml-2 text-black/40">(Remote)</span>}
-            </p>
-          </div>
+        {/* Preview — the exact card this listing will render as on /jobs */}
+        <div className="border border-black bg-white">
+          <JobCard job={toPreviewJob(draft)} preview />
+        </div>
 
-          <p className="text-sm">
-            <span className="border border-black px-2 py-0.5 text-xs">
-              {CATEGORY_LABELS[draft.category]}
-            </span>
-          </p>
-
-          {(draft.salary_min || draft.salary_max) && (
-            <p className="text-sm tabular-nums">
-              {draft.salary_min && draft.salary_max
-                ? `$${draft.salary_min.toLocaleString()} – $${draft.salary_max.toLocaleString()}`
-                : draft.salary_min
-                ? `From $${draft.salary_min.toLocaleString()}`
-                : `Up to $${draft.salary_max!.toLocaleString()}`}
-            </p>
-          )}
-
-          <div className="pt-3 border-t border-black flex items-center justify-between">
-            <span className="text-sm text-black/50">Listing fee</span>
-            <span className="font-bold tabular-nums">${dollars}</span>
-          </div>
+        <div className="border border-black border-t-0 px-6 py-3 flex items-center justify-between">
+          <span className="text-sm text-black/50">Listing fee</span>
+          <span className="font-bold tabular-nums">${dollars}</span>
         </div>
 
         <p className="mt-4 text-xs text-black/40">
