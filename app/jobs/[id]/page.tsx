@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import ReactMarkdown from 'react-markdown'
 import { createClient } from '@/lib/supabase/server'
-import { getJob } from '@/lib/api'
+import { getJob, getSimilarJobs } from '@/lib/api'
 import { MOCK_JOBS } from '@/lib/mock-jobs'
 import { CATEGORY_LABELS } from '@/lib/constants'
 import { formatSalary, daysAgo } from '@/lib/utils'
@@ -92,9 +92,7 @@ export default async function JobDetailPage({ params }: PageProps) {
   const hasSalary = job.salary_min !== null || job.salary_max !== null
   const catColor = CAT_COLOR[job.category] ?? '#000'
 
-  const similarJobs = MOCK_JOBS
-    .filter((j) => j.category === job.category && j.id !== job.id)
-    .slice(0, 3)
+  const similarJobs = await getSimilarJobs(job.category, job.id).catch(() => [])
 
   const jsonLd = {
     '@context': 'https://schema.org',

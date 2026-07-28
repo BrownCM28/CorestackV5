@@ -6,6 +6,7 @@ import type {
   Resource,
   ApplicationWithJob,
   SavedJobWithJob,
+  Category,
 } from '@/lib/types'
 
 export async function getJobs(filters?: JobFilters): Promise<Job[]> {
@@ -64,6 +65,20 @@ export async function getJobCompanies(): Promise<{ company: string; count: numbe
   return Array.from(counts, ([company, count]) => ({ company, count })).sort(
     (a, b) => b.count - a.count
   )
+}
+
+export async function getSimilarJobs(category: Category, excludeId: string): Promise<Job[]> {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('jobs')
+    .select('*')
+    .eq('status', 'active')
+    .eq('category', category)
+    .neq('id', excludeId)
+    .order('created_at', { ascending: false })
+    .limit(3)
+  if (error) throw error
+  return data ?? []
 }
 
 export async function getJob(id: string): Promise<Job> {
