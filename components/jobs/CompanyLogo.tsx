@@ -15,6 +15,16 @@ const REAL_LOGOS: Record<string, LogoConfig> = {
   'Schneider Electric': { src: '/Company Logos/SchneiderElectriclogo.webp' },
   'Turner Construction':{ src: '/Company Logos/Turner Logo.webp' },
   'Amazon Web Services':{ src: '/Company Logos/AWSlogo.webp' },
+
+  'Google': { src: '/Company Logos/Google.webp' },
+  'Graycor': { src: '/Company Logos/Graycor.png' },
+  'Milestone Technologies, Inc.': { src: '/Company Logos/Milestone-Technologies-Logo-247x135-2.png.webp' },
+  'Mortenson Construction': { src: '/Company Logos/Mortenson.jpg' },
+  'Schweitzer Engineering Laboratories': { src: '/Company Logos/Schweitzer.png' },
+  'Schweitzer Engineering Laboratories, Inc.': { src: '/Company Logos/Schweitzer.png' },
+  'Wesco': { src: '/Company Logos/WESCO_Logo.jpg' },
+  'Russell Tobin': { src: '/Company Logos/russell_tobin__associates_llc_logo.jpeg' },
+  'PGTEK': { src: '/Company Logos/PGTEK.png' },
 }
 
 const PALETTES = [
