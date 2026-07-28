@@ -61,7 +61,7 @@ describe('VerifyOtpForm', () => {
     expect(screen.getByLabelText('Verification code')).toHaveValue('123456')
   })
 
-  it('calls verifyOtp with the email, code, and signup type, then redirects to next', async () => {
+  it('calls verifyOtp with the email, code, and signup type, then redirects to onboarding carrying next', async () => {
     render(<VerifyOtpForm email="test@example.com" next="/dashboard/saved" />)
     enterCode('123456')
     fireEvent.click(screen.getByRole('button', { name: 'Verify' }))
@@ -73,7 +73,11 @@ describe('VerifyOtpForm', () => {
         type: 'signup',
       })
     )
-    await waitFor(() => expect(mocks.push).toHaveBeenCalledWith('/dashboard/saved'))
+    await waitFor(() =>
+      expect(mocks.push).toHaveBeenCalledWith(
+        `/onboarding?next=${encodeURIComponent('/dashboard/saved')}`
+      )
+    )
   })
 
   it('shows an error and does not redirect when the code is wrong or expired', async () => {

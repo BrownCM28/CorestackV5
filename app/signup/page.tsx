@@ -1,8 +1,16 @@
 import { Suspense } from 'react'
 import Link from 'next/link'
 import AuthForm from '@/components/auth/AuthForm'
+import { sanitizeNextPath } from '@/lib/utils'
 
-export default function SignUpPage() {
+interface PageProps {
+  searchParams: Promise<{ next?: string }>
+}
+
+export default async function SignUpPage({ searchParams }: PageProps) {
+  const { next } = await searchParams
+  const signinHref = next ? `/signin?next=${encodeURIComponent(sanitizeNextPath(next))}` : '/signin'
+
   return (
     <div className="px-6 py-16">
       <div className="max-w-sm mx-auto">
@@ -10,7 +18,7 @@ export default function SignUpPage() {
         <p className="text-sm text-black/50 mb-8">
           Already have an account?{' '}
           <Link
-            href="/signin"
+            href={signinHref}
             className="text-black underline hover:text-[#3ecf8e] transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
           >
             Sign in
