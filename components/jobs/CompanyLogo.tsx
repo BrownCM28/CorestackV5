@@ -14,7 +14,9 @@ const REAL_LOGOS: Record<string, LogoConfig> = {
   'Meta':               { src: '/Company Logos/Metalogo.png', scale: 1.9 },
   'Schneider Electric': { src: '/Company Logos/SchneiderElectriclogo.webp' },
   'Turner Construction':{ src: '/Company Logos/Turner Logo.webp' },
-  'Amazon Web Services':{ src: '/Company Logos/AWSlogo.webp' },
+  // The live jobs table uses "Amazon Web Services (AWS)", not "Amazon Web
+  // Services" -- the old key here never actually matched any real row.
+  'Amazon Web Services (AWS)': { src: '/Company Logos/AWSlogo.webp' },
 
   'Google': { src: '/Company Logos/Google.webp' },
   'Graycor': { src: '/Company Logos/Graycor.png' },
@@ -25,6 +27,17 @@ const REAL_LOGOS: Record<string, LogoConfig> = {
   'Wesco': { src: '/Company Logos/WESCO_Logo.jpg' },
   'Russell Tobin': { src: '/Company Logos/russell_tobin__associates_llc_logo.jpeg' },
   'PGTEK': { src: '/Company Logos/PGTEK.png' },
+
+  'Accenture Infrastructure and Capital Projects, LLC': { src: '/Company Logos/Accenture.png' },
+  'Black Box': { src: '/Company Logos/Black Box.png' },
+  'IES HOLDINGS': { src: '/Company Logos/IES Holdings.png' },
+  'IES Commercial, Inc. – DBA IES Electrical': { src: '/Company Logos/IES Holdings.png' },
+  'Pkaza - Critical Facilities Recruiting': { src: '/Company Logos/Pkaza.png' },
+  'Altura': { src: '/Company Logos/altura-horz-logo-color-126@2x.webp' },
+  'Hitachi Energy': { src: '/Company Logos/hitachi_logo_2025.svg' },
+  'Hitachi Rail': { src: '/Company Logos/hitachi_logo_2025.svg' },
+  'AbbVie': { src: '/Company Logos/AbbVie.png' },
+  'Fluence': { src: '/Company Logos/Fluence.svg' },
 }
 
 const PALETTES = [
