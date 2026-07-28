@@ -23,6 +23,10 @@ export default async function DashboardPage() {
     .eq('id', user.id)
     .single()
 
+  if (profile?.user_type === 'employer') {
+    redirect('/dashboard/employer')
+  }
+
   return (
     <div
       style={{
@@ -101,13 +105,6 @@ export default async function DashboardPage() {
                   className="flex items-center justify-between px-4 py-3 border border-black text-sm font-medium transition-colors hover:bg-[#3ecf8e] hover:text-black focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none group"
                 >
                   Browse Jobs
-                  <span className="text-black/30 group-hover:text-white transition-colors">→</span>
-                </Link>
-                <Link
-                  href="/post"
-                  className="flex items-center justify-between px-4 py-3 border border-black text-sm font-medium transition-colors hover:bg-[#3ecf8e] hover:text-black focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none group"
-                >
-                  Post a Job
                   <span className="text-black/30 group-hover:text-white transition-colors">→</span>
                 </Link>
                 <Link

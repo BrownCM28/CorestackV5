@@ -51,13 +51,6 @@ export default function MosaicNav() {
           ))}
 
           <NavAuth />
-
-          <Link
-            href="/post"
-            className="flex items-center px-4 text-sm font-medium bg-black text-white border-l border-black transition-colors duration-150 hover:bg-[#3ecf8e] hover:text-black focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-offset-0 outline-none whitespace-nowrap"
-          >
-            Post a Job
-          </Link>
         </div>
 
         {/* Menu toggle — mobile/tablet only */}
@@ -87,14 +80,6 @@ export default function MosaicNav() {
           ))}
 
           <NavAuth mobile onNavigate={() => setOpen(false)} />
-
-          <Link
-            href="/post"
-            onClick={() => setOpen(false)}
-            className="px-4 py-3 text-sm font-medium bg-black text-white transition-colors duration-150 hover:bg-[#3ecf8e] hover:text-black focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-inset outline-none"
-          >
-            Post a Job
-          </Link>
         </div>
       )}
     </nav>

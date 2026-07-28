@@ -253,9 +253,12 @@ describe('AuthForm', () => {
     expect(screen.getByRole('button', { name: /continue with github/i })).toBeEnabled()
   })
 
-  it('calls signUp with just email and password (no link-based options)', async () => {
+  it('calls signUp with email, password, and the full name as user metadata', async () => {
     mocks.pathname = '/signup'
     render(<AuthForm mode="signup" />)
+    fireEvent.change(screen.getByLabelText('Full name'), {
+      target: { value: 'Jane Doe' },
+    })
     fireEvent.change(screen.getByLabelText('Email'), {
       target: { value: 'test@example.com' },
     })
@@ -271,13 +274,35 @@ describe('AuthForm', () => {
     expect(mocks.signUp).toHaveBeenCalledWith({
       email: 'test@example.com',
       password: 'password123',
+      options: { data: { full_name: 'Jane Doe' } },
     })
+  })
+
+  it('requires a full name to submit the signup form', async () => {
+    mocks.pathname = '/signup'
+    render(<AuthForm mode="signup" />)
+    fireEvent.change(screen.getByLabelText('Email'), {
+      target: { value: 'test@example.com' },
+    })
+    fireEvent.change(screen.getByLabelText('Password'), {
+      target: { value: 'password123' },
+    })
+    fireEvent.change(screen.getByLabelText('Confirm Password'), {
+      target: { value: 'password123' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: 'Create Account' }))
+
+    expect(await screen.findByRole('alert')).toHaveTextContent('Please enter your full name.')
+    expect(mocks.signUp).not.toHaveBeenCalled()
   })
 
   it('shows the OTP verification screen when signup requires email confirmation (no session yet)', async () => {
     mocks.pathname = '/signup'
     mocks.signUp.mockResolvedValue({ data: { session: null }, error: null })
     render(<AuthForm mode="signup" />)
+    fireEvent.change(screen.getByLabelText('Full name'), {
+      target: { value: 'Jane Doe' },
+    })
     fireEvent.change(screen.getByLabelText('Email'), {
       target: { value: 'test@example.com' },
     })
@@ -298,6 +323,9 @@ describe('AuthForm', () => {
     mocks.pathname = '/signup'
     mocks.signUp.mockResolvedValue({ data: { session: { access_token: 'tok' } }, error: null })
     render(<AuthForm mode="signup" />)
+    fireEvent.change(screen.getByLabelText('Full name'), {
+      target: { value: 'Jane Doe' },
+    })
     fireEvent.change(screen.getByLabelText('Email'), {
       target: { value: 'test@example.com' },
     })

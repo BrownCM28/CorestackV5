@@ -58,4 +58,10 @@ describe('JobCard', () => {
     const link = screen.getByRole('link')
     expect(link).toHaveAttribute('href', '/jobs/test-id-123')
   })
+
+  it('renders as a non-navigable div instead of a link in preview mode', () => {
+    render(<JobCard job={mockJob} preview />)
+    expect(screen.queryByRole('link')).not.toBeInTheDocument()
+    expect(screen.getByText('Data Center Technician')).toBeInTheDocument()
+  })
 })

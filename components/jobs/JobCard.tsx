@@ -9,19 +9,20 @@ import CompanyLogo from './CompanyLogo'
 
 interface Props {
   job: Job
+  /** Renders the same markup without a real link — for use in listing previews. */
+  preview?: boolean
 }
 
-export default function JobCard({ job }: Props) {
+const CARD_CLASSES =
+  'flex flex-col sm:flex-row gap-4 sm:gap-6 px-5 py-5 sm:px-8 sm:py-7 sm:min-h-[140px] group transition-colors duration-150 hover:bg-black/[0.02] focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-inset outline-none'
+
+export default function JobCard({ job, preview = false }: Props) {
   const badge = getBadge(job)
   const salary = formatSalary(job.salary_min, job.salary_max)
   const hasSalary = job.salary_min !== null || job.salary_max !== null
 
-  return (
-    <Link
-      href={`/jobs/${job.id}`}
-      onClick={() => track('job_click', { job_id: job.id, title: job.title, company: job.company })}
-      className="flex flex-col sm:flex-row gap-4 sm:gap-6 px-5 py-5 sm:px-8 sm:py-7 sm:min-h-[140px] group transition-colors duration-150 hover:bg-black/[0.02] focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-inset outline-none"
-    >
+  const content = (
+    <>
       <div className="flex items-start gap-4 sm:contents">
         {/* Left: logo */}
         <div className="flex-shrink-0 pt-0.5">
@@ -81,6 +82,20 @@ export default function JobCard({ job }: Props) {
           Apply
         </span>
       </div>
+    </>
+  )
+
+  if (preview) {
+    return <div className={CARD_CLASSES}>{content}</div>
+  }
+
+  return (
+    <Link
+      href={`/jobs/${job.id}`}
+      onClick={() => track('job_click', { job_id: job.id, title: job.title, company: job.company })}
+      className={CARD_CLASSES}
+    >
+      {content}
     </Link>
   )
 }

@@ -34,8 +34,16 @@ export default function AuthForm({ mode }: Props) {
     const formData = new FormData(e.currentTarget)
     const email = formData.get('email') as string
     const password = formData.get('password') as string
+    const fullName = formData.get('fullName') as string
 
     if (mode === 'signup') {
+      if (fullName.trim().length < 2) {
+        setError('Please enter your full name.')
+        setLoading(false)
+        setTimeout(() => errorRef.current?.focus(), 0)
+        return
+      }
+
       const confirm = formData.get('confirmPassword') as string
       if (password !== confirm) {
         setError('Passwords do not match.')
@@ -50,7 +58,11 @@ export default function AuthForm({ mode }: Props) {
       const { data, error: authError } =
         mode === 'signin'
           ? await supabase.auth.signInWithPassword({ email, password })
-          : await supabase.auth.signUp({ email, password })
+          : await supabase.auth.signUp({
+              email,
+              password,
+              options: { data: { full_name: fullName.trim() } },
+            })
 
       if (authError) {
         setError(authError.message)
@@ -141,6 +153,24 @@ export default function AuthForm({ mode }: Props) {
       className="flex flex-col gap-5 w-full max-w-sm"
       noValidate
     >
+      {mode === 'signup' && (
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor="auth-full-name" className="text-sm font-medium">
+            Full name
+          </label>
+          <input
+            id="auth-full-name"
+            name="fullName"
+            type="text"
+            autoComplete="name"
+            required
+            minLength={2}
+            placeholder="Jane Doe…"
+            className="border border-black px-3 py-2.5 text-sm focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-offset-0 outline-none placeholder:text-black/40"
+          />
+        </div>
+      )}
+
       <div className="flex flex-col gap-1.5">
         <label htmlFor="auth-email" className="text-sm font-medium">
           Email
