@@ -4,6 +4,7 @@ import { useState, useRef } from 'react'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { sanitizeNextPath } from '@/lib/utils'
+import VerifyOtpForm from './VerifyOtpForm'
 
 interface Props {
   mode: 'signin' | 'signup'
@@ -14,7 +15,7 @@ export default function AuthForm({ mode }: Props) {
   const params = useSearchParams()
   const pathname = usePathname()
   const [error, setError] = useState<string | null>(params.get('error'))
-  const [success, setSuccess] = useState(false)
+  const [pendingEmail, setPendingEmail] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [githubLoading, setGithubLoading] = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
@@ -49,13 +50,7 @@ export default function AuthForm({ mode }: Props) {
       const { data, error: authError } =
         mode === 'signin'
           ? await supabase.auth.signInWithPassword({ email, password })
-          : await supabase.auth.signUp({
-              email,
-              password,
-              options: {
-                emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
-              },
-            })
+          : await supabase.auth.signUp({ email, password })
 
       if (authError) {
         setError(authError.message)
@@ -64,9 +59,9 @@ export default function AuthForm({ mode }: Props) {
       }
 
       if (mode === 'signup' && !data.session) {
-        // Email confirmation is required — there's no session yet, so there's
-        // nothing to send onward to until they click the link in their inbox.
-        setSuccess(true)
+        // Email confirmation is required — there's no session yet. Show the
+        // OTP entry screen instead of sending them anywhere.
+        setPendingEmail(email)
         return
       }
 
@@ -136,15 +131,8 @@ export default function AuthForm({ mode }: Props) {
     }
   }
 
-  if (success) {
-    return (
-      <div className="border border-black px-5 py-6 bg-[#3ecf8e]/10">
-        <p className="text-sm font-medium">Check your email to confirm your account</p>
-        <p className="text-xs text-black/50 mt-1">
-          We sent a confirmation link to your inbox. Click it to activate your account.
-        </p>
-      </div>
-    )
+  if (pendingEmail) {
+    return <VerifyOtpForm email={pendingEmail} next={next} />
   }
 
   return (

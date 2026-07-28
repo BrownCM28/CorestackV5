@@ -253,7 +253,7 @@ describe('AuthForm', () => {
     expect(screen.getByRole('button', { name: /continue with github/i })).toBeEnabled()
   })
 
-  it('calls signUp with emailRedirectTo when in signup mode', async () => {
+  it('calls signUp with just email and password (no link-based options)', async () => {
     mocks.pathname = '/signup'
     render(<AuthForm mode="signup" />)
     fireEvent.change(screen.getByLabelText('Email'), {
@@ -268,35 +268,13 @@ describe('AuthForm', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Create Account' }))
 
     await waitFor(() => expect(mocks.signUp).toHaveBeenCalledTimes(1))
-    const call = mocks.signUp.mock.calls[0][0]
-    expect(call.options.emailRedirectTo).toBe(
-      `${window.location.origin}/auth/callback?next=%2F`
-    )
+    expect(mocks.signUp).toHaveBeenCalledWith({
+      email: 'test@example.com',
+      password: 'password123',
+    })
   })
 
-  it('includes an explicit next param in the signup emailRedirectTo when present', async () => {
-    mocks.pathname = '/signup'
-    mocks.searchParams = new URLSearchParams('next=/dashboard/saved')
-    render(<AuthForm mode="signup" />)
-    fireEvent.change(screen.getByLabelText('Email'), {
-      target: { value: 'test@example.com' },
-    })
-    fireEvent.change(screen.getByLabelText('Password'), {
-      target: { value: 'password123' },
-    })
-    fireEvent.change(screen.getByLabelText('Confirm Password'), {
-      target: { value: 'password123' },
-    })
-    fireEvent.click(screen.getByRole('button', { name: 'Create Account' }))
-
-    await waitFor(() => expect(mocks.signUp).toHaveBeenCalledTimes(1))
-    const call = mocks.signUp.mock.calls[0][0]
-    expect(call.options.emailRedirectTo).toBe(
-      `${window.location.origin}/auth/callback?next=${encodeURIComponent('/dashboard/saved')}`
-    )
-  })
-
-  it('shows the "check your email" message when signup requires email confirmation (no session yet)', async () => {
+  it('shows the OTP verification screen when signup requires email confirmation (no session yet)', async () => {
     mocks.pathname = '/signup'
     mocks.signUp.mockResolvedValue({ data: { session: null }, error: null })
     render(<AuthForm mode="signup" />)
@@ -311,7 +289,8 @@ describe('AuthForm', () => {
     })
     fireEvent.click(screen.getByRole('button', { name: 'Create Account' }))
 
-    expect(await screen.findByText('Check your email to confirm your account')).toBeInTheDocument()
+    expect(await screen.findByLabelText('Verification code')).toBeInTheDocument()
+    expect(screen.getByText('test@example.com')).toBeInTheDocument()
     expect(mocks.push).not.toHaveBeenCalled()
   })
 
