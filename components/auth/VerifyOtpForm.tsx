@@ -46,9 +46,12 @@ export default function VerifyOtpForm({ email, next }: Props) {
         return
       }
 
-      // Verifying grants an active session, same as sign-in — let the
-      // middleware's onboarding gate route a not-yet-onboarded user onward.
-      router.push(next)
+      // A freshly-verified signup has never completed onboarding, so go
+      // straight there rather than relying on the middleware's onboarding
+      // gate to catch this navigation — carry the original destination
+      // through via the same ?next= convention used everywhere else
+      // (sign-in, OAuth, the gate's own redirect).
+      router.push(`/onboarding?next=${encodeURIComponent(next)}`)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
       setTimeout(() => errorRef.current?.focus(), 0)
