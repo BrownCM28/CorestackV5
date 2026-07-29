@@ -46,7 +46,6 @@ const payload: CreateJobPayload = {
   salary_min: null,
   salary_max: null,
   apply_target: 'https://example.com/apply',
-  paid_amount_cents: 9900,
 }
 
 describe('startJobCheckout', () => {

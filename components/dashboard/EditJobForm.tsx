@@ -57,7 +57,6 @@ export default function EditJobForm({ job }: Props) {
       salary_min: raw.salary_min ? Number(raw.salary_min) : null,
       salary_max: raw.salary_max ? Number(raw.salary_max) : null,
       apply_target: raw.apply_target.trim(),
-      paid_amount_cents: job.paid_amount_cents,
     }
 
     setSubmitting(true)

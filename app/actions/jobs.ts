@@ -59,8 +59,12 @@ export async function startJobCheckout(
   let url: string
   try {
     const job = await createJob(payload)
+    const supabase = await createClient()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
     const origin = await getOrigin()
-    url = await createJobCheckoutSession(job, origin)
+    url = await createJobCheckoutSession(job, origin, user?.email)
   } catch (err) {
     // Server Actions that throw have their error message redacted in
     // production ("An error occurred in the Server Components render...").
@@ -91,7 +95,7 @@ export async function resumeJobCheckout(jobId: string): Promise<void> {
   if (job.paid_at) throw new Error('This job has already been paid for.')
 
   const origin = await getOrigin()
-  const url = await createJobCheckoutSession(job, origin)
+  const url = await createJobCheckoutSession(job, origin, user.email)
   redirect(url)
 }
 

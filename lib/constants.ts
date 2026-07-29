@@ -38,10 +38,6 @@ export const MARKET_LIST = [
   'Other',
 ] as const
 
-export const PRICE_MIN = 5
-export const PRICE_MAX = 500
-export const PRICE_DEFAULT = 99
-
 export const SKILL_LIST = [
   'CompTIA Server+',
   'CompTIA Network+',

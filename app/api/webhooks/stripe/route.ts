@@ -30,7 +30,10 @@ export async function POST(request: Request) {
       const supabase = createAdminClient()
       const { error } = await supabase
         .from('jobs')
-        .update({ paid_at: new Date().toISOString() })
+        .update({
+          paid_at: new Date().toISOString(),
+          paid_amount_cents: session.amount_total ?? 0,
+        })
         .eq('id', jobId)
 
       if (error) {

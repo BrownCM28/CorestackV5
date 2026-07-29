@@ -1,16 +1,13 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import PayWhatYouWishField from './PayWhatYouWishField'
-import { CATEGORY_LIST, CATEGORY_LABELS, PRICE_DEFAULT } from '@/lib/constants'
+import { CATEGORY_LIST, CATEGORY_LABELS } from '@/lib/constants'
 import type { CreateJobPayload, Category } from '@/lib/types'
 
 export default function PostJobForm() {
   const router = useRouter()
-  const [priceCents, setPriceCents] = useState(PRICE_DEFAULT * 100)
   const [errors, setErrors] = useState<Record<string, string>>({})
-  const firstErrorRef = useRef<HTMLElement | null>(null)
 
   function validate(data: Record<string, string>): Record<string, string> {
     const errs: Record<string, string> = {}
@@ -50,7 +47,6 @@ export default function PostJobForm() {
       salary_min: raw.salary_min ? Number(raw.salary_min) : null,
       salary_max: raw.salary_max ? Number(raw.salary_max) : null,
       apply_target: raw.apply_target.trim(),
-      paid_amount_cents: priceCents,
     }
 
     sessionStorage.setItem('corestack_draft', JSON.stringify(payload))
@@ -147,11 +143,6 @@ export default function PostJobForm() {
           className={fieldClass('apply_target')}
         />
         {errors.apply_target && <p role="alert" className="text-xs text-red-600">{errors.apply_target}</p>}
-      </div>
-
-      {/* Pricing */}
-      <div className="border border-black p-5">
-        <PayWhatYouWishField onChange={setPriceCents} />
       </div>
 
       <button
