@@ -14,7 +14,12 @@ export default async function OnboardingPage() {
     data: { user },
   } = await supabase.auth.getUser()
 
-  if (!user) redirect('/signin?next=/onboarding')
+  // No next param here: /onboarding is the destination, not somewhere to
+  // return to. Setting next=/onboarding would round-trip back to this
+  // exact page and, once onboarding is complete, make the final
+  // router.push(next) a no-op self-navigation — let it fall through to
+  // AuthForm's own default (the homepage) instead.
+  if (!user) redirect('/signin')
 
   return (
     <Suspense fallback={null}>
