@@ -12,21 +12,19 @@ export function getStripe(): Stripe {
 
 export async function createJobCheckoutSession(
   job: Job,
-  origin: string
+  origin: string,
+  customerEmail?: string
 ): Promise<string> {
   const session = await getStripe().checkout.sessions.create({
     mode: 'payment',
     payment_method_types: ['card'],
     line_items: [
       {
-        price_data: {
-          currency: 'usd',
-          product_data: { name: `Job listing: ${job.title}` },
-          unit_amount: job.paid_amount_cents,
-        },
+        price: process.env.STRIPE_PRICE_ID!,
         quantity: 1,
       },
     ],
+    customer_email: customerEmail,
     metadata: { job_id: job.id },
     success_url: `${origin}/post/success`,
     cancel_url: `${origin}/dashboard/employer?checkout=canceled`,

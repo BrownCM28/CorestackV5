@@ -108,7 +108,6 @@ export interface CreateJobPayload {
   salary_min: number | null
   salary_max: number | null
   apply_target: string
-  paid_amount_cents: number
 }
 
 export type ApplicationWithJob = Application & { job: Job }

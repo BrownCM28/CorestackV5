@@ -54,10 +54,10 @@ describe('POST /api/webhooks/stripe', () => {
     expect(res.status).toBe(400)
   })
 
-  it('sets paid_at on checkout.session.completed', async () => {
+  it('sets paid_at and paid_amount_cents on checkout.session.completed', async () => {
     mocks.constructEvent.mockReturnValue({
       type: 'checkout.session.completed',
-      data: { object: { metadata: { job_id: 'job-1' } } },
+      data: { object: { metadata: { job_id: 'job-1' }, amount_total: 9900 } },
     })
 
     const res = await POST(makeRequest('{}', 'sig_valid'))
@@ -65,8 +65,23 @@ describe('POST /api/webhooks/stripe', () => {
     expect(res.status).toBe(200)
     expect(mocks.update).toHaveBeenCalledWith({
       paid_at: expect.any(String),
+      paid_amount_cents: 9900,
     })
     expect(mocks.eq).toHaveBeenCalledWith('id', 'job-1')
+  })
+
+  it('defaults paid_amount_cents to 0 when amount_total is missing', async () => {
+    mocks.constructEvent.mockReturnValue({
+      type: 'checkout.session.completed',
+      data: { object: { metadata: { job_id: 'job-1' } } },
+    })
+
+    await POST(makeRequest('{}', 'sig_valid'))
+
+    expect(mocks.update).toHaveBeenCalledWith({
+      paid_at: expect.any(String),
+      paid_amount_cents: 0,
+    })
   })
 
   it('ignores event types other than checkout.session.completed', async () => {

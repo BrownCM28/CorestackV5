@@ -14,6 +14,9 @@ function toPreviewJob(draft: CreateJobPayload): Job {
     created_at: new Date().toISOString(),
     status: 'active',
     paid_at: null,
+    // Real amount is set by the Stripe webhook once payment completes —
+    // JobCard never displays this field, so the placeholder is invisible.
+    paid_amount_cents: 0,
   }
 }
 
@@ -56,8 +59,6 @@ export default function ConfirmPage() {
     )
   }
 
-  const dollars = Math.round(draft.paid_amount_cents / 100)
-
   return (
     <div className="px-6 py-10">
       <div className="max-w-xl mx-auto">
@@ -68,13 +69,9 @@ export default function ConfirmPage() {
           <JobCard job={toPreviewJob(draft)} preview />
         </div>
 
-        <div className="border border-black border-t-0 px-6 py-3 flex items-center justify-between">
-          <span className="text-sm text-black/50">Listing fee</span>
-          <span className="font-bold tabular-nums">${dollars}</span>
-        </div>
-
         <p className="mt-4 text-xs text-black/40">
-          You&apos;ll be redirected to Stripe to complete payment.
+          You&apos;ll be redirected to Stripe to complete payment. The exact
+          listing fee will be shown there before you pay.
         </p>
 
         {error && (
@@ -89,7 +86,7 @@ export default function ConfirmPage() {
             disabled={loading}
             className="bg-black text-white px-6 py-3 text-sm font-medium transition-colors duration-150 hover:bg-[#3ecf8e] hover:text-black disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-offset-0 outline-none"
           >
-            {loading ? 'Redirecting…' : `Continue to Payment — $${dollars}`}
+            {loading ? 'Redirecting…' : 'Continue to Payment'}
           </button>
           <a
             href="/post"

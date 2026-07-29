@@ -55,8 +55,12 @@ export async function updateJob(
 
 export async function startJobCheckout(payload: CreateJobPayload): Promise<void> {
   const job = await createJob(payload)
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
   const origin = await getOrigin()
-  const url = await createJobCheckoutSession(job, origin)
+  const url = await createJobCheckoutSession(job, origin, user?.email)
   redirect(url)
 }
 
@@ -77,7 +81,7 @@ export async function resumeJobCheckout(jobId: string): Promise<void> {
   if (job.paid_at) throw new Error('This job has already been paid for.')
 
   const origin = await getOrigin()
-  const url = await createJobCheckoutSession(job, origin)
+  const url = await createJobCheckoutSession(job, origin, user.email)
   redirect(url)
 }
 
