@@ -53,10 +53,24 @@ export async function updateJob(
   revalidatePath('/dashboard/employer')
 }
 
-export async function startJobCheckout(payload: CreateJobPayload): Promise<void> {
-  const job = await createJob(payload)
-  const origin = await getOrigin()
-  const url = await createJobCheckoutSession(job, origin)
+export async function startJobCheckout(
+  payload: CreateJobPayload
+): Promise<{ error: string } | void> {
+  let url: string
+  try {
+    const job = await createJob(payload)
+    const origin = await getOrigin()
+    url = await createJobCheckoutSession(job, origin)
+  } catch (err) {
+    // Server Actions that throw have their error message redacted in
+    // production ("An error occurred in the Server Components render...").
+    // Returning it as data instead means the real message actually reaches
+    // the user. Full error still goes to the server logs below.
+    console.error('startJobCheckout failed:', err)
+    return {
+      error: err instanceof Error ? err.message : 'Something went wrong. Please try again.',
+    }
+  }
   redirect(url)
 }
 

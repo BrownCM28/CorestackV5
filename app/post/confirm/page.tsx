@@ -41,7 +41,12 @@ export default function ConfirmPage() {
     setLoading(true)
     setError(null)
     try {
-      await startJobCheckout(draft)
+      const result = await startJobCheckout(draft)
+      if (result?.error) {
+        setError(result.error)
+        setLoading(false)
+      }
+      // On success startJobCheckout redirects server-side and never returns.
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Something went wrong. Please try again.')
       setLoading(false)
