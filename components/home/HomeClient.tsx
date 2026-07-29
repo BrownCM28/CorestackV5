@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useMemo, useRef, useEffect } from 'react'
-import { Search, MapPin, ChevronDown, ArrowRight } from 'lucide-react'
+import { Search, MapPin, ChevronDown, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import type { Job, NewsItem } from '@/lib/types'
@@ -79,10 +79,32 @@ export default function HomeClient({ jobs, news }: Props) {
   const [activeCategory, setActiveCategory] = useState<Category | 'all'>('all')
   const [sort, setSort] = useState<SortKey>('newest')
   const browseRef = useRef<HTMLDivElement>(null)
+  const catScrollRef = useRef<HTMLDivElement>(null)
+  const [catCanScroll, setCatCanScroll] = useState(false)
+  const [catAtEnd, setCatAtEnd] = useState(false)
 
   useEffect(() => {
     track('pageview', { page: 'home' })
   }, [])
+
+  function updateCatScrollState() {
+    const el = catScrollRef.current
+    if (!el) return
+    setCatCanScroll(el.scrollWidth > el.clientWidth + 1)
+    setCatAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 1)
+  }
+
+  useEffect(() => {
+    updateCatScrollState()
+    window.addEventListener('resize', updateCatScrollState)
+    return () => window.removeEventListener('resize', updateCatScrollState)
+  }, [])
+
+  function handleCatScrollButton() {
+    const el = catScrollRef.current
+    if (!el) return
+    el.scrollTo({ left: catAtEnd ? 0 : el.scrollWidth, behavior: 'smooth' })
+  }
 
   const companyCount = useMemo(() => new Set(jobs.map((j) => j.company)).size, [jobs])
   const remoteCount = useMemo(() => jobs.filter((j) => j.remote).length, [jobs])
@@ -149,6 +171,16 @@ export default function HomeClient({ jobs, news }: Props) {
             background: 'linear-gradient(to bottom, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0.50) 40%, rgba(255,255,255,0.10) 65%, rgba(255,255,255,1) 100%)',
           }}
         />
+        {/* Vignette so the photo's left/right/top edges blend into the page
+            instead of ending in a hard rectangle — the gradient above only
+            handles the top-to-bottom fade */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            background: 'radial-gradient(ellipse 75% 70% at 50% 40%, transparent 50%, rgba(255,255,255,0.95) 100%)',
+          }}
+        />
 
         {/* Content sits above image + overlay */}
         <div className="relative z-10 flex flex-col items-center w-full">
@@ -203,29 +235,47 @@ export default function HomeClient({ jobs, news }: Props) {
           </form>
 
           {/* Category quick-filters */}
-          <div
-            className="flex mt-3 overflow-x-auto max-w-2xl w-full"
-            role="group"
-            aria-label="Filter by category"
-          >
-            {(['all', ...CATEGORY_LIST] as const).map((cat, i) => {
-              const isActive = activeCategory === cat
-              const label = cat === 'all' ? 'All' : CATEGORY_LABELS[cat]
-              return (
-                <button
-                  key={cat}
-                  type="button"
-                  onClick={() => { setActiveCategory(cat); track('category_filter', { category: cat }) }}
-                  className={[
-                    'px-4 py-2 text-xs font-medium whitespace-nowrap border-t border-b border-r border-black transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-inset outline-none',
-                    i === 0 ? 'border-l' : '',
-                    isActive ? 'bg-black text-white' : 'bg-white hover:bg-[#3ecf8e]',
-                  ].join(' ')}
-                >
-                  {label}
-                </button>
-              )
-            })}
+          <div className="flex items-stretch mt-3 max-w-2xl w-full">
+            <div
+              ref={catScrollRef}
+              onScroll={updateCatScrollState}
+              className="flex overflow-x-auto scrollbar-hide"
+              role="group"
+              aria-label="Filter by category"
+            >
+              {(['all', ...CATEGORY_LIST] as const).map((cat, i) => {
+                const isActive = activeCategory === cat
+                const label = cat === 'all' ? 'All' : CATEGORY_LABELS[cat]
+                return (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => { setActiveCategory(cat); track('category_filter', { category: cat }) }}
+                    className={[
+                      'px-4 py-2 text-xs font-medium whitespace-nowrap border-t border-b border-r border-black transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-inset outline-none',
+                      i === 0 ? 'border-l' : '',
+                      isActive ? 'bg-black text-white' : 'bg-white hover:bg-[#3ecf8e]',
+                    ].join(' ')}
+                  >
+                    {label}
+                  </button>
+                )
+              })}
+            </div>
+            {catCanScroll && (
+              <button
+                type="button"
+                onClick={handleCatScrollButton}
+                aria-label={catAtEnd ? 'Scroll categories back' : 'Scroll categories for more'}
+                className="flex-shrink-0 flex items-center justify-center w-8 bg-black text-white border-t border-b border-r border-black transition-colors duration-150 hover:bg-[#3ecf8e] hover:text-black focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-inset outline-none"
+              >
+                {catAtEnd ? (
+                  <ChevronLeft size={14} aria-hidden="true" />
+                ) : (
+                  <ChevronRight size={14} aria-hidden="true" />
+                )}
+              </button>
+            )}
           </div>
 
           {/* Hiring companies strip — logo tiles */}
@@ -301,13 +351,14 @@ export default function HomeClient({ jobs, news }: Props) {
             {/* Sort bar */}
             <div className="flex flex-wrap items-center justify-between gap-y-2 px-4 sm:px-5 py-3 border-b border-black bg-white/60 backdrop-blur-md sticky top-0 z-10">
               <div className="flex items-center gap-3">
-                <span className="text-xs text-black/50">
-                  <span className="font-semibold text-black tabular-nums">{filtered.length}</span>{' '}
-                  {filtered.length === 1 ? 'role' : 'roles'}
-                  {activeCategory !== 'all' && (
-                    <span className="text-black/35"> in {CATEGORY_LABELS[activeCategory]}</span>
-                  )}
-                </span>
+                {activeCategory !== 'all' && (
+                  <span className="text-xs text-black/50">
+                    Filtered by{' '}
+                    <span className="font-semibold text-black">
+                      {CATEGORY_LABELS[activeCategory]}
+                    </span>
+                  </span>
+                )}
                 {hasActiveFilters && (
                   <button
                     type="button"
@@ -374,10 +425,7 @@ export default function HomeClient({ jobs, news }: Props) {
                 </ul>
 
                 {/* Explore more jobs */}
-                <div className="border-l border-r border-b border-black bg-white/70 backdrop-blur-sm px-5 sm:px-8 py-6 flex flex-wrap items-center justify-between gap-4">
-                  <p className="text-xs text-black/40 tabular-nums">
-                    Showing {Math.min(JOBS_PREVIEW, filtered.length)} of {filtered.length} roles
-                  </p>
+                <div className="border-l border-r border-b border-black bg-white/70 backdrop-blur-sm px-5 sm:px-8 py-6 flex flex-wrap items-center justify-end gap-4">
                   <Link
                     href="/jobs"
                     className="border border-black px-6 py-2.5 text-xs font-semibold uppercase tracking-wide transition-colors hover:bg-[#3ecf8e] hover:text-black focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"

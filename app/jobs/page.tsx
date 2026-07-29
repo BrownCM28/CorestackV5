@@ -80,9 +80,6 @@ export default async function JobsPage({ searchParams }: PageProps) {
 
         <div className="mt-8 flex gap-6 items-start">
           <div className="flex-1 min-w-0">
-            <p className="text-sm text-black/50 mb-4 tabular-nums">
-              {jobs.length} {jobs.length === 1 ? 'role' : 'roles'} found
-            </p>
             <JobGrid jobs={jobs} />
           </div>
 

@@ -96,3 +96,14 @@
     animation: none;
   }
 }
+
+/* Hide the native scrollbar on horizontally-scrollable rows that have their
+   own explicit scroll controls (e.g. the category quick-filter row). */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
