@@ -17,7 +17,9 @@ export async function createJobCheckoutSession(
 ): Promise<string> {
   const session = await getStripe().checkout.sessions.create({
     mode: 'payment',
-    payment_method_types: ['card'],
+    // Managed Payments (enabled by default on this Stripe account) picks
+    // payment methods automatically -- passing payment_method_types
+    // explicitly is rejected: https://docs.stripe.com/payments/managed-payments/update-checkout#remove-unsupported-parameters
     line_items: [
       {
         price: process.env.STRIPE_PRICE_ID!,
