@@ -188,11 +188,6 @@ export default function HomeClient({ jobs, news }: Props) {
             Infrastructure Jobs For The People Who Keep The World Running.
           </h1>
 
-          <p className="mt-6 text-base sm:text-lg text-black/55 max-w-[30rem] leading-relaxed">
-            Corestack aggregates data center and AI infrastructure roles from top
-            employers&thinsp;—&thinsp;updated daily.
-          </p>
-
           {/* Two-field search bar */}
           <form
             onSubmit={handleSearch}

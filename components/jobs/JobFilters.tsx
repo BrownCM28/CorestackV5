@@ -1,7 +1,8 @@
 'use client'
 
+import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { Search, MapPin } from 'lucide-react'
+import { Search, MapPin, ChevronLeft, ChevronRight } from 'lucide-react'
 import { CATEGORY_LABELS, CATEGORY_LIST } from '@/lib/constants'
 import { useUpdateParam } from '@/lib/useUpdateParam'
 
@@ -10,6 +11,29 @@ export default function JobFilters() {
   const updateParam = useUpdateParam('/jobs')
 
   const activeCategory = params.get('category') ?? ''
+
+  const catScrollRef = useRef<HTMLDivElement>(null)
+  const [catCanScroll, setCatCanScroll] = useState(false)
+  const [catAtEnd, setCatAtEnd] = useState(false)
+
+  function updateCatScrollState() {
+    const el = catScrollRef.current
+    if (!el) return
+    setCatCanScroll(el.scrollWidth > el.clientWidth + 1)
+    setCatAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 1)
+  }
+
+  useEffect(() => {
+    updateCatScrollState()
+    window.addEventListener('resize', updateCatScrollState)
+    return () => window.removeEventListener('resize', updateCatScrollState)
+  }, [])
+
+  function handleCatScrollButton() {
+    const el = catScrollRef.current
+    if (!el) return
+    el.scrollTo({ left: catAtEnd ? 0 : el.scrollWidth, behavior: 'smooth' })
+  }
 
   return (
     <div role="search" aria-label="Filter jobs">
@@ -75,30 +99,48 @@ export default function JobFilters() {
       </form>
 
       {/* Category buttons */}
-      <div
-        className="flex items-stretch h-11 border-x border-b border-black overflow-x-auto"
-        role="group"
-        aria-label="Filter by category"
-      >
-        {(['', ...CATEGORY_LIST] as const).map((cat, i) => {
-          const isActive = activeCategory === cat
-          const label = cat === '' ? 'All Categories' : CATEGORY_LABELS[cat]
-          return (
-            <button
-              key={cat}
-              type="button"
-              onClick={() => updateParam('category', cat || null)}
-              aria-pressed={isActive}
-              className={[
-                'flex items-center px-4 text-sm font-medium whitespace-nowrap border-black transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-inset outline-none',
-                i > 0 ? 'border-l' : '',
-                isActive ? 'bg-black text-white' : 'hover:bg-[#3ecf8e] hover:text-black',
-              ].join(' ')}
-            >
-              {label}
-            </button>
-          )
-        })}
+      <div className="flex items-stretch h-11 border-x border-b border-black">
+        <div
+          ref={catScrollRef}
+          onScroll={updateCatScrollState}
+          className="flex flex-1 min-w-0 overflow-x-auto scrollbar-hide"
+          role="group"
+          aria-label="Filter by category"
+        >
+          {(['', ...CATEGORY_LIST] as const).map((cat, i) => {
+            const isActive = activeCategory === cat
+            const label = cat === '' ? 'All Categories' : CATEGORY_LABELS[cat]
+            return (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => updateParam('category', cat || null)}
+                aria-pressed={isActive}
+                className={[
+                  'flex items-center px-4 text-sm font-medium whitespace-nowrap border-black transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-inset outline-none',
+                  i > 0 ? 'border-l' : '',
+                  isActive ? 'bg-black text-white' : 'hover:bg-[#3ecf8e] hover:text-black',
+                ].join(' ')}
+              >
+                {label}
+              </button>
+            )
+          })}
+        </div>
+        {catCanScroll && (
+          <button
+            type="button"
+            onClick={handleCatScrollButton}
+            aria-label={catAtEnd ? 'Scroll categories back' : 'Scroll categories for more'}
+            className="flex-shrink-0 flex items-center justify-center w-8 bg-black text-white border-l border-black transition-colors duration-150 hover:bg-[#3ecf8e] hover:text-black focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-inset outline-none"
+          >
+            {catAtEnd ? (
+              <ChevronLeft size={14} aria-hidden="true" />
+            ) : (
+              <ChevronRight size={14} aria-hidden="true" />
+            )}
+          </button>
+        )}
       </div>
     </div>
   )
