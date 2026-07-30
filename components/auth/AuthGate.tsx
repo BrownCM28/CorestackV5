@@ -23,23 +23,53 @@ export default function AuthGate({ jobId }: Props) {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [applying, setApplying] = useState(false)
   const [applied, setApplied] = useState(false)
+  const [justApplied, setJustApplied] = useState(false)
+  const [applyTarget, setApplyTarget] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     let cancelled = false
     const supabase = createClient()
-    supabase
-      .auth.getUser()
-      .then(({ data: { user } }) => {
-        if (!cancelled) setAuthStatus(user ? 'authed' : 'guest')
-      })
-      .catch(() => {
+
+    async function init() {
+      let user = null
+      try {
+        const res = await supabase.auth.getUser()
+        user = res.data.user
+      } catch {
         if (!cancelled) setAuthStatus('guest')
-      })
+        return
+      }
+      if (cancelled) return
+      setAuthStatus(user ? 'authed' : 'guest')
+      if (!user) return
+
+      // Re-derive "already applied" from the database rather than only
+      // from in-session state, so returning to this page (back button,
+      // reopening the tab, a hard refresh) still shows the confirmation
+      // instead of resetting to a fresh "Apply" button. Best-effort: any
+      // failure here just leaves the button in its default state.
+      try {
+        const { data } = await supabase
+          .from('applications')
+          .select('id, job:jobs(apply_target)')
+          .eq('job_id', jobId)
+          .eq('applicant_id', user.id)
+          .maybeSingle()
+        if (cancelled || !data) return
+        setApplied(true)
+        const job = Array.isArray(data.job) ? data.job[0] : data.job
+        if (job?.apply_target) setApplyTarget(job.apply_target)
+      } catch {
+        // ignore — already-applied indicator is a nice-to-have, not required
+      }
+    }
+    init()
+
     return () => {
       cancelled = true
     }
-  }, [])
+  }, [jobId])
 
   async function handleApply() {
     if (authStatus === 'guest') {
@@ -51,6 +81,8 @@ export default function AuthGate({ jobId }: Props) {
     try {
       const { apply_target } = await applyToJob(jobId)
       setApplied(true)
+      setJustApplied(true)
+      setApplyTarget(apply_target)
       window.open(apply_target, '_blank', 'noopener,noreferrer')
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Something went wrong')
@@ -65,9 +97,23 @@ export default function AuthGate({ jobId }: Props) {
         <div
           role="status"
           aria-live="polite"
-          className="border border-[#3ecf8e] bg-[#3ecf8e]/10 px-4 py-3 text-sm"
+          className="border border-[#3ecf8e] bg-[#3ecf8e]/10 px-4 py-3 text-sm flex flex-col gap-2"
         >
-          Application recorded — the employer&apos;s application page has opened in a new tab.
+          <span>
+            {justApplied
+              ? "Application recorded — the employer's application page has opened in a new tab."
+              : "You've already applied to this job."}
+          </span>
+          {applyTarget && (
+            <a
+              href={applyTarget}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="self-start text-xs font-medium underline hover:text-black transition-colors duration-150"
+            >
+              View the listing again →
+            </a>
+          )}
         </div>
       ) : (
         <button
