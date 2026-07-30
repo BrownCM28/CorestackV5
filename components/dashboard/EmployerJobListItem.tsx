@@ -1,0 +1,74 @@
+'use client'
+
+import type { Job, JobStatus } from '@/lib/types'
+import { CATEGORY_LABELS } from '@/lib/constants'
+import { formatSalary } from '@/lib/utils'
+import EmployerJobActions from './EmployerJobActions'
+
+interface Props {
+  job: Job
+  onClosed: (jobId: string) => void
+}
+
+const STATUS_LABELS: Record<JobStatus, string> = {
+  active: 'Active',
+  pending: 'Pending',
+  closed: 'Closed',
+  draft: 'Draft',
+}
+
+const STATUS_BADGE_CLASSES: Record<JobStatus, string> = {
+  pending: 'border-black text-black',
+  active: 'border-[#3ecf8e] text-[#3ecf8e]',
+  closed: 'border-black/30 text-black/40',
+  draft: 'border-black/30 text-black/40',
+}
+
+function statusBadge(job: Job): { label: string; className: string } {
+  if (!job.paid_at) {
+    return { label: 'Awaiting Payment', className: 'border-black/30 text-black/40' }
+  }
+  return { label: STATUS_LABELS[job.status], className: STATUS_BADGE_CLASSES[job.status] }
+}
+
+function formatPostedDate(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  })
+}
+
+export default function EmployerJobListItem({ job, onClosed }: Props) {
+  return (
+    <li className="border border-black p-5 flex flex-col gap-3">
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <h4 className="font-semibold text-base">{job.title}</h4>
+          <p className="text-sm text-black/60 mt-0.5">
+            {job.company} · {job.location}
+          </p>
+        </div>
+        <span
+          className={`text-xs border px-2 py-0.5 flex-shrink-0 ${statusBadge(job).className}`}
+        >
+          {statusBadge(job).label}
+        </span>
+      </div>
+
+      <div className="flex items-center gap-2 flex-wrap text-xs">
+        <span className="border border-black/20 px-2 py-0.5">
+          {CATEGORY_LABELS[job.category]}
+        </span>
+        <span className="border border-black/20 px-2 py-0.5">
+          {formatSalary(job.salary_min, job.salary_max)}
+        </span>
+        <span className="text-black/40">
+          Posted {formatPostedDate(job.created_at)}
+        </span>
+      </div>
+
+      <EmployerJobActions job={job} onClosed={onClosed} />
+    </li>
+  )
+}

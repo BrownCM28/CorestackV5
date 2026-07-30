@@ -1,42 +1,27 @@
 'use client'
 
 import { useState } from 'react'
-import type { Job, JobStatus } from '@/lib/types'
-import { CATEGORY_LABELS } from '@/lib/constants'
-import { formatSalary } from '@/lib/utils'
-import EmployerJobActions from './EmployerJobActions'
+import type { Job } from '@/lib/types'
+import EmployerJobListItem from './EmployerJobListItem'
 
 interface Props {
   jobs: Job[]
 }
 
-const STATUS_LABELS: Record<JobStatus, string> = {
+type Group = 'active' | 'inProgress' | 'closed'
+
+function jobGroup(job: Job): Group {
+  if (job.status === 'closed') return 'closed'
+  if (job.status === 'active') return 'active'
+  return 'inProgress'
+}
+
+const GROUP_ORDER: Group[] = ['active', 'inProgress', 'closed']
+
+const GROUP_LABELS: Record<Group, string> = {
   active: 'Active',
-  pending: 'Pending',
+  inProgress: 'In Progress',
   closed: 'Closed',
-  draft: 'Draft',
-}
-
-const STATUS_BADGE_CLASSES: Record<JobStatus, string> = {
-  pending: 'border-black text-black',
-  active: 'border-[#3ecf8e] text-[#3ecf8e]',
-  closed: 'border-black/30 text-black/40',
-  draft: 'border-black/30 text-black/40',
-}
-
-function statusBadge(job: Job): { label: string; className: string } {
-  if (!job.paid_at) {
-    return { label: 'Awaiting Payment', className: 'border-black/30 text-black/40' }
-  }
-  return { label: STATUS_LABELS[job.status], className: STATUS_BADGE_CLASSES[job.status] }
-}
-
-function formatPostedDate(dateStr: string): string {
-  return new Date(dateStr).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  })
 }
 
 export default function EmployerJobsList({ jobs: initialJobs }: Props) {
@@ -48,39 +33,23 @@ export default function EmployerJobsList({ jobs: initialJobs }: Props) {
     )
   }
 
+  const grouped: Record<Group, Job[]> = { active: [], inProgress: [], closed: [] }
+  jobs.forEach((job) => grouped[jobGroup(job)].push(job))
+
   return (
-    <ul className="flex flex-col gap-4">
-      {jobs.map((job) => (
-        <li key={job.id} className="border border-black p-5 flex flex-col gap-3">
-          <div className="flex items-start justify-between gap-3">
-            <div>
-              <h2 className="font-semibold text-base">{job.title}</h2>
-              <p className="text-sm text-black/60 mt-0.5">
-                {job.company} · {job.location}
-              </p>
-            </div>
-            <span
-              className={`text-xs border px-2 py-0.5 flex-shrink-0 ${statusBadge(job).className}`}
-            >
-              {statusBadge(job).label}
-            </span>
-          </div>
-
-          <div className="flex items-center gap-2 flex-wrap text-xs">
-            <span className="border border-black/20 px-2 py-0.5">
-              {CATEGORY_LABELS[job.category]}
-            </span>
-            <span className="border border-black/20 px-2 py-0.5">
-              {formatSalary(job.salary_min, job.salary_max)}
-            </span>
-            <span className="text-black/40">
-              Posted {formatPostedDate(job.created_at)}
-            </span>
-          </div>
-
-          <EmployerJobActions job={job} onClosed={handleClosed} />
-        </li>
+    <div className="flex flex-col gap-8">
+      {GROUP_ORDER.filter((group) => grouped[group].length > 0).map((group) => (
+        <div key={group} className="flex flex-col gap-4">
+          <h3 className="text-xs font-bold uppercase tracking-widest text-black/40">
+            {GROUP_LABELS[group]} ({grouped[group].length})
+          </h3>
+          <ul className="flex flex-col gap-4">
+            {grouped[group].map((job) => (
+              <EmployerJobListItem key={job.id} job={job} onClosed={handleClosed} />
+            ))}
+          </ul>
+        </div>
       ))}
-    </ul>
+    </div>
   )
 }
