@@ -90,7 +90,7 @@ export async function resumeJobCheckout(jobId: string): Promise<void> {
     .select('*')
     .eq('id', jobId)
     .eq('posted_by', user.id)
-    .single()
+    .maybeSingle()
   if (error || !job) throw new Error('Job not found.')
   if (job.paid_at) throw new Error('This job has already been paid for.')
 

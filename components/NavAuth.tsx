@@ -27,7 +27,7 @@ export default function NavAuth({ mobile = false, onNavigate }: Props) {
         .from('profiles')
         .select('user_type')
         .eq('id', userId)
-        .single()
+        .maybeSingle()
       if (!cancelled) setUserType((data?.user_type as UserType | null) ?? null)
     }
 

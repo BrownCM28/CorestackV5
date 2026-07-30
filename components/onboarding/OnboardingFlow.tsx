@@ -92,6 +92,7 @@ export default function OnboardingFlow({ userId }: Props) {
 
       document.cookie = 'cs_onboarded=1; path=/; max-age=31536000'
       router.push(next)
+      router.refresh()
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
     } finally {

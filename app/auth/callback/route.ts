@@ -27,7 +27,7 @@ export async function GET(request: Request) {
       .from('profiles')
       .select('onboarding_completed')
       .eq('id', user.id)
-      .single()
+      .maybeSingle()
 
     if (!profile?.onboarding_completed) {
       return NextResponse.redirect(`${origin}/onboarding?next=${encodeURIComponent(next)}`)

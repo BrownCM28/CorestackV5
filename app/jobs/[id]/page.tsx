@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     .from('jobs')
     .select('title, company, location, salary_min, salary_max')
     .eq('id', id)
-    .single()
+    .maybeSingle()
 
   if (!job) return { title: 'Job not found — Corestack' }
 
@@ -126,6 +126,9 @@ export default async function JobDetailPage({ params }: PageProps) {
           }
         : undefined,
     datePosted: job.created_at,
+    validThrough: new Date(
+      new Date(job.created_at).getTime() + 30 * 24 * 60 * 60 * 1000
+    ).toISOString(),
     employmentType: 'FULL_TIME',
     directApply: true,
   }
@@ -251,7 +254,7 @@ export default async function JobDetailPage({ params }: PageProps) {
               <SaveJobButton jobId={job.id} />
             </div>
             <p className="mt-3 text-[11px] text-black/35">
-              You'll be redirected to {job.company}'s application page.
+              You&apos;ll be redirected to {job.company}&apos;s application page.
             </p>
           </div>
         </main>
@@ -272,7 +275,7 @@ export default async function JobDetailPage({ params }: PageProps) {
                 <SaveJobButton jobId={job.id} />
               </div>
               <p className="mt-3 text-[11px] text-black/35">
-                You'll be redirected to {job.company}'s application page after confirming.
+                You&apos;ll be redirected to {job.company}&apos;s application page after confirming.
               </p>
             </div>
 

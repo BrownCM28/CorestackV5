@@ -181,7 +181,7 @@ describe('AuthForm', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Sign In' }))
 
     await waitFor(() => expect(mocks.push).toHaveBeenCalledWith('/'))
-    expect(mocks.refresh).not.toHaveBeenCalled()
+    expect(mocks.refresh).toHaveBeenCalled()
   })
 
   it('redirects to an explicit next param after password sign-in (e.g. a protected page bounce)', async () => {

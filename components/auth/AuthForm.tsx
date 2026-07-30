@@ -82,9 +82,7 @@ export default function AuthForm({ mode }: Props) {
       // onboarding gate — the single source of truth for that check — will
       // immediately bounce a not-yet-onboarded user to /onboarding.
       router.push(next)
-      if (next === pathname) {
-        router.refresh()
-      }
+      router.refresh()
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
       setTimeout(() => errorRef.current?.focus(), 0)

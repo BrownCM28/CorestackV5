@@ -20,16 +20,20 @@ export default function PostJobForm() {
     let cancelled = false
     const supabase = createClient()
 
-    supabase
-      .from('jobs')
-      .select('title, company, location, category, remote, description, salary_min, salary_max, apply_target')
-      .eq('id', repostId)
-      .single()
-      .then(({ data }) => {
+    async function loadSourceJob() {
+      try {
+        const { data } = await supabase
+          .from('jobs')
+          .select('title, company, location, category, remote, description, salary_min, salary_max, apply_target')
+          .eq('id', repostId as string)
+          .maybeSingle()
         if (cancelled) return
         if (data) setInitialValues(data)
-        setReady(true)
-      })
+      } finally {
+        if (!cancelled) setReady(true)
+      }
+    }
+    loadSourceJob()
 
     return () => {
       cancelled = true

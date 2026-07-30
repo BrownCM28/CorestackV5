@@ -18,24 +18,33 @@ export default function SaveJobButton({ jobId }: Props) {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    let cancelled = false
+
     async function init() {
-      const supabase = createClient()
-      const { data: { user } } = await supabase.auth.getUser()
-      setUser(user)
-      if (!user) {
-        setIsLoading(false)
-        return
+      try {
+        const supabase = createClient()
+        const { data: { user } } = await supabase.auth.getUser()
+        if (cancelled) return
+        setUser(user)
+        if (!user) return
+
+        const { data } = await supabase
+          .from('saved_jobs')
+          .select('id')
+          .eq('user_id', user.id)
+          .eq('job_id', jobId)
+          .maybeSingle()
+        if (cancelled) return
+        setIsSaved(!!data)
+      } finally {
+        if (!cancelled) setIsLoading(false)
       }
-      const { data } = await supabase
-        .from('saved_jobs')
-        .select('id')
-        .eq('user_id', user.id)
-        .eq('job_id', jobId)
-        .single()
-      setIsSaved(!!data)
-      setIsLoading(false)
     }
     init()
+
+    return () => {
+      cancelled = true
+    }
   }, [jobId])
 
   async function handleClick() {

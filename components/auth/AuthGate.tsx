@@ -26,10 +26,19 @@ export default function AuthGate({ jobId }: Props) {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
+    let cancelled = false
     const supabase = createClient()
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      setAuthStatus(user ? 'authed' : 'guest')
-    })
+    supabase
+      .auth.getUser()
+      .then(({ data: { user } }) => {
+        if (!cancelled) setAuthStatus(user ? 'authed' : 'guest')
+      })
+      .catch(() => {
+        if (!cancelled) setAuthStatus('guest')
+      })
+    return () => {
+      cancelled = true
+    }
   }, [])
 
   async function handleApply() {
@@ -58,7 +67,7 @@ export default function AuthGate({ jobId }: Props) {
           aria-live="polite"
           className="border border-[#3ecf8e] bg-[#3ecf8e]/10 px-4 py-3 text-sm"
         >
-          Application recorded — the employer's application page has opened in a new tab.
+          Application recorded — the employer&apos;s application page has opened in a new tab.
         </div>
       ) : (
         <button

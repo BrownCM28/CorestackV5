@@ -25,7 +25,7 @@ export default async function EditJobPage({ params }: PageProps) {
     .select('*')
     .eq('id', id)
     .eq('posted_by', user.id)
-    .single()
+    .maybeSingle()
 
   if (error || !job) redirect('/dashboard/employer')
 

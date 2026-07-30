@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
 
-const ONBOARDING_EXCLUDED_PREFIXES = ['/onboarding', '/auth', '/api']
+const ONBOARDING_EXCLUDED_PREFIXES = ['/onboarding', '/auth', '/api', '/admin']
 const ONBOARDING_EXCLUDED_EXACT = ['/signin', '/signup']
 
 function isExcludedFromOnboardingCheck(pathname: string): boolean {
@@ -45,7 +45,7 @@ export async function middleware(request: NextRequest) {
         .from('profiles')
         .select('onboarding_completed')
         .eq('id', user.id)
-        .single()
+        .maybeSingle()
 
       if (profile?.onboarding_completed) {
         response.cookies.set('cs_onboarded', '1', {

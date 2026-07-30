@@ -21,7 +21,7 @@ export default async function DashboardPage() {
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single()
+    .maybeSingle()
 
   if (profile?.user_type === 'employer') {
     redirect('/dashboard/employer')

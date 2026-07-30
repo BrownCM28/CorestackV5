@@ -3,6 +3,7 @@ export default function robots() {
     rules: {
       userAgent: '*',
       allow: '/',
+      disallow: ['/admin', '/dashboard'],
     },
     sitemap: 'https://corestack-v1-5nci.vercel.app/sitemap.xml',
   }

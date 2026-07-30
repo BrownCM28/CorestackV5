@@ -15,8 +15,9 @@ export async function applyToJob(
     .from('jobs')
     .select('apply_target')
     .eq('id', jobId)
-    .single()
+    .maybeSingle()
   if (jobError) throw jobError
+  if (!job) throw new Error('Job not found.')
 
   await supabase
     .from('applications')

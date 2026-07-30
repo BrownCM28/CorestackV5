@@ -14,7 +14,7 @@ vi.mock('@/lib/supabase/server', () => ({
     from: () => ({
       select: () => ({
         eq: () => ({
-          single: mocks.single,
+          maybeSingle: mocks.single,
         }),
       }),
     }),

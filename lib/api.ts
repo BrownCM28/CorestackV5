@@ -87,8 +87,9 @@ export async function getJob(id: string): Promise<Job> {
     .from('jobs')
     .select('*')
     .eq('id', id)
-    .single()
+    .maybeSingle()
   if (error) throw error
+  if (!data) throw new Error('Job not found.')
   return data
 }
 
