@@ -14,14 +14,26 @@ const REAL_LOGOS: Record<string, LogoConfig> = {
   'Meta':               { src: '/Company Logos/Metalogo.png', scale: 1.9 },
   'Schneider Electric': { src: '/Company Logos/SchneiderElectriclogo.webp' },
   'Turner Construction':{ src: '/Company Logos/Turner Logo.webp' },
-  // The live jobs table uses "Amazon Web Services (AWS)", not "Amazon Web
-  // Services" -- the old key here never actually matched any real row.
+  // The jobs table uses the bare company name, not the legacy long form --
+  // keep both keys since older mock data may still reference the long form.
+  'AWS': { src: '/Company Logos/AWSlogo.webp' },
   'Amazon Web Services (AWS)': { src: '/Company Logos/AWSlogo.webp' },
 
   'Google': { src: '/Company Logos/Google.webp' },
+  'Oracle': { src: '/Company Logos/images (4).png' },
   'Graycor': { src: '/Company Logos/Graycor.png' },
   'Milestone Technologies, Inc.': { src: '/Company Logos/Milestone-Technologies-Logo-247x135-2.png.webp' },
+  'Mortenson': { src: '/Company Logos/Mortenson.jpg' },
   'Mortenson Construction': { src: '/Company Logos/Mortenson.jpg' },
+  'Holder Construction': { src: '/Company Logos/Holder-construction.jpg' },
+  'Compass Datacenters': { src: '/Company Logos/compass-datacenters-logo.png' },
+  'Digital Realty': { src: '/Company Logos/Digital_Realty_Black_Logo.jpg' },
+  'QTS': { src: '/Company Logos/QTS-Datacenters.jpg' },
+  'QTS Data Centers': { src: '/Company Logos/QTS-Datacenters.jpg' },
+  'Microsoft': { src: '/Company Logos/Microsoft-logo.png' },
+  'Vantage Data Centers': { src: '/Company Logos/Vantage_Logo.jpg' },
+  'Stack Infrastructure': { src: '/Company Logos/images (5).jpeg' },
+  'NTT Global Data Centers': { src: '/Company Logos/ntt_global_data_centers_americas_logo.jpeg' },
   'Schweitzer Engineering Laboratories': { src: '/Company Logos/Schweitzer.png' },
   'Schweitzer Engineering Laboratories, Inc.': { src: '/Company Logos/Schweitzer.png' },
   'Wesco': { src: '/Company Logos/WESCO_Logo.jpg' },
