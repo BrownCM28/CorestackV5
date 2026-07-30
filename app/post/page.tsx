@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import PostJobForm from '@/components/post/PostJobForm'
 
@@ -14,7 +15,9 @@ export default function PostJobPage() {
         <p className="text-black/50 text-sm mb-10">
           Your listing will be live immediately after checkout.
         </p>
-        <PostJobForm />
+        <Suspense fallback={<p className="text-sm text-black/50">Loading…</p>}>
+          <PostJobForm />
+        </Suspense>
       </div>
     </div>
   )

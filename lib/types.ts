@@ -32,6 +32,8 @@ export interface Job {
   status: JobStatus
   paid_amount_cents: number
   paid_at: string | null
+  is_featured: boolean
+  updated_at: string
 }
 
 export interface Application {
@@ -112,3 +114,27 @@ export interface CreateJobPayload {
 
 export type ApplicationWithJob = Application & { job: Job }
 export type SavedJobWithJob = SavedJob & { job: Job }
+
+export interface CompanyProfile {
+  id: string
+  user_id: string
+  company_name: string | null
+  tagline: string | null
+  logo_url: string | null
+  about: string | null
+  industry_focus: string[] | null
+  founded_year: number | null
+  headquarters: string | null
+  markets: string[] | null
+  total_mw_capacity: string | null
+  num_data_centers: number | null
+  careers_url: string | null
+  website_url: string | null
+  linkedin_url: string | null
+  hiring_contact_email: string | null
+  hiring_categories: Category[] | null
+  avg_hires_per_year: number | null
+  interested_in_featured: boolean
+  created_at: string
+  updated_at: string
+}

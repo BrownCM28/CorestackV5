@@ -23,6 +23,8 @@ export const MOCK_JOBS: Job[] = [
     status: 'active',
     paid_amount_cents: 9900,
     paid_at: new Date().toISOString(),
+    is_featured: false,
+    updated_at: new Date().toISOString(),
   },
   {
     id: 'mock-ops-2',
@@ -41,6 +43,8 @@ export const MOCK_JOBS: Job[] = [
     status: 'active',
     paid_amount_cents: 9900,
     paid_at: new Date().toISOString(),
+    is_featured: false,
+    updated_at: new Date().toISOString(),
   },
   {
     id: 'mock-ops-3',
@@ -59,6 +63,8 @@ export const MOCK_JOBS: Job[] = [
     status: 'active',
     paid_amount_cents: 9900,
     paid_at: new Date().toISOString(),
+    is_featured: false,
+    updated_at: new Date().toISOString(),
   },
   {
     id: 'mock-ops-4',
@@ -77,6 +83,8 @@ export const MOCK_JOBS: Job[] = [
     status: 'active',
     paid_amount_cents: 9900,
     paid_at: new Date().toISOString(),
+    is_featured: false,
+    updated_at: new Date().toISOString(),
   },
   {
     id: 'mock-ops-5',
@@ -95,6 +103,8 @@ export const MOCK_JOBS: Job[] = [
     status: 'active',
     paid_amount_cents: 9900,
     paid_at: new Date().toISOString(),
+    is_featured: false,
+    updated_at: new Date().toISOString(),
   },
 
   // Construction
@@ -115,6 +125,8 @@ export const MOCK_JOBS: Job[] = [
     status: 'active',
     paid_amount_cents: 9900,
     paid_at: new Date().toISOString(),
+    is_featured: false,
+    updated_at: new Date().toISOString(),
   },
   {
     id: 'mock-con-2',
@@ -133,6 +145,8 @@ export const MOCK_JOBS: Job[] = [
     status: 'active',
     paid_amount_cents: 9900,
     paid_at: new Date().toISOString(),
+    is_featured: false,
+    updated_at: new Date().toISOString(),
   },
   {
     id: 'mock-con-3',
@@ -151,6 +165,8 @@ export const MOCK_JOBS: Job[] = [
     status: 'active',
     paid_amount_cents: 9900,
     paid_at: new Date().toISOString(),
+    is_featured: false,
+    updated_at: new Date().toISOString(),
   },
   {
     id: 'mock-con-4',
@@ -169,6 +185,8 @@ export const MOCK_JOBS: Job[] = [
     status: 'active',
     paid_amount_cents: 9900,
     paid_at: new Date().toISOString(),
+    is_featured: false,
+    updated_at: new Date().toISOString(),
   },
 
   // Electrical / Power
@@ -189,6 +207,8 @@ export const MOCK_JOBS: Job[] = [
     status: 'active',
     paid_amount_cents: 9900,
     paid_at: new Date().toISOString(),
+    is_featured: false,
+    updated_at: new Date().toISOString(),
   },
   {
     id: 'mock-elec-2',
@@ -207,6 +227,8 @@ export const MOCK_JOBS: Job[] = [
     status: 'active',
     paid_amount_cents: 9900,
     paid_at: new Date().toISOString(),
+    is_featured: false,
+    updated_at: new Date().toISOString(),
   },
   {
     id: 'mock-elec-3',
@@ -225,6 +247,8 @@ export const MOCK_JOBS: Job[] = [
     status: 'active',
     paid_amount_cents: 9900,
     paid_at: new Date().toISOString(),
+    is_featured: false,
+    updated_at: new Date().toISOString(),
   },
   {
     id: 'mock-elec-4',
@@ -243,6 +267,8 @@ export const MOCK_JOBS: Job[] = [
     status: 'active',
     paid_amount_cents: 9900,
     paid_at: new Date().toISOString(),
+    is_featured: false,
+    updated_at: new Date().toISOString(),
   },
 
   // Cooling / Mechanical
@@ -263,6 +289,8 @@ export const MOCK_JOBS: Job[] = [
     status: 'active',
     paid_amount_cents: 9900,
     paid_at: new Date().toISOString(),
+    is_featured: false,
+    updated_at: new Date().toISOString(),
   },
   {
     id: 'mock-cool-2',
@@ -281,6 +309,8 @@ export const MOCK_JOBS: Job[] = [
     status: 'active',
     paid_amount_cents: 9900,
     paid_at: new Date().toISOString(),
+    is_featured: false,
+    updated_at: new Date().toISOString(),
   },
   {
     id: 'mock-cool-3',
@@ -299,6 +329,8 @@ export const MOCK_JOBS: Job[] = [
     status: 'active',
     paid_amount_cents: 9900,
     paid_at: new Date().toISOString(),
+    is_featured: false,
+    updated_at: new Date().toISOString(),
   },
   {
     id: 'mock-cool-4',
@@ -317,6 +349,8 @@ export const MOCK_JOBS: Job[] = [
     status: 'active',
     paid_amount_cents: 9900,
     paid_at: new Date().toISOString(),
+    is_featured: false,
+    updated_at: new Date().toISOString(),
   },
 
   // Networking
@@ -337,6 +371,8 @@ export const MOCK_JOBS: Job[] = [
     status: 'active',
     paid_amount_cents: 9900,
     paid_at: new Date().toISOString(),
+    is_featured: false,
+    updated_at: new Date().toISOString(),
   },
   {
     id: 'mock-net-2',
@@ -355,6 +391,8 @@ export const MOCK_JOBS: Job[] = [
     status: 'active',
     paid_amount_cents: 9900,
     paid_at: new Date().toISOString(),
+    is_featured: false,
+    updated_at: new Date().toISOString(),
   },
   {
     id: 'mock-net-3',
@@ -373,6 +411,8 @@ export const MOCK_JOBS: Job[] = [
     status: 'active',
     paid_amount_cents: 9900,
     paid_at: new Date().toISOString(),
+    is_featured: false,
+    updated_at: new Date().toISOString(),
   },
   {
     id: 'mock-net-4',
@@ -391,5 +431,7 @@ export const MOCK_JOBS: Job[] = [
     status: 'active',
     paid_amount_cents: 9900,
     paid_at: new Date().toISOString(),
+    is_featured: false,
+    updated_at: new Date().toISOString(),
   },
 ]

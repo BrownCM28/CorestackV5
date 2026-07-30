@@ -38,6 +38,15 @@ export const MARKET_LIST = [
   'Other',
 ] as const
 
+export const INDUSTRY_FOCUS_LIST = [
+  'Hyperscale',
+  'Colocation',
+  'Edge',
+  'Construction & Development',
+  'Managed Services',
+  'Cloud',
+] as const
+
 export const SKILL_LIST = [
   'CompTIA Server+',
   'CompTIA Network+',

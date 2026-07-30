@@ -1,13 +1,40 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { createClient } from '@/lib/supabase/client'
 import { CATEGORY_LIST, CATEGORY_LABELS } from '@/lib/constants'
 import type { CreateJobPayload, Category } from '@/lib/types'
 
 export default function PostJobForm() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const repostId = searchParams.get('repost')
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [initialValues, setInitialValues] = useState<Partial<CreateJobPayload> | null>(null)
+  const [ready, setReady] = useState(!repostId)
+
+  useEffect(() => {
+    if (!repostId) return
+
+    let cancelled = false
+    const supabase = createClient()
+
+    supabase
+      .from('jobs')
+      .select('title, company, location, category, remote, description, salary_min, salary_max, apply_target')
+      .eq('id', repostId)
+      .single()
+      .then(({ data }) => {
+        if (cancelled) return
+        if (data) setInitialValues(data)
+        setReady(true)
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [repostId])
 
   function validate(data: Record<string, string>): Record<string, string> {
     const errs: Record<string, string> = {}
@@ -59,20 +86,24 @@ export default function PostJobForm() {
     }`
   }
 
+  if (!ready) {
+    return <p className="text-sm text-black/50">Loading…</p>
+  }
+
   return (
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-6 max-w-2xl">
 
       {/* Title */}
       <div className="flex flex-col gap-1.5">
         <label htmlFor="field-title" className="text-sm font-medium">Job Title <span aria-hidden="true">*</span></label>
-        <input id="field-title" name="title" type="text" placeholder="e.g. Data Center Technician II…" autoComplete="off" className={fieldClass('title')} />
+        <input id="field-title" name="title" type="text" defaultValue={initialValues?.title} placeholder="e.g. Data Center Technician II…" autoComplete="off" className={fieldClass('title')} />
         {errors.title && <p role="alert" className="text-xs text-red-600">{errors.title}</p>}
       </div>
 
       {/* Company */}
       <div className="flex flex-col gap-1.5">
         <label htmlFor="field-company" className="text-sm font-medium">Company <span aria-hidden="true">*</span></label>
-        <input id="field-company" name="company" type="text" placeholder="Company name…" autoComplete="organization" className={fieldClass('company')} />
+        <input id="field-company" name="company" type="text" defaultValue={initialValues?.company} placeholder="Company name…" autoComplete="organization" className={fieldClass('company')} />
         {errors.company && <p role="alert" className="text-xs text-red-600">{errors.company}</p>}
       </div>
 
@@ -80,11 +111,11 @@ export default function PostJobForm() {
       <div className="flex gap-4 flex-wrap">
         <div className="flex flex-col gap-1.5 flex-1 min-w-48">
           <label htmlFor="field-location" className="text-sm font-medium">Location <span aria-hidden="true">*</span></label>
-          <input id="field-location" name="location" type="text" placeholder="e.g. Ashburn, VA…" autoComplete="off" className={fieldClass('location')} />
+          <input id="field-location" name="location" type="text" defaultValue={initialValues?.location} placeholder="e.g. Ashburn, VA…" autoComplete="off" className={fieldClass('location')} />
           {errors.location && <p role="alert" className="text-xs text-red-600">{errors.location}</p>}
         </div>
         <label className="flex items-center gap-2 text-sm cursor-pointer pt-6">
-          <input name="remote" type="checkbox" className="w-4 h-4 border border-black accent-[#3ecf8e]" />
+          <input name="remote" type="checkbox" defaultChecked={initialValues?.remote} className="w-4 h-4 border border-black accent-[#3ecf8e]" />
           Remote role
         </label>
       </div>
@@ -92,7 +123,7 @@ export default function PostJobForm() {
       {/* Category */}
       <div className="flex flex-col gap-1.5">
         <label htmlFor="field-category" className="text-sm font-medium">Category <span aria-hidden="true">*</span></label>
-        <select id="field-category" name="category" defaultValue="" className={fieldClass('category')}>
+        <select id="field-category" name="category" defaultValue={initialValues?.category ?? ''} className={fieldClass('category')}>
           <option value="" disabled>Select a category…</option>
           {CATEGORY_LIST.map(c => (
             <option key={c} value={c}>{CATEGORY_LABELS[c]}</option>
@@ -105,11 +136,11 @@ export default function PostJobForm() {
       <div className="flex gap-4 flex-wrap">
         <div className="flex flex-col gap-1.5 flex-1 min-w-32">
           <label htmlFor="field-salary_min" className="text-sm font-medium">Salary Min (USD)</label>
-          <input id="field-salary_min" name="salary_min" type="number" inputMode="numeric" min={0} placeholder="e.g. 70000…" className={fieldClass('salary_min')} />
+          <input id="field-salary_min" name="salary_min" type="number" inputMode="numeric" min={0} defaultValue={initialValues?.salary_min ?? undefined} placeholder="e.g. 70000…" className={fieldClass('salary_min')} />
         </div>
         <div className="flex flex-col gap-1.5 flex-1 min-w-32">
           <label htmlFor="field-salary_max" className="text-sm font-medium">Salary Max (USD)</label>
-          <input id="field-salary_max" name="salary_max" type="number" inputMode="numeric" min={0} placeholder="e.g. 90000…" className={fieldClass('salary_max')} />
+          <input id="field-salary_max" name="salary_max" type="number" inputMode="numeric" min={0} defaultValue={initialValues?.salary_max ?? undefined} placeholder="e.g. 90000…" className={fieldClass('salary_max')} />
         </div>
       </div>
 
@@ -123,6 +154,7 @@ export default function PostJobForm() {
           id="field-description"
           name="description"
           rows={10}
+          defaultValue={initialValues?.description}
           placeholder="Describe the role, responsibilities, and requirements…"
           className={fieldClass('description') + ' resize-y'}
         />
@@ -138,6 +170,7 @@ export default function PostJobForm() {
           id="field-apply_target"
           name="apply_target"
           type="text"
+          defaultValue={initialValues?.apply_target}
           placeholder="https://company.com/apply or jobs@company.com…"
           autoComplete="off"
           className={fieldClass('apply_target')}

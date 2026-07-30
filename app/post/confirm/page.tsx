@@ -12,8 +12,10 @@ function toPreviewJob(draft: CreateJobPayload): Job {
     id: 'preview',
     posted_by: null,
     created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
     status: 'active',
     paid_at: null,
+    is_featured: false,
     // Real amount is set by the Stripe webhook once payment completes —
     // JobCard never displays this field, so the placeholder is invisible.
     paid_amount_cents: 0,
