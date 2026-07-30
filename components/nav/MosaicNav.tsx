@@ -30,7 +30,7 @@ export default function MosaicNav() {
             alt="Corestack"
             width={120}
             height={28}
-            className="h-7 w-auto object-contain"
+            className="h-8 w-auto object-contain"
             priority
           />
         </Link>

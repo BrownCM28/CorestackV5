@@ -151,17 +151,24 @@ export default function HomeClient({ jobs, news }: Props) {
     <>
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
       <section
-        className="relative flex flex-col items-center justify-center px-6 py-28 sm:py-36 text-center overflow-hidden mx-4 sm:mx-6 mt-4"
+        className="relative flex flex-col items-center justify-center px-6 py-16 sm:py-28 lg:py-36 text-center overflow-hidden mx-4 sm:mx-6 mt-4"
         style={{ backgroundColor: '#e5e5e5', borderRadius: '20px' }}
       >
-        {/* Background photo */}
+        {/* Background photo — the hero grows tall and narrow on mobile
+            (long heading + stacked search/filters/logos), and this photo is
+            a wide 16:9 aerial shot. object-cover on that mismatched ratio
+            crops away nearly all of the image's width, leaving what reads
+            as a broken, "cut off" background. object-contain below `sm`
+            keeps the whole photo visible, letterboxed against the section's
+            own #e5e5e5 fill (a near-match for the image's light palette),
+            then switches back to a full-bleed cover once the container is
+            short enough for that crop to look intentional again. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/backgroundimage/hero-datacenter.png"
           alt=""
           aria-hidden="true"
-          className="absolute inset-0 w-full h-full"
-          style={{ objectFit: 'cover', objectPosition: 'center 40%' }}
+          className="absolute inset-0 w-full h-full object-contain object-center sm:object-cover sm:[object-position:center_40%]"
         />
         {/* Light overlay at top for black-text legibility, fades to white at bottom */}
         <div
@@ -184,7 +191,7 @@ export default function HomeClient({ jobs, news }: Props) {
 
         {/* Content sits above image + overlay */}
         <div className="relative z-10 flex flex-col items-center w-full">
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-[5.25rem] font-black uppercase tracking-tight leading-none text-balance max-w-4xl text-black">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.25rem] font-black uppercase tracking-tight leading-none text-balance max-w-4xl text-black">
             Infrastructure Jobs For The People Who Keep The World Running.
           </h1>
 
