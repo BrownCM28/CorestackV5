@@ -17,6 +17,7 @@ export function formatSalary(
       maximumFractionDigits: 0,
     }).format(n)
 
+  if (min && max && min === max) return fmt(min)
   if (min && max) return `${fmt(min)} – ${fmt(max)}`
   if (min) return `From ${fmt(min)}`
   if (max) return `Up to ${fmt(max)}`
