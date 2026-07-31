@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
 import MosaicNav from '@/components/nav/MosaicNav'
 import NewsTicker from '@/components/nav/NewsTicker'
 import { getNews } from '@/lib/api'
@@ -57,6 +58,7 @@ export default async function RootLayout({
             <p>Built for the data center industry.</p>
           </div>
         </footer>
+        <Analytics />
       </body>
     </html>
   )
