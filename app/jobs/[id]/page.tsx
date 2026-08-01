@@ -219,6 +219,18 @@ export default async function JobDetailPage({ params }: PageProps) {
               </div>
             </div>
           </div>
+
+          {/* Mobile/tablet apply — sidebar CTA is hidden below xl, so surface
+              one here too rather than making users scroll past the full
+              description to find the bottom apply button. */}
+          <div className="mt-8 pt-6 border-t border-black/10 xl:hidden">
+            <div className="flex items-start gap-2">
+              <div className="flex-1">
+                <AuthGate jobId={job.id} />
+              </div>
+              <SaveJobButton jobId={job.id} />
+            </div>
+          </div>
         </div>
       </section>
 

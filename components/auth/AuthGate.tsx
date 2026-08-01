@@ -21,6 +21,7 @@ type AuthStatus = 'loading' | 'authed' | 'guest'
 export default function AuthGate({ jobId }: Props) {
   const [authStatus, setAuthStatus] = useState<AuthStatus>('loading')
   const [dialogOpen, setDialogOpen] = useState(false)
+  const [dialogMode, setDialogMode] = useState<'signin' | 'signup'>('signin')
   const [applying, setApplying] = useState(false)
   const [applied, setApplied] = useState(false)
   const [justApplied, setJustApplied] = useState(false)
@@ -131,15 +132,45 @@ export default function AuthGate({ jobId }: Props) {
         </p>
       )}
 
-      <Dialog open={dialogOpen} onOpenChange={(open) => setDialogOpen(open)}>
+      <Dialog
+        open={dialogOpen}
+        onOpenChange={(open) => {
+          setDialogOpen(open)
+          if (!open) setDialogMode('signin')
+        }}
+      >
         <DialogContent className="sm:max-w-sm">
           <DialogHeader>
-            <DialogTitle>Sign in to Apply</DialogTitle>
+            <DialogTitle>
+              {dialogMode === 'signin' ? 'Sign In to Apply' : 'Create an Account to Apply'}
+            </DialogTitle>
             <DialogDescription>
-              Create a free account or sign in to apply for this job.
+              {dialogMode === 'signin' ? (
+                <>
+                  Don&apos;t have an account?{' '}
+                  <button
+                    type="button"
+                    onClick={() => setDialogMode('signup')}
+                    className="text-black underline hover:text-[#3ecf8e] transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
+                  >
+                    Sign up
+                  </button>
+                </>
+              ) : (
+                <>
+                  Already have an account?{' '}
+                  <button
+                    type="button"
+                    onClick={() => setDialogMode('signin')}
+                    className="text-black underline hover:text-[#3ecf8e] transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
+                  >
+                    Sign in
+                  </button>
+                </>
+              )}
             </DialogDescription>
           </DialogHeader>
-          <AuthForm mode="signin" />
+          <AuthForm mode={dialogMode} />
         </DialogContent>
       </Dialog>
     </div>
