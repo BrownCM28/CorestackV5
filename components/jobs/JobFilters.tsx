@@ -40,9 +40,9 @@ export default function JobFilters() {
       {/* Search + location + remote */}
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="flex flex-wrap w-full border border-black bg-white"
+        className="flex flex-col sm:flex-row w-full border border-black bg-white"
       >
-        <div className="flex flex-1 items-center border-r border-black px-4 min-w-48">
+        <div className="flex items-center border-b sm:border-b-0 sm:border-r border-black px-4 sm:flex-1 sm:min-w-48">
           <Search size={14} className="text-black/30 flex-shrink-0 mr-3" aria-hidden="true" />
           <label htmlFor="job-search" className="sr-only">
             Search jobs
@@ -58,7 +58,7 @@ export default function JobFilters() {
           />
         </div>
 
-        <div className="flex flex-1 items-center border-r border-black px-4 min-w-48">
+        <div className="flex items-center border-b sm:border-b-0 sm:border-r border-black px-4 sm:flex-1 sm:min-w-48">
           <MapPin size={14} className="text-black/30 flex-shrink-0 mr-3" aria-hidden="true" />
           <label htmlFor="job-location" className="sr-only">
             Location
@@ -76,7 +76,7 @@ export default function JobFilters() {
 
         <label
           htmlFor="job-remote"
-          className="flex items-center gap-2 px-4 text-sm cursor-pointer select-none whitespace-nowrap hover:bg-[#3ecf8e]/10 transition-colors duration-150"
+          className="flex items-center gap-2 px-4 py-3 sm:py-0 border-b sm:border-b-0 sm:border-r border-black text-sm cursor-pointer select-none whitespace-nowrap hover:bg-[#3ecf8e]/10 transition-colors duration-150"
         >
           <input
             id="job-remote"
@@ -92,7 +92,7 @@ export default function JobFilters() {
 
         <button
           type="submit"
-          className="bg-black text-white px-6 text-sm font-medium whitespace-nowrap transition-colors duration-150 hover:bg-[#3ecf8e] hover:text-black focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-inset outline-none"
+          className="bg-black text-white px-6 py-3.5 sm:py-0 text-sm font-medium whitespace-nowrap transition-colors duration-150 hover:bg-[#3ecf8e] hover:text-black focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-inset outline-none"
         >
           Search
         </button>
