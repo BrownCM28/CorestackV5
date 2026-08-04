@@ -1,16 +1,27 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, act, waitFor } from '@testing-library/react'
 import AuthGate from '../AuthGate'
 
 const mocks = vi.hoisted(() => ({
   getUser: vi.fn(),
   maybeSingle: vi.fn(),
   applyToJob: vi.fn(),
+  authStateCallback: null as
+    | ((event: string, session: { user: typeof USER } | null) => void)
+    | null,
 }))
 
 vi.mock('@/lib/supabase/client', () => ({
   createClient: () => ({
-    auth: { getUser: mocks.getUser },
+    auth: {
+      getUser: mocks.getUser,
+      onAuthStateChange: (
+        cb: (event: string, session: { user: typeof USER } | null) => void
+      ) => {
+        mocks.authStateCallback = cb
+        return { data: { subscription: { unsubscribe: () => {} } } }
+      },
+    },
     from: () => ({
       select: () => ({
         eq: () => ({
@@ -25,6 +36,12 @@ vi.mock('@/lib/supabase/client', () => ({
 
 vi.mock('@/app/actions/applications', () => ({
   applyToJob: mocks.applyToJob,
+}))
+
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ push: () => {}, refresh: () => {} }),
+  useSearchParams: () => new URLSearchParams(),
+  usePathname: () => '/jobs/job-1',
 }))
 
 const USER = { id: 'user-1', email: 'test@example.com' }
@@ -81,5 +98,43 @@ describe('AuthGate', () => {
 
     const button = await screen.findByRole('button', { name: 'Apply for This Job' })
     expect(button).not.toBeDisabled()
+  })
+
+  it('lets a guest apply after signing in from the dialog, without navigating away', async () => {
+    mocks.getUser.mockResolvedValue({ data: { user: null } })
+    mocks.applyToJob.mockResolvedValue({ apply_target: 'https://example.com/careers/123' })
+    const openSpy = vi.spyOn(window, 'open').mockImplementation(() => null)
+
+    render(<AuthGate jobId="job-1" />)
+
+    const button = await screen.findByRole('button', { name: 'Apply for This Job' })
+    button.click()
+
+    expect(await screen.findByText('Sign In to Apply')).toBeInTheDocument()
+
+    // Simulate the AuthForm inside the dialog completing a sign-in — this
+    // is what Supabase's onAuthStateChange fires, without a page reload.
+    act(() => {
+      mocks.authStateCallback?.('SIGNED_IN', { user: USER })
+    })
+
+    await waitFor(() =>
+      expect(screen.queryByText('Sign In to Apply')).not.toBeInTheDocument()
+    )
+
+    button.click()
+
+    expect(
+      await screen.findByText(
+        "Application recorded — the employer's application page has opened in a new tab."
+      )
+    ).toBeInTheDocument()
+    expect(openSpy).toHaveBeenCalledWith(
+      'https://example.com/careers/123',
+      '_blank',
+      'noopener,noreferrer'
+    )
+
+    openSpy.mockRestore()
   })
 })

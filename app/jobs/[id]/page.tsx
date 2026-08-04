@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: `${job.title} at ${job.company}`,
       description,
-      url: `https://corestack-v1-5nci.vercel.app/jobs/${id}`,
+      url: `https://corestackjobs.com/jobs/${id}`,
       siteName: 'Corestack',
       type: 'website',
     },
@@ -372,7 +372,7 @@ export default async function JobDetailPage({ params }: PageProps) {
               </p>
               <div className="flex gap-2">
                 <a
-                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://corestack.io/jobs/${job.id}`)}`}
+                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://corestackjobs.com/jobs/${job.id}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 text-center text-[11px] border border-black px-3 py-2 transition-colors hover:bg-[#3ecf8e] hover:text-black focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
@@ -380,7 +380,7 @@ export default async function JobDetailPage({ params }: PageProps) {
                   LinkedIn
                 </a>
                 <a
-                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${job.title} at ${job.company} — via @corestack`)}&url=${encodeURIComponent(`https://corestack.io/jobs/${job.id}`)}`}
+                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${job.title} at ${job.company} — via @corestack`)}&url=${encodeURIComponent(`https://corestackjobs.com/jobs/${job.id}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 text-center text-[11px] border border-black px-3 py-2 transition-colors hover:bg-[#3ecf8e] hover:text-black focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"

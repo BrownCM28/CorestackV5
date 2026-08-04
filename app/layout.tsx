@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
   description:
     'The job board for the people building the cloud. Operations, construction, power, cooling, and networking roles across the data center industry.',
-  metadataBase: new URL('https://corestack-v1-5nci.vercel.app'),
+  metadataBase: new URL('https://corestackjobs.com'),
   openGraph: {
     siteName: 'Corestack',
     type: 'website',

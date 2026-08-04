@@ -5,6 +5,6 @@ export default function robots() {
       allow: '/',
       disallow: ['/admin', '/dashboard'],
     },
-    sitemap: 'https://corestack-v1-5nci.vercel.app/sitemap.xml',
+    sitemap: 'https://corestackjobs.com/sitemap.xml',
   }
 }

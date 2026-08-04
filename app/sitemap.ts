@@ -8,7 +8,7 @@ export default async function sitemap() {
     .eq('status', 'active')
 
   const jobUrls = (jobs ?? []).map((job) => ({
-    url: `https://corestack-v1-5nci.vercel.app/jobs/${job.id}`,
+    url: `https://corestackjobs.com/jobs/${job.id}`,
     lastModified: job.created_at,
     changeFrequency: 'weekly' as const,
     priority: 0.8,
@@ -16,13 +16,13 @@ export default async function sitemap() {
 
   return [
     {
-      url: 'https://corestack-v1-5nci.vercel.app',
+      url: 'https://corestackjobs.com',
       lastModified: new Date().toISOString(),
       changeFrequency: 'daily' as const,
       priority: 1,
     },
     {
-      url: 'https://corestack-v1-5nci.vercel.app/jobs',
+      url: 'https://corestackjobs.com/jobs',
       lastModified: new Date().toISOString(),
       changeFrequency: 'daily' as const,
       priority: 0.9,

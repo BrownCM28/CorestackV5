@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: 'Data Center Jobs — Corestack',
     description:
       'Browse open roles in data center construction, operations, critical power, cooling, and networking.',
-    url: 'https://corestack-v1-5nci.vercel.app/jobs',
+    url: 'https://corestackjobs.com/jobs',
     siteName: 'Corestack',
     type: 'website',
   },

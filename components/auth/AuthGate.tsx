@@ -32,30 +32,18 @@ export default function AuthGate({ jobId }: Props) {
     let cancelled = false
     const supabase = createClient()
 
-    async function init() {
-      let user = null
-      try {
-        const res = await supabase.auth.getUser()
-        user = res.data.user
-      } catch {
-        if (!cancelled) setAuthStatus('guest')
-        return
-      }
-      if (cancelled) return
-      setAuthStatus(user ? 'authed' : 'guest')
-      if (!user) return
-
-      // Re-derive "already applied" from the database rather than only
-      // from in-session state, so returning to this page (back button,
-      // reopening the tab, a hard refresh) still shows the confirmation
-      // instead of resetting to a fresh "Apply" button. Best-effort: any
-      // failure here just leaves the button in its default state.
+    // Re-derive "already applied" from the database rather than only from
+    // in-session state, so returning to this page (back button, reopening
+    // the tab, a hard refresh) still shows the confirmation instead of
+    // resetting to a fresh "Apply" button. Best-effort: any failure here
+    // just leaves the button in its default state.
+    async function loadApplied(userId: string) {
       try {
         const { data } = await supabase
           .from('applications')
           .select('id, job:jobs(apply_target)')
           .eq('job_id', jobId)
-          .eq('applicant_id', user.id)
+          .eq('applicant_id', userId)
           .maybeSingle()
         if (cancelled || !data) return
         setApplied(true)
@@ -65,10 +53,51 @@ export default function AuthGate({ jobId }: Props) {
         // ignore — already-applied indicator is a nice-to-have, not required
       }
     }
+
+    async function init() {
+      let user = null
+      try {
+        // A stale/corrupted session (eg. a leftover auth token from a
+        // previous Supabase project config) can make this hang instead of
+        // rejecting, which would leave the apply button disabled forever.
+        // Fail open to "guest" after a timeout so it's never stuck.
+        const res = await Promise.race([
+          supabase.auth.getUser(),
+          new Promise<never>((_, reject) =>
+            setTimeout(() => reject(new Error('auth check timed out')), 6000)
+          ),
+        ])
+        user = res.data.user
+      } catch {
+        if (!cancelled) setAuthStatus('guest')
+        return
+      }
+      if (cancelled) return
+      setAuthStatus(user ? 'authed' : 'guest')
+      if (user) loadApplied(user.id)
+    }
     init()
+
+    // Signing in/up from the dialog happens without a full page reload, so
+    // without this listener `authStatus` would stay "guest" afterwards —
+    // the button would just keep reopening the sign-in dialog instead of
+    // ever letting a freshly-authenticated user actually apply.
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      if (cancelled) return
+      if (event === 'SIGNED_OUT') {
+        setAuthStatus('guest')
+      } else if (session?.user) {
+        setAuthStatus('authed')
+        setDialogOpen(false)
+        loadApplied(session.user.id)
+      }
+    })
 
     return () => {
       cancelled = true
+      subscription.unsubscribe()
     }
   }, [jobId])
 
