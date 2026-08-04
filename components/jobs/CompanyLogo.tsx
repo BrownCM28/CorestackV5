@@ -65,6 +65,10 @@ const PALETTES = [
   { bg: '#eef2ff', text: '#3730a3' },
 ]
 
+export function hasRealLogo(company: string): boolean {
+  return company in REAL_LOGOS
+}
+
 function palette(name: string) {
   let h = 0
   for (let i = 0; i < name.length; i++) h = name.charCodeAt(i) + ((h << 5) - h)

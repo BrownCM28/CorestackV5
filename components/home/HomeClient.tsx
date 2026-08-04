@@ -7,7 +7,7 @@ import Image from 'next/image'
 import type { Job, NewsItem } from '@/lib/types'
 import type { Category } from '@/lib/types'
 import { CATEGORY_LABELS, CATEGORY_LIST } from '@/lib/constants'
-import CompanyLogo from '@/components/jobs/CompanyLogo'
+import CompanyLogo, { hasRealLogo } from '@/components/jobs/CompanyLogo'
 import JobCard from '@/components/jobs/JobCard'
 import { track } from '@/lib/analytics'
 
@@ -61,8 +61,17 @@ function applySort(jobs: Job[], sort: SortKey): Job[] {
     if (sort === 'salary') return (b.salary_min ?? 0) - (a.salary_min ?? 0)
     if (sort === 'newest')
       return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-    const diff = (b.paid_amount_cents ?? 0) - (a.paid_amount_cents ?? 0)
-    return diff !== 0 ? diff : new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+
+    // "relevance" -- what actually surfaces on the home page. Real company
+    // logos read as more trustworthy than an initials placeholder, so those
+    // come first; then the best-paying roles; then paid/sponsored
+    // placement; newest breaks any remaining tie.
+    const logoDiff = Number(hasRealLogo(b.company)) - Number(hasRealLogo(a.company))
+    if (logoDiff !== 0) return logoDiff
+    const salaryDiff = (b.salary_max ?? b.salary_min ?? 0) - (a.salary_max ?? a.salary_min ?? 0)
+    if (salaryDiff !== 0) return salaryDiff
+    const paidDiff = (b.paid_amount_cents ?? 0) - (a.paid_amount_cents ?? 0)
+    return paidDiff !== 0 ? paidDiff : new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
   })
 }
 
@@ -77,7 +86,7 @@ export default function HomeClient({ jobs, news }: Props) {
   const [keyword, setKeyword] = useState('')
   const [location, setLocation] = useState('')
   const [activeCategory, setActiveCategory] = useState<Category | 'all'>('all')
-  const [sort, setSort] = useState<SortKey>('newest')
+  const [sort, setSort] = useState<SortKey>('relevance')
   const browseRef = useRef<HTMLDivElement>(null)
   const catScrollRef = useRef<HTMLDivElement>(null)
   const [catCanScroll, setCatCanScroll] = useState(false)
@@ -413,7 +422,7 @@ export default function HomeClient({ jobs, news }: Props) {
                       key={job.id}
                       className="border-r border-b border-black bg-white/75 backdrop-blur-sm"
                     >
-                      <JobCard job={job} />
+                      <JobCard job={job} exactSalary />
                     </li>
                   ))}
                 </ul>

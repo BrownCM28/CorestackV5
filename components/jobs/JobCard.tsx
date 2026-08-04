@@ -11,15 +11,23 @@ interface Props {
   job: Job
   /** Renders the same markup without a real link — for use in listing previews. */
   preview?: boolean
+  /** Show a single figure (the higher end of the range) instead of min–max. */
+  exactSalary?: boolean
 }
 
 const CARD_CLASSES =
   'flex flex-col sm:flex-row gap-4 sm:gap-6 px-5 py-5 sm:px-8 sm:py-7 sm:min-h-[140px] group transition-colors duration-150 hover:bg-black/[0.02] focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-inset outline-none'
 
-export default function JobCard({ job, preview = false }: Props) {
+export default function JobCard({ job, preview = false, exactSalary = false }: Props) {
   const badge = getBadge(job)
-  const salary = formatSalary(job.salary_min, job.salary_max)
-  const hasSalary = job.salary_min !== null || job.salary_max !== null
+  const salaryMin = exactSalary
+    ? (job.salary_max ?? job.salary_min)
+    : job.salary_min
+  const salaryMax = exactSalary
+    ? (job.salary_max ?? job.salary_min)
+    : job.salary_max
+  const salary = formatSalary(salaryMin, salaryMax)
+  const hasSalary = salaryMin !== null || salaryMax !== null
 
   const content = (
     <>

@@ -18,7 +18,7 @@ export default async function HomePage() {
     .eq('status', 'active')
     .order('is_featured', { ascending: false })
     .order('created_at', { ascending: false })
-    .limit(10)
+    .limit(60)
 
   if (jobsError) {
     console.error('Failed to fetch jobs:', jobsError.message)
