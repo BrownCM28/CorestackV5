@@ -50,6 +50,30 @@ const REAL_LOGOS: Record<string, LogoConfig> = {
   'Hitachi Rail': { src: '/Company Logos/hitachi_logo_2025.svg' },
   'AbbVie': { src: '/Company Logos/AbbVie.png' },
   'Fluence': { src: '/Company Logos/Fluence.svg' },
+
+  'Amazon.com': { src: '/Company Logos/amazon.png' },
+  'ATS Companies': { src: '/Company Logos/ats-companies.png' },
+  'Blueprint Technologies': { src: '/Company Logos/blueprint-technologies.png' },
+  'Chinook Systems': { src: '/Company Logos/chinook-systems.png' },
+  'Controlled Contamination Services': { src: '/Company Logos/controlled-contamination-services.png' },
+  'Controlled Contamination Services LLC': { src: '/Company Logos/controlled-contamination-services.png' },
+  'CoreWeave': { src: '/Company Logos/coreweave.png' },
+  'Cumming Group': { src: '/Company Logos/cumming-group.png' },
+  'Cumming Group UK & Europe': { src: '/Company Logos/cumming-group.png' },
+  'CUPERTINO ELECTRIC': { src: '/Company Logos/cupertino-electric.png' },
+  'FST Technical Services': { src: '/Company Logos/fst-technical-services.png' },
+  'KALCON': { src: '/Company Logos/kalcon.png' },
+  'Kimmel & Associates': { src: '/Company Logos/kimmel-associates.png' },
+  // Legacy long-form name -- the short "NTT Global Data Centers" above
+  // already has its own logo, this is a separate name variant in the jobs
+  // table that didn't match it.
+  'NTT Global Data Centers Americas, Inc.': { src: '/Company Logos/ntt-global-data-centers.png' },
+  'Quest Global': { src: '/Company Logos/quest-global.png' },
+  'Ramboll': { src: '/Company Logos/ramboll.png' },
+  'Rippling': { src: '/Company Logos/rippling.png' },
+  'Salute Mission Inc.': { src: '/Company Logos/salute.png' },
+  'Veolia': { src: '/Company Logos/veolia.png' },
+  'Veolia Environnement SA': { src: '/Company Logos/veolia.png' },
 }
 
 const PALETTES = [
