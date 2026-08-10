@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { sanitizeNextPath } from '@/lib/utils'
+import { getUtmCookie, clearUtmCookie } from '@/lib/utm'
 import { CATEGORY_LIST, CATEGORY_LABELS, MARKET_LIST } from '@/lib/constants'
 import type { Category, UserType } from '@/lib/types'
 import SelectCard from './SelectCard'
@@ -71,6 +72,7 @@ export default function OnboardingFlow({ userId }: Props) {
 
     try {
       const supabase = createClient()
+      const utm = getUtmCookie()
       const { error: updateError } = await supabase
         .from('profiles')
         .update({
@@ -81,6 +83,10 @@ export default function OnboardingFlow({ userId }: Props) {
           search_urgency: urgency,
           referral_source: referralSource,
           onboarding_completed: true,
+          utm_source: utm?.utm_source ?? null,
+          utm_medium: utm?.utm_medium ?? null,
+          utm_campaign: utm?.utm_campaign ?? null,
+          utm_content: utm?.utm_content ?? null,
           updated_at: new Date().toISOString(),
         })
         .eq('id', userId)
@@ -90,6 +96,7 @@ export default function OnboardingFlow({ userId }: Props) {
         return
       }
 
+      clearUtmCookie()
       document.cookie = 'cs_onboarded=1; path=/; max-age=31536000'
       router.push(next)
       router.refresh()

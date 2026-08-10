@@ -7,6 +7,8 @@ const mocks = vi.hoisted(() => ({
   update: vi.fn(),
   eq: vi.fn(),
   searchParams: new URLSearchParams(),
+  getUtmCookie: vi.fn(),
+  clearUtmCookie: vi.fn(),
 }))
 
 vi.mock('next/navigation', () => ({
@@ -22,6 +24,11 @@ vi.mock('@/lib/supabase/client', () => ({
   }),
 }))
 
+vi.mock('@/lib/utm', () => ({
+  getUtmCookie: mocks.getUtmCookie,
+  clearUtmCookie: mocks.clearUtmCookie,
+}))
+
 function selectJobSeekerThroughStep2() {
   fireEvent.click(screen.getByRole('button', { name: "I'm looking for work" }))
   fireEvent.click(screen.getByRole('button', { name: 'Operations' }))
@@ -34,6 +41,8 @@ describe('OnboardingFlow', () => {
     mocks.push.mockReset()
     mocks.eq.mockReset().mockResolvedValue({ error: null })
     mocks.update.mockReset().mockReturnValue({ eq: mocks.eq })
+    mocks.getUtmCookie.mockReset().mockReturnValue(null)
+    mocks.clearUtmCookie.mockReset()
     mocks.searchParams = new URLSearchParams()
   })
 
@@ -139,9 +148,39 @@ describe('OnboardingFlow', () => {
       search_urgency: 'active',
       referral_source: 'linkedin',
       onboarding_completed: true,
+      utm_source: null,
+      utm_medium: null,
+      utm_campaign: null,
+      utm_content: null,
       updated_at: expect.any(String),
     })
     expect(mocks.eq).toHaveBeenCalledWith('id', 'user-1')
+  })
+
+  it('attaches captured UTM data to the profile update and clears the cookie on completion', async () => {
+    mocks.getUtmCookie.mockReturnValue({
+      utm_source: 'linkedin',
+      utm_medium: 'cold_outreach',
+      utm_campaign: 'q3_launch',
+      utm_content: null,
+    })
+    render(<OnboardingFlow userId="user-1" />)
+    selectJobSeekerThroughStep2()
+    fireEvent.click(screen.getByRole('button', { name: 'Actively applying' }))
+    fireEvent.click(screen.getByRole('button', { name: 'LinkedIn' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+
+    await waitFor(() => expect(mocks.push).toHaveBeenCalledWith('/'))
+
+    expect(mocks.update).toHaveBeenCalledWith(
+      expect.objectContaining({
+        utm_source: 'linkedin',
+        utm_medium: 'cold_outreach',
+        utm_campaign: 'q3_launch',
+        utm_content: null,
+      })
+    )
+    expect(mocks.clearUtmCookie).toHaveBeenCalled()
   })
 
   it('redirects to a sanitized next param instead of / when present', async () => {

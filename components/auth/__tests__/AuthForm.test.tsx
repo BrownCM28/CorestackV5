@@ -8,6 +8,8 @@ const mocks = vi.hoisted(() => ({
   signInWithOAuth: vi.fn(),
   signInWithPassword: vi.fn(),
   signUp: vi.fn(),
+  track: vi.fn(),
+  getUtmCookie: vi.fn(),
   pathname: '/signin',
   searchParams: new URLSearchParams(),
 }))
@@ -28,6 +30,14 @@ vi.mock('@/lib/supabase/client', () => ({
   }),
 }))
 
+vi.mock('@/lib/analytics', () => ({
+  track: mocks.track,
+}))
+
+vi.mock('@/lib/utm', () => ({
+  getUtmCookie: mocks.getUtmCookie,
+}))
+
 describe('AuthForm', () => {
   beforeEach(() => {
     mocks.push.mockReset()
@@ -35,6 +45,8 @@ describe('AuthForm', () => {
     mocks.signInWithOAuth.mockReset().mockResolvedValue({ error: null })
     mocks.signInWithPassword.mockReset().mockResolvedValue({ error: null })
     mocks.signUp.mockReset().mockResolvedValue({ data: { session: null }, error: null })
+    mocks.track.mockReset()
+    mocks.getUtmCookie.mockReset().mockReturnValue(null)
     mocks.pathname = '/signin'
     mocks.searchParams = new URLSearchParams()
   })
@@ -288,5 +300,55 @@ describe('AuthForm', () => {
     // like sign-in does; the gate then bounces it to /onboarding server-side.
     await waitFor(() => expect(mocks.push).toHaveBeenCalledWith('/'))
     expect(screen.queryByText('Check your email to confirm your account')).not.toBeInTheDocument()
+  })
+
+  it('tracks a signup_attempt with UTM data when the password signup form is submitted', async () => {
+    mocks.pathname = '/signup'
+    mocks.getUtmCookie.mockReturnValue({
+      utm_source: 'linkedin',
+      utm_medium: 'cold_outreach',
+      utm_campaign: 'q3_launch',
+      utm_content: null,
+    })
+    render(<AuthForm mode="signup" />)
+    fireEvent.change(screen.getByLabelText('Full name'), { target: { value: 'Jane Doe' } })
+    fireEvent.change(screen.getByLabelText('Email'), { target: { value: 'test@example.com' } })
+    fireEvent.change(screen.getByLabelText('Password'), { target: { value: 'password123' } })
+    fireEvent.change(screen.getByLabelText('Confirm Password'), { target: { value: 'password123' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Create Account' }))
+
+    expect(mocks.track).toHaveBeenCalledWith('signup_attempt', {
+      method: 'password',
+      utm_source: 'linkedin',
+      utm_medium: 'cold_outreach',
+      utm_campaign: 'q3_launch',
+      utm_content: null,
+    })
+  })
+
+  it('tracks a signup_attempt when Continue with GitHub is clicked in signup mode', async () => {
+    mocks.pathname = '/signup'
+    render(<AuthForm mode="signup" />)
+    fireEvent.click(screen.getByRole('button', { name: /continue with github/i }))
+
+    expect(mocks.track).toHaveBeenCalledWith('signup_attempt', { method: 'github' })
+  })
+
+  it('does not track a signup_attempt for GitHub sign-in on the signin screen', async () => {
+    mocks.pathname = '/signin'
+    render(<AuthForm mode="signin" />)
+    fireEvent.click(screen.getByRole('button', { name: /continue with github/i }))
+
+    expect(mocks.track).not.toHaveBeenCalled()
+  })
+
+  it('does not track a signup_attempt for password sign-in', async () => {
+    mocks.pathname = '/signin'
+    render(<AuthForm mode="signin" />)
+    fireEvent.change(screen.getByLabelText('Email'), { target: { value: 'test@example.com' } })
+    fireEvent.change(screen.getByLabelText('Password'), { target: { value: 'password123' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Sign In' }))
+
+    expect(mocks.track).not.toHaveBeenCalled()
   })
 })

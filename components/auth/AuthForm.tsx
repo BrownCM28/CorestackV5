@@ -4,6 +4,8 @@ import { useState, useRef } from 'react'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { sanitizeNextPath } from '@/lib/utils'
+import { getUtmCookie } from '@/lib/utm'
+import { track } from '@/lib/analytics'
 import VerifyOtpForm from './VerifyOtpForm'
 
 interface Props {
@@ -52,6 +54,10 @@ export default function AuthForm({ mode }: Props) {
       }
     }
 
+    if (mode === 'signup') {
+      track('signup_attempt', { method: 'password', ...getUtmCookie() })
+    }
+
     try {
       const supabase = createClient()
       const { data, error: authError } =
@@ -93,6 +99,10 @@ export default function AuthForm({ mode }: Props) {
   async function handleGithubSignIn() {
     setError(null)
     setGithubLoading(true)
+
+    if (mode === 'signup') {
+      track('signup_attempt', { method: 'github', ...getUtmCookie() })
+    }
 
     try {
       const supabase = createClient()

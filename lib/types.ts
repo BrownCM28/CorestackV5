@@ -86,6 +86,10 @@ export interface Profile {
   search_urgency: SeekerUrgency | EmployerUrgency | null
   referral_source: ReferralSource | null
   onboarding_completed: boolean
+  utm_source: string | null
+  utm_medium: string | null
+  utm_campaign: string | null
+  utm_content: string | null
   created_at: string
   updated_at: string
 }

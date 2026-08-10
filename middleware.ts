@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
+import { extractUtmParams, UTM_COOKIE_NAME, UTM_COOKIE_MAX_AGE } from '@/lib/utm'
 
 const ONBOARDING_EXCLUDED_PREFIXES = ['/onboarding', '/auth', '/api', '/admin']
 const ONBOARDING_EXCLUDED_EXACT = ['/signin', '/signup']
@@ -14,6 +15,20 @@ function isExcludedFromOnboardingCheck(pathname: string): boolean {
 export async function middleware(request: NextRequest) {
   const { response, user, supabase } = await updateSession(request)
   const pathname = request.nextUrl.pathname
+
+  // First-touch campaign attribution: only stamp the cookie if one isn't
+  // already set, so a later organic visit (or a different campaign link)
+  // during the same window doesn't overwrite the campaign that actually
+  // brought this person here.
+  if (!request.cookies.has(UTM_COOKIE_NAME)) {
+    const utm = extractUtmParams(request.nextUrl.searchParams)
+    if (utm) {
+      response.cookies.set(UTM_COOKIE_NAME, JSON.stringify(utm), {
+        path: '/',
+        maxAge: UTM_COOKIE_MAX_AGE,
+      })
+    }
+  }
 
   // Protect the dashboard route — redirect to /signin if not authenticated
   if (!user && pathname.startsWith('/dashboard')) {
