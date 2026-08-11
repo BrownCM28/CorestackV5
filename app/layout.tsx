@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
+import Script from 'next/script'
 import { Analytics } from '@vercel/analytics/next'
 import MosaicNav from '@/components/nav/MosaicNav'
 import NewsTicker from '@/components/nav/NewsTicker'
@@ -59,6 +60,17 @@ export default async function RootLayout({
           </div>
         </footer>
         <Analytics />
+        {/* Google tag (gtag.js) — Google Ads conversion tracking */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18382098333"
+          strategy="afterInteractive"
+        />
+        <Script id="google-ads-gtag" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-18382098333');`}
+        </Script>
       </body>
     </html>
   )

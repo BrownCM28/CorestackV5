@@ -1,6 +1,13 @@
 import { createClient } from '@/lib/supabase/client'
 
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void
+  }
+}
+
 const SESSION_KEY = 'cs_session'
+const SIGNUP_CONVERSION_LABEL = 'AW-18382098333/CcT7CIuCsd8cEJ2for1E'
 
 function getSessionId(): string {
   if (typeof window === 'undefined') return ''
@@ -29,4 +36,11 @@ export async function track(
     path: window.location.pathname,
     referrer: document.referrer || null,
   })
+}
+
+/** Fires the Google Ads sign-up conversion pixel. Requires the gtag.js
+ * loader from the root layout to have already run. */
+export function trackSignupConversion() {
+  if (typeof window === 'undefined') return
+  window.gtag?.('event', 'conversion', { send_to: SIGNUP_CONVERSION_LABEL })
 }

@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { sanitizeNextPath } from '@/lib/utils'
 import { getUtmCookie, clearUtmCookie } from '@/lib/utm'
+import { trackSignupConversion } from '@/lib/analytics'
 import { CATEGORY_LIST, CATEGORY_LABELS, MARKET_LIST } from '@/lib/constants'
 import type { Category, UserType } from '@/lib/types'
 import SelectCard from './SelectCard'
@@ -98,6 +99,7 @@ export default function OnboardingFlow({ userId }: Props) {
 
       clearUtmCookie()
       document.cookie = 'cs_onboarded=1; path=/; max-age=31536000'
+      trackSignupConversion()
       router.push(next)
       router.refresh()
     } catch (err) {
