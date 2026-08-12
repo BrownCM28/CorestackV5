@@ -74,6 +74,27 @@ const REAL_LOGOS: Record<string, LogoConfig> = {
   'Salute Mission Inc.': { src: '/Company Logos/corestack_company_logos/salute.png' },
   'Veolia': { src: '/Company Logos/corestack_company_logos/veolia.png' },
   'Veolia Environnement SA': { src: '/Company Logos/corestack_company_logos/veolia.png' },
+
+  // "Amazon" (the direct employer name) is a different jobs-table value
+  // from "Amazon.com" above -- both map to a logo, just different files.
+  'Amazon': { src: '/Company Logos/corestack_company_logos_2/amazon.png' },
+  'Apple': { src: '/Company Logos/corestack_company_logos_2/apple.png' },
+  'CAI': { src: '/Company Logos/corestack_company_logos_2/cai.png' },
+  'CBRE': { src: '/Company Logos/corestack_company_logos_2/cbre.png' },
+  'Cerebras Systems': { src: '/Company Logos/corestack_company_logos_2/cerebras-systems.png' },
+  'Colovore': { src: '/Company Logos/corestack_company_logos_2/colovore.png' },
+  'Constructiv': { src: '/Company Logos/corestack_company_logos_2/constructiv.png' },
+  'Crusoe': { src: '/Company Logos/corestack_company_logos_2/crusoe.png' },
+  'Fluidstack': { src: '/Company Logos/corestack_company_logos_2/fluidstack.png' },
+  'Hut 8': { src: '/Company Logos/corestack_company_logos_2/hut-8.png' },
+  'Jacobs': { src: '/Company Logos/corestack_company_logos_2/jacobs.png' },
+  'Lambda': { src: '/Company Logos/corestack_company_logos_2/lambda.png' },
+  'ON.energy': { src: '/Company Logos/corestack_company_logos_2/on-energy.png' },
+  'OpenAI': { src: '/Company Logos/corestack_company_logos_2/openai.png' },
+  'Prime Data Centers': { src: '/Company Logos/corestack_company_logos_2/prime-data-centers.png' },
+  'Siemens': { src: '/Company Logos/corestack_company_logos_2/siemens.png' },
+  'Switch': { src: '/Company Logos/corestack_company_logos_2/switch.png' },
+  'xAI': { src: '/Company Logos/corestack_company_logos_2/xai.png' },
 }
 
 const PALETTES = [
