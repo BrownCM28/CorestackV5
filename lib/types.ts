@@ -27,6 +27,8 @@ export interface Job {
   description: string
   salary_min: number | null
   salary_max: number | null
+  /** Set on a handful of imported listings that only gave an hourly rate. */
+  salary_hourly?: boolean
   apply_target: string
   posted_by: string | null
   created_at: string

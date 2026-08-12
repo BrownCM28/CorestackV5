@@ -19,6 +19,20 @@ describe('formatSalary', () => {
   it('returns fallback for null/null', () => {
     expect(formatSalary(null, null)).toBe('Salary not listed')
   })
+
+  it('appends /hr for an hourly exact rate', () => {
+    expect(formatSalary(36, 36, true)).toBe('$36/hr')
+  })
+
+  it('appends /hr for an hourly range', () => {
+    const result = formatSalary(26, 36, true)
+    expect(result).toBe('$26 – $36/hr')
+  })
+
+  it('does not append /hr when hourly is false or omitted', () => {
+    expect(formatSalary(70000, 90000, false)).not.toContain('/hr')
+    expect(formatSalary(70000, 90000)).not.toContain('/hr')
+  })
 })
 
 describe('daysAgo', () => {

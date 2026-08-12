@@ -26,7 +26,7 @@ export default function JobCard({ job, preview = false, exactSalary = false }: P
   const salaryMax = exactSalary
     ? (job.salary_max ?? job.salary_min)
     : job.salary_max
-  const salary = formatSalary(salaryMin, salaryMax)
+  const salary = formatSalary(salaryMin, salaryMax, job.salary_hourly)
   const hasSalary = salaryMin !== null || salaryMax !== null
 
   const content = (

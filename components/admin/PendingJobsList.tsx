@@ -39,7 +39,7 @@ export default function PendingJobsList({ jobs: initialJobs }: Props) {
               {CATEGORY_LABELS[job.category]}
             </span>
             <span className="border border-black/20 px-2 py-0.5">
-              {formatSalary(job.salary_min, job.salary_max)}
+              {formatSalary(job.salary_min, job.salary_max, job.salary_hourly)}
             </span>
             <span className="text-black/40">{daysAgo(job.created_at)}</span>
           </div>

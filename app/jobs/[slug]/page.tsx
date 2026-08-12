@@ -95,7 +95,7 @@ export default async function JobDetailPage({ params }: PageProps) {
   }
 
   const badge = getBadge(job)
-  const salary = formatSalary(job.salary_min, job.salary_max)
+  const salary = formatSalary(job.salary_min, job.salary_max, job.salary_hourly)
   const hasSalary = job.salary_min !== null || job.salary_max !== null
   const catColor = CAT_COLOR[job.category] ?? '#000'
 
@@ -356,7 +356,7 @@ export default async function JobDetailPage({ params }: PageProps) {
                         </p>
                         {(sj.salary_min || sj.salary_max) && (
                           <p className="text-[11px] text-[#3ecf8e] font-medium mt-0.5 tabular-nums">
-                            {formatSalary(sj.salary_min, sj.salary_max)}
+                            {formatSalary(sj.salary_min, sj.salary_max, sj.salary_hourly)}
                           </p>
                         )}
                       </Link>

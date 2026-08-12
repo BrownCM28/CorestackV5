@@ -8,7 +8,8 @@ export function cn(...inputs: ClassValue[]) {
 
 export function formatSalary(
   min: number | null,
-  max: number | null
+  max: number | null,
+  hourly = false
 ): string {
   const fmt = (n: number) =>
     new Intl.NumberFormat('en-US', {
@@ -16,11 +17,12 @@ export function formatSalary(
       currency: 'USD',
       maximumFractionDigits: 0,
     }).format(n)
+  const suffix = hourly ? '/hr' : ''
 
-  if (min && max && min === max) return fmt(min)
-  if (min && max) return `${fmt(min)} – ${fmt(max)}`
-  if (min) return `From ${fmt(min)}`
-  if (max) return `Up to ${fmt(max)}`
+  if (min && max && min === max) return `${fmt(min)}${suffix}`
+  if (min && max) return `${fmt(min)} – ${fmt(max)}${suffix}`
+  if (min) return `From ${fmt(min)}${suffix}`
+  if (max) return `Up to ${fmt(max)}${suffix}`
   return 'Salary not listed'
 }
 
