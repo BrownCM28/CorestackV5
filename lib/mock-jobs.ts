@@ -8,6 +8,7 @@ export const MOCK_JOBS: Job[] = [
   // Operations
   {
     id: 'mock-ops-1',
+    slug: null,
     title: 'Data Center Operations Technician',
     company: 'Equinix',
     location: 'Ashburn, VA',
@@ -28,6 +29,7 @@ export const MOCK_JOBS: Job[] = [
   },
   {
     id: 'mock-ops-2',
+    slug: null,
     title: 'Shift Lead, Critical Facilities',
     company: 'Iron Mountain',
     location: 'Dallas, TX',
@@ -48,6 +50,7 @@ export const MOCK_JOBS: Job[] = [
   },
   {
     id: 'mock-ops-3',
+    slug: null,
     title: 'Critical Facilities Manager',
     company: 'CyrusOne',
     location: 'Phoenix, AZ',
@@ -68,6 +71,7 @@ export const MOCK_JOBS: Job[] = [
   },
   {
     id: 'mock-ops-4',
+    slug: null,
     title: 'Data Center Infrastructure Technician',
     company: 'QTS Data Centers',
     location: 'Atlanta, GA',
@@ -88,6 +92,7 @@ export const MOCK_JOBS: Job[] = [
   },
   {
     id: 'mock-ops-5',
+    slug: null,
     title: 'Senior Operations Engineer',
     company: 'Aligned Data Centers',
     location: 'Columbus, OH',
@@ -110,6 +115,7 @@ export const MOCK_JOBS: Job[] = [
   // Construction
   {
     id: 'mock-con-1',
+    slug: null,
     title: 'Data Center Construction Manager',
     company: 'Turner Construction',
     location: 'Ashburn, VA',
@@ -130,6 +136,7 @@ export const MOCK_JOBS: Job[] = [
   },
   {
     id: 'mock-con-2',
+    slug: null,
     title: 'MEP Project Manager, Data Centers',
     company: 'JE Dunn Construction',
     location: 'Dallas, TX',
@@ -150,6 +157,7 @@ export const MOCK_JOBS: Job[] = [
   },
   {
     id: 'mock-con-3',
+    slug: null,
     title: 'Site Superintendent',
     company: 'Holder Construction',
     location: 'Atlanta, GA',
@@ -170,6 +178,7 @@ export const MOCK_JOBS: Job[] = [
   },
   {
     id: 'mock-con-4',
+    slug: null,
     title: 'Construction Project Engineer',
     company: 'Mortenson',
     location: 'Phoenix, AZ',
@@ -192,6 +201,7 @@ export const MOCK_JOBS: Job[] = [
   // Electrical / Power
   {
     id: 'mock-elec-1',
+    slug: null,
     title: 'Critical Power Engineer',
     company: 'Schneider Electric',
     location: 'Ashburn, VA',
@@ -212,6 +222,7 @@ export const MOCK_JOBS: Job[] = [
   },
   {
     id: 'mock-elec-2',
+    slug: null,
     title: 'Power Systems Technician',
     company: 'Vertiv',
     location: 'Dallas, TX',
@@ -232,6 +243,7 @@ export const MOCK_JOBS: Job[] = [
   },
   {
     id: 'mock-elec-3',
+    slug: null,
     title: 'Electrical Engineer, Mission Critical',
     company: 'Eaton',
     location: 'Columbus, OH',
@@ -252,6 +264,7 @@ export const MOCK_JOBS: Job[] = [
   },
   {
     id: 'mock-elec-4',
+    slug: null,
     title: 'Generator Systems Specialist',
     company: 'Cummins',
     location: 'Atlanta, GA',
@@ -274,6 +287,7 @@ export const MOCK_JOBS: Job[] = [
   // Cooling / Mechanical
   {
     id: 'mock-cool-1',
+    slug: null,
     title: 'Cooling Infrastructure Lead',
     company: 'Switch',
     location: 'Las Vegas, NV',
@@ -294,6 +308,7 @@ export const MOCK_JOBS: Job[] = [
   },
   {
     id: 'mock-cool-2',
+    slug: null,
     title: 'HVAC Technician, Data Centers',
     company: 'Digital Realty',
     location: 'Atlanta, GA',
@@ -314,6 +329,7 @@ export const MOCK_JOBS: Job[] = [
   },
   {
     id: 'mock-cool-3',
+    slug: null,
     title: 'Thermal Systems Engineer',
     company: 'Vantage Data Centers',
     location: 'Denver, CO',
@@ -334,6 +350,7 @@ export const MOCK_JOBS: Job[] = [
   },
   {
     id: 'mock-cool-4',
+    slug: null,
     title: 'Mechanical Engineer, Critical Facilities',
     company: 'Stulz',
     location: 'Ashburn, VA',
@@ -356,6 +373,7 @@ export const MOCK_JOBS: Job[] = [
   // Networking
   {
     id: 'mock-net-1',
+    slug: null,
     title: 'Network Infrastructure Engineer',
     company: 'Meta',
     location: 'Menlo Park, CA',
@@ -376,6 +394,7 @@ export const MOCK_JOBS: Job[] = [
   },
   {
     id: 'mock-net-2',
+    slug: null,
     title: 'NOC Engineer',
     company: 'Lumen Technologies',
     location: 'Remote',
@@ -396,6 +415,7 @@ export const MOCK_JOBS: Job[] = [
   },
   {
     id: 'mock-net-3',
+    slug: null,
     title: 'Dark Fiber Network Technician',
     company: 'Zayo Group',
     location: 'Denver, CO',
@@ -416,6 +436,7 @@ export const MOCK_JOBS: Job[] = [
   },
   {
     id: 'mock-net-4',
+    slug: null,
     title: 'Cabling Infrastructure Lead',
     company: 'CommScope',
     location: 'Ashburn, VA',

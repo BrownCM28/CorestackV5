@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation'
+import { notFound, permanentRedirect } from 'next/navigation'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import ReactMarkdown from 'react-markdown'
@@ -6,31 +6,31 @@ import { createClient } from '@/lib/supabase/server'
 import { getJob, getSimilarJobs } from '@/lib/api'
 import { MOCK_JOBS } from '@/lib/mock-jobs'
 import { CATEGORY_LABELS } from '@/lib/constants'
-import { formatSalary, daysAgo } from '@/lib/utils'
+import { formatSalary, daysAgo, isUuid } from '@/lib/utils'
 import CompanyLogo from '@/components/jobs/CompanyLogo'
 import AuthGate from '@/components/auth/AuthGate'
 import SaveJobButton from '@/components/SaveJobButton'
 import type { Job } from '@/lib/types'
 
 interface PageProps {
-  params: Promise<{ id: string }>
+  params: Promise<{ slug: string }>
 }
 
-async function resolveJob(id: string): Promise<Job | null> {
+async function resolveJob(slug: string): Promise<Job | null> {
   try {
-    return await getJob(id)
+    return await getJob(slug)
   } catch {
-    return MOCK_JOBS.find((j) => j.id === id) ?? null
+    return MOCK_JOBS.find((j) => j.id === slug) ?? null
   }
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { id } = await params
+  const { slug } = await params
   const supabase = await createClient()
   const { data: job } = await supabase
     .from('jobs')
-    .select('title, company, location, salary_min, salary_max')
-    .eq('id', id)
+    .select('slug, title, company, location, salary_min, salary_max')
+    .or(isUuid(slug) ? `slug.eq.${slug},id.eq.${slug}` : `slug.eq.${slug}`)
     .maybeSingle()
 
   if (!job) return { title: 'Job not found — Corestack' }
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: `${job.title} at ${job.company}`,
       description,
-      url: `https://corestackjobs.com/jobs/${id}`,
+      url: `https://corestackjobs.com/jobs/${job.slug ?? slug}`,
       siteName: 'Corestack',
       type: 'website',
     },
@@ -83,9 +83,16 @@ function getBadge(job: Job): { label: string; cls: string } | null {
 }
 
 export default async function JobDetailPage({ params }: PageProps) {
-  const { id } = await params
-  const job = await resolveJob(id)
+  const { slug } = await params
+  const job = await resolveJob(slug)
   if (!job) notFound()
+
+  // Old UUID links still resolve (see resolveJob/getJob), but once a job
+  // has a real slug that's the canonical URL -- send old links there
+  // permanently instead of serving duplicate content at two URLs.
+  if (isUuid(slug) && job.slug) {
+    permanentRedirect(`/jobs/${job.slug}`)
+  }
 
   const badge = getBadge(job)
   const salary = formatSalary(job.salary_min, job.salary_max)
@@ -336,7 +343,7 @@ export default async function JobDetailPage({ params }: PageProps) {
                   {similarJobs.map((sj) => (
                     <li key={sj.id}>
                       <Link
-                        href={`/jobs/${sj.id}`}
+                        href={`/jobs/${sj.slug ?? sj.id}`}
                         className="block group focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
                       >
                         <p className="text-xs font-semibold leading-snug group-hover:underline">
@@ -372,7 +379,7 @@ export default async function JobDetailPage({ params }: PageProps) {
               </p>
               <div className="flex gap-2">
                 <a
-                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://corestackjobs.com/jobs/${job.id}`)}`}
+                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://corestackjobs.com/jobs/${job.slug ?? job.id}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 text-center text-[11px] border border-black px-3 py-2 transition-colors hover:bg-[#3ecf8e] hover:text-black focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
@@ -380,7 +387,7 @@ export default async function JobDetailPage({ params }: PageProps) {
                   LinkedIn
                 </a>
                 <a
-                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${job.title} at ${job.company} — via @corestack`)}&url=${encodeURIComponent(`https://corestackjobs.com/jobs/${job.id}`)}`}
+                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${job.title} at ${job.company} — via @corestack`)}&url=${encodeURIComponent(`https://corestackjobs.com/jobs/${job.slug ?? job.id}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 text-center text-[11px] border border-black px-3 py-2 transition-colors hover:bg-[#3ecf8e] hover:text-black focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"

@@ -10,6 +10,7 @@ function toPreviewJob(draft: CreateJobPayload): Job {
   return {
     ...draft,
     id: 'preview',
+    slug: null,
     posted_by: null,
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),

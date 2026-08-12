@@ -5,6 +5,7 @@ import type { Job } from '@/lib/types'
 
 const mockJob: Job = {
   id: 'test-id-123',
+  slug: null,
   title: 'Data Center Technician',
   company: 'Equinix',
   location: 'Ashburn, VA',
@@ -55,10 +56,16 @@ describe('JobCard', () => {
     expect(screen.getByText('Remote')).toBeInTheDocument()
   })
 
-  it('links to the job detail page', () => {
+  it('links to the job detail page by id when there is no slug', () => {
     render(<JobCard job={mockJob} />)
     const link = screen.getByRole('link')
     expect(link).toHaveAttribute('href', '/jobs/test-id-123')
+  })
+
+  it('prefers the slug over the id when one is set', () => {
+    render(<JobCard job={{ ...mockJob, slug: 'data-center-technician-equinix-test-id' }} />)
+    const link = screen.getByRole('link')
+    expect(link).toHaveAttribute('href', '/jobs/data-center-technician-equinix-test-id')
   })
 
   it('renders as a non-navigable div instead of a link in preview mode', () => {

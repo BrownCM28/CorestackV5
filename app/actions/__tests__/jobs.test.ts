@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { startJobCheckout } from '../jobs'
+import { startJobCheckout, createJob } from '../jobs'
 import type { CreateJobPayload } from '@/lib/types'
 
 const mocks = vi.hoisted(() => ({
@@ -7,6 +7,8 @@ const mocks = vi.hoisted(() => ({
   single: vi.fn(),
   insert: vi.fn(),
   select: vi.fn(),
+  update: vi.fn(),
+  updateEq: vi.fn(),
   createJobCheckoutSession: vi.fn(),
   redirect: vi.fn(),
   revalidatePath: vi.fn(),
@@ -16,7 +18,7 @@ const mocks = vi.hoisted(() => ({
 vi.mock('@/lib/supabase/server', () => ({
   createClient: async () => ({
     auth: { getUser: mocks.getUser },
-    from: () => ({ insert: mocks.insert }),
+    from: () => ({ insert: mocks.insert, update: mocks.update }),
   }),
 }))
 
@@ -54,6 +56,8 @@ describe('startJobCheckout', () => {
     mocks.single.mockReset().mockResolvedValue({ data: { id: 'job-1', ...payload }, error: null })
     mocks.select.mockReset().mockReturnValue({ single: mocks.single })
     mocks.insert.mockReset().mockReturnValue({ select: mocks.select })
+    mocks.updateEq.mockReset().mockResolvedValue({ error: null })
+    mocks.update.mockReset().mockReturnValue({ eq: mocks.updateEq })
     mocks.createJobCheckoutSession.mockReset().mockResolvedValue('https://checkout.stripe.com/session-1')
     mocks.redirect.mockReset().mockImplementation((url: string) => {
       // next/navigation's real redirect() works by throwing -- callers must
@@ -96,5 +100,33 @@ describe('startJobCheckout', () => {
     expect(result).toEqual({ error: 'insert failed' })
     expect(mocks.createJobCheckoutSession).not.toHaveBeenCalled()
     expect(mocks.redirect).not.toHaveBeenCalled()
+  })
+})
+
+describe('createJob', () => {
+  beforeEach(() => {
+    mocks.getUser.mockReset().mockResolvedValue({ data: { user: { id: 'user-1' } } })
+    mocks.single.mockReset().mockResolvedValue({ data: { id: 'job-1', ...payload }, error: null })
+    mocks.select.mockReset().mockReturnValue({ single: mocks.single })
+    mocks.insert.mockReset().mockReturnValue({ select: mocks.select })
+    mocks.updateEq.mockReset().mockResolvedValue({ error: null })
+    mocks.update.mockReset().mockReturnValue({ eq: mocks.updateEq })
+    mocks.revalidatePath.mockReset()
+  })
+
+  it('sets a slug on the new job right after inserting it', async () => {
+    const job = await createJob(payload)
+
+    expect(mocks.update).toHaveBeenCalledWith({
+      slug: 'data-center-technician-acme-job-1',
+    })
+    expect(mocks.updateEq).toHaveBeenCalledWith('id', 'job-1')
+    expect(job.slug).toBe('data-center-technician-acme-job-1')
+  })
+
+  it('still returns the inserted job when the slug update fails', async () => {
+    mocks.updateEq.mockResolvedValue({ error: new Error('slug write failed') })
+
+    await expect(createJob(payload)).resolves.toMatchObject({ id: 'job-1' })
   })
 })

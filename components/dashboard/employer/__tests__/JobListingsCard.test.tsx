@@ -14,6 +14,7 @@ vi.mock('@/lib/supabase/client', () => ({
 function makeJob(id: string, title: string, status: Job['status']): Job {
   return {
     id,
+    slug: null,
     title,
     company: 'Equinix',
     location: 'Ashburn, VA',

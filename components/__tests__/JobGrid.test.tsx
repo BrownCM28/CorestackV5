@@ -5,6 +5,7 @@ import type { Job } from '@/lib/types'
 
 const makeJob = (id: string, title: string): Job => ({
   id,
+  slug: null,
   title,
   company: 'Test Co',
   location: 'Dallas, TX',

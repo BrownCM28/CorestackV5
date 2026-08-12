@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 import { headers } from 'next/headers'
 import { createClient } from '@/lib/supabase/server'
 import { createJobCheckoutSession } from '@/lib/stripe'
+import { generateSlug } from '@/lib/utils'
 import type { Job, JobStatus, CreateJobPayload } from '@/lib/types'
 
 async function getOrigin(): Promise<string> {
@@ -29,6 +30,21 @@ export async function createJob(payload: CreateJobPayload): Promise<Job> {
     .select()
     .single()
   if (error) throw error
+
+  // Best-effort: the slug is only for a nicer URL, so a failure here must
+  // never block the job posting itself -- it just falls back to the id.
+  try {
+    const slug = generateSlug(data.title, data.company, data.id)
+    const { error: slugError } = await supabase
+      .from('jobs')
+      .update({ slug })
+      .eq('id', data.id)
+    if (slugError) throw slugError
+    data.slug = slug
+  } catch (err) {
+    console.error('Failed to set job slug:', err)
+  }
+
   revalidatePath('/jobs')
   return data
 }

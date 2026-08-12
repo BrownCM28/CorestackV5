@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { formatSalary, daysAgo, sanitizeNextPath } from '../utils'
+import { formatSalary, daysAgo, sanitizeNextPath, generateSlug, isUuid } from '../utils'
 
 describe('formatSalary', () => {
   it('formats both min and max', () => {
@@ -70,5 +70,49 @@ describe('sanitizeNextPath', () => {
   it('uses a custom fallback when provided', () => {
     expect(sanitizeNextPath(null, '/dashboard')).toBe('/dashboard')
     expect(sanitizeNextPath('https://evil.com', '/dashboard')).toBe('/dashboard')
+  })
+})
+
+describe('generateSlug', () => {
+  it('builds a lowercase, hyphenated slug suffixed with the id prefix', () => {
+    expect(generateSlug('Commissioning Engineer', 'Schweitzer Engineering', 'c8a79313-e970-4bb3-8674-48d1e406eae9')).toBe(
+      'commissioning-engineer-schweitzer-engineering-c8a79313'
+    )
+  })
+
+  it('strips punctuation instead of turning it into stray hyphens', () => {
+    expect(generateSlug('24/7 Ops Tech!', 'Acme, Inc.', '12345678-0000-0000-0000-000000000000')).toBe(
+      '247-ops-tech-acme-inc-12345678'
+    )
+  })
+
+  it('collapses whitespace runs into a single hyphen', () => {
+    expect(generateSlug('Data   Center   Tech', 'Equinix', '12345678-0000-0000-0000-000000000000')).toBe(
+      'data-center-tech-equinix-12345678'
+    )
+  })
+
+  it('truncates a long base before appending the id suffix', () => {
+    const slug = generateSlug(
+      'A'.repeat(100),
+      'Some Company',
+      '12345678-0000-0000-0000-000000000000'
+    )
+    expect(slug.endsWith('-12345678')).toBe(true)
+    expect(slug.length).toBeLessThanOrEqual(70 + '-12345678'.length)
+  })
+})
+
+describe('isUuid', () => {
+  it('accepts a canonical UUID', () => {
+    expect(isUuid('c8a79313-e970-4bb3-8674-48d1e406eae9')).toBe(true)
+  })
+
+  it('rejects a slug', () => {
+    expect(isUuid('commissioning-engineer-schweitzer-c8a79313')).toBe(false)
+  })
+
+  it('rejects a UUID-length string with the wrong hyphen placement', () => {
+    expect(isUuid('c8a79313e970-4bb3-8674-48d1e406eae9-x')).toBe(false)
   })
 })

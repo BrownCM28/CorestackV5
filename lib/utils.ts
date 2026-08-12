@@ -57,6 +57,31 @@ export function excerpt(text: string, max = 140): string {
   return plain.length <= max ? plain : plain.slice(0, max).trimEnd() + '…'
 }
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+
+/** True for a canonical UUID string (the jobs table's id column shape). */
+export function isUuid(value: string): boolean {
+  return UUID_RE.test(value)
+}
+
+/**
+ * Builds an SEO-friendly job URL slug from title + company, suffixed with
+ * the first 8 characters of the job's own id for uniqueness. That id
+ * fragment is what actually guarantees uniqueness -- two different jobs
+ * would need a genuine UUID collision to produce the same slug, not just
+ * similar title/company text.
+ */
+export function generateSlug(title: string, company: string, id: string): string {
+  const base = `${title} ${company}`
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
+    .slice(0, 70)
+    .replace(/^-+|-+$/g, '')
+  return `${base}-${id.slice(0, 8)}`
+}
+
 export function getBadge(job: Job): { label: string; cls: string } | null {
   const ageHours = (Date.now() - new Date(job.created_at).getTime()) / 3_600_000
   if (ageHours < 24) return { label: 'NEW', cls: 'bg-[#3ecf8e] text-black' }

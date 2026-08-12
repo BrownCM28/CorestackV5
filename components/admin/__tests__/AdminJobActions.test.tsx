@@ -18,6 +18,7 @@ vi.mock('@/lib/supabase/client', () => ({
 
 const mockJob: Job = {
   id: 'job-1',
+  slug: null,
   title: 'Data Center Technician',
   company: 'Equinix',
   location: 'Ashburn, VA',

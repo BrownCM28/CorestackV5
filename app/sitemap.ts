@@ -4,11 +4,11 @@ export default async function sitemap() {
   const supabase = await createClient()
   const { data: jobs } = await supabase
     .from('jobs')
-    .select('id, created_at')
+    .select('id, slug, created_at')
     .eq('status', 'active')
 
   const jobUrls = (jobs ?? []).map((job) => ({
-    url: `https://corestackjobs.com/jobs/${job.id}`,
+    url: `https://corestackjobs.com/jobs/${job.slug ?? job.id}`,
     lastModified: job.created_at,
     changeFrequency: 'weekly' as const,
     priority: 0.8,

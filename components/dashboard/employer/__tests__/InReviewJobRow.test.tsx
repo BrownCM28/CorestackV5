@@ -19,6 +19,7 @@ vi.mock('@/lib/supabase/client', () => ({
 function makeJob(overrides: Partial<Job> = {}): Job {
   return {
     id: 'job-2',
+    slug: null,
     title: 'Fiber Splicing Technician',
     company: 'Lumen',
     location: 'Denver, CO',

@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import { isUuid } from '@/lib/utils'
 import type {
   Job,
   JobFilters,
@@ -81,16 +82,35 @@ export async function getSimilarJobs(category: Category, excludeId: string): Pro
   return data ?? []
 }
 
-export async function getJob(id: string): Promise<Job> {
+/**
+ * Looks up a job by its slug first (the canonical, SEO-friendly URL), then
+ * falls back to id for backward compatibility with old UUID links. The id
+ * lookup only runs when `slugOrId` actually looks like a UUID -- the id
+ * column is typed uuid, so comparing it against an arbitrary slug string
+ * would throw a Postgres type error rather than just finding no match.
+ */
+export async function getJob(slugOrId: string): Promise<Job> {
   const supabase = await createClient()
-  const { data, error } = await supabase
+
+  const { data: bySlug, error: slugError } = await supabase
     .from('jobs')
     .select('*')
-    .eq('id', id)
+    .eq('slug', slugOrId)
     .maybeSingle()
-  if (error) throw error
-  if (!data) throw new Error('Job not found.')
-  return data
+  if (slugError) throw slugError
+  if (bySlug) return bySlug
+
+  if (isUuid(slugOrId)) {
+    const { data: byId, error: idError } = await supabase
+      .from('jobs')
+      .select('*')
+      .eq('id', slugOrId)
+      .maybeSingle()
+    if (idError) throw idError
+    if (byId) return byId
+  }
+
+  throw new Error('Job not found.')
 }
 
 export async function getNews(): Promise<NewsItem[]> {

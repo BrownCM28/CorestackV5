@@ -99,7 +99,7 @@ export default function JobCard({ job, preview = false, exactSalary = false }: P
 
   return (
     <Link
-      href={`/jobs/${job.id}`}
+      href={`/jobs/${job.slug ?? job.id}`}
       onClick={() => track('job_click', { job_id: job.id, title: job.title, company: job.company })}
       className={CARD_CLASSES}
     >

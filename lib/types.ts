@@ -18,6 +18,7 @@ export type ReferralSource = 'linkedin' | 'google' | 'word_of_mouth' | 'other'
 
 export interface Job {
   id: string
+  slug: string | null
   title: string
   company: string
   location: string
