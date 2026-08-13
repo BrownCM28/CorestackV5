@@ -13,12 +13,14 @@ interface Props {
   preview?: boolean
   /** Show a single figure (the higher end of the range) instead of min–max. */
   exactSalary?: boolean
+  /** Hide the company logo — for a company's own page, where it already appears once in the header. */
+  hideLogo?: boolean
 }
 
 const CARD_CLASSES =
   'flex flex-col sm:flex-row gap-4 sm:gap-6 px-5 py-5 sm:px-8 sm:py-7 sm:min-h-[140px] group transition-colors duration-150 hover:bg-black/[0.02] focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-inset outline-none'
 
-export default function JobCard({ job, preview = false, exactSalary = false }: Props) {
+export default function JobCard({ job, preview = false, exactSalary = false, hideLogo = false }: Props) {
   const badge = getBadge(job)
   const salaryMin = exactSalary
     ? (job.salary_max ?? job.salary_min)
@@ -33,9 +35,11 @@ export default function JobCard({ job, preview = false, exactSalary = false }: P
     <>
       <div className="flex items-start gap-4 sm:contents">
         {/* Left: logo */}
-        <div className="flex-shrink-0 pt-0.5">
-          <CompanyLogo company={job.company} size={64} />
-        </div>
+        {!hideLogo && (
+          <div className="flex-shrink-0 pt-0.5">
+            <CompanyLogo company={job.company} size={64} />
+          </div>
+        )}
 
         {/* Centre: title, company, description */}
         <div className="flex-1 min-w-0">

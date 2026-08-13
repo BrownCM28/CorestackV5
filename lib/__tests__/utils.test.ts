@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { formatSalary, daysAgo, sanitizeNextPath, generateSlug, isUuid } from '../utils'
+import { formatSalary, daysAgo, sanitizeNextPath, generateSlug, isUuid, generateCompanySlug } from '../utils'
 
 describe('formatSalary', () => {
   it('formats both min and max', () => {
@@ -128,5 +128,28 @@ describe('isUuid', () => {
 
   it('rejects a UUID-length string with the wrong hyphen placement', () => {
     expect(isUuid('c8a79313e970-4bb3-8674-48d1e406eae9-x')).toBe(false)
+  })
+})
+
+describe('generateCompanySlug', () => {
+  it('lowercases and hyphenates a company name', () => {
+    expect(generateCompanySlug('Vantage Data Centers')).toBe('vantage-data-centers')
+  })
+
+  it('strips punctuation', () => {
+    expect(generateCompanySlug('AT&T, Inc.')).toBe('att-inc')
+  })
+
+  it('produces the same slug regardless of casing or extra whitespace', () => {
+    // Same normalization must apply whether the name comes from jobs.company
+    // or a claimed company_profiles.company_name, so the two can match even
+    // if an employer typed their own name slightly differently.
+    expect(generateCompanySlug('VANTAGE DATA CENTERS')).toBe(
+      generateCompanySlug('  Vantage   Data    Centers  ')
+    )
+  })
+
+  it('has no id suffix, unlike generateSlug', () => {
+    expect(generateCompanySlug('Equinix')).toBe('equinix')
   })
 })

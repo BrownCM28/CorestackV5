@@ -84,6 +84,23 @@ export function generateSlug(title: string, company: string, id: string): string
   return `${base}-${id.slice(0, 8)}`
 }
 
+/**
+ * Slugifies a company name for /companies/[slug]. Unlike generateSlug()
+ * this has no id suffix -- company names are unique enough on their own,
+ * and this needs to be the same stable value whether it's derived from a
+ * job's company field or a claimed company_profiles.company_name, so the
+ * two can be matched against each other (see getCompanyBySlug()).
+ */
+export function generateCompanySlug(company: string): string {
+  return company
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
+    .slice(0, 70)
+    .replace(/^-+|-+$/g, '')
+}
+
 export function getBadge(job: Job): { label: string; cls: string } | null {
   const ageHours = (Date.now() - new Date(job.created_at).getTime()) / 3_600_000
   if (ageHours < 24) return { label: 'NEW', cls: 'bg-[#3ecf8e] text-black' }

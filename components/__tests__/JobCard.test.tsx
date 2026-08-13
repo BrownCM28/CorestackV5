@@ -73,4 +73,15 @@ describe('JobCard', () => {
     expect(screen.queryByRole('link')).not.toBeInTheDocument()
     expect(screen.getByText('Data Center Technician')).toBeInTheDocument()
   })
+
+  it('renders the company logo by default', () => {
+    render(<JobCard job={mockJob} />)
+    expect(screen.getByAltText('Equinix logo')).toBeInTheDocument()
+  })
+
+  it('hides the company logo when hideLogo is set', () => {
+    render(<JobCard job={mockJob} hideLogo />)
+    expect(screen.queryByAltText('Equinix logo')).not.toBeInTheDocument()
+    expect(screen.getByText('Data Center Technician')).toBeInTheDocument()
+  })
 })

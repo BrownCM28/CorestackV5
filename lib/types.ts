@@ -126,6 +126,7 @@ export interface CompanyProfile {
   id: string
   user_id: string
   company_name: string | null
+  slug: string | null
   tagline: string | null
   logo_url: string | null
   about: string | null
@@ -144,4 +145,13 @@ export interface CompanyProfile {
   interested_in_featured: boolean
   created_at: string
   updated_at: string
+}
+
+export interface CompanyUpdate {
+  id: string
+  company_profile_id: string
+  title: string
+  body: string
+  published_at: string
+  created_at: string
 }

@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
-import { isUuid } from '@/lib/utils'
+import { isUuid, generateCompanySlug } from '@/lib/utils'
 import type {
   Job,
   JobFilters,
@@ -8,6 +8,8 @@ import type {
   ApplicationWithJob,
   SavedJobWithJob,
   Category,
+  CompanyProfile,
+  CompanyUpdate,
 } from '@/lib/types'
 
 export async function getJobs(filters?: JobFilters): Promise<Job[]> {
@@ -179,4 +181,53 @@ export async function getPostedJobs(): Promise<Job[]> {
     .order('created_at', { ascending: false })
   if (error) throw error
   return data ?? []
+}
+
+export interface CompanyPageData {
+  company: string
+  jobs: Job[]
+  profile: CompanyProfile | null
+  updates: CompanyUpdate[]
+}
+
+/**
+ * jobs.company is free text with no FK to company_profiles, so a company
+ * page's identity comes from the company name on its active jobs -- the
+ * slug is matched by re-slugifying every distinct company name rather than
+ * looking up a stored value, since most companies won't have a profile row
+ * at all. company_profiles is joined in the same way (by re-slugifying
+ * company_name) purely to enrich the page when a profile does exist.
+ */
+export async function getCompanyBySlug(slug: string): Promise<CompanyPageData | null> {
+  const supabase = await createClient()
+
+  const { data: activeJobs, error: jobsError } = await supabase
+    .from('jobs')
+    .select('*')
+    .eq('status', 'active')
+  if (jobsError) throw jobsError
+
+  const match = (activeJobs ?? []).find((j) => generateCompanySlug(j.company) === slug)
+  if (!match) return null
+
+  const companyName = match.company
+  const jobs = (activeJobs ?? []).filter((j) => j.company === companyName)
+
+  const { data: profiles } = await supabase.from('company_profiles').select('*')
+  const profile =
+    (profiles ?? []).find(
+      (p) => p.company_name && generateCompanySlug(p.company_name) === slug
+    ) ?? null
+
+  let updates: CompanyUpdate[] = []
+  if (profile) {
+    const { data: updatesData } = await supabase
+      .from('company_updates')
+      .select('*')
+      .eq('company_profile_id', profile.id)
+      .order('published_at', { ascending: false })
+    updates = updatesData ?? []
+  }
+
+  return { company: companyName, jobs, profile, updates }
 }

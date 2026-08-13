@@ -8,6 +8,7 @@ import NavAuth from '@/components/NavAuth'
 
 const navLinks = [
   { href: '/jobs', label: 'Jobs' },
+  { href: '/companies', label: 'Companies' },
   { href: '/news', label: 'News' },
   { href: '/resources', label: 'Resources' },
   { href: '/dashboard', label: 'Dashboard' },

@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import type { CompanyProfile, Category } from '@/lib/types'
 import { CATEGORY_LIST, CATEGORY_LABELS, MARKET_LIST, INDUSTRY_FOCUS_LIST } from '@/lib/constants'
+import { generateCompanySlug } from '@/lib/utils'
 import ProfileSectionHeader from './ProfileSectionHeader'
 import ChipMultiSelect from './ChipMultiSelect'
 
@@ -108,12 +109,18 @@ export default function CompanyProfileCard({ userId, initialProfile }: Props) {
 
   function sectionPayload(section: SectionKey): Record<string, unknown> {
     switch (section) {
-      case 'identity':
+      case 'identity': {
+        const name = form.company_name.trim()
         return {
-          company_name: form.company_name.trim() || null,
+          company_name: name || null,
+          // Keeps /companies/[slug] in sync with the name shown everywhere
+          // else -- regenerated on every save rather than set once, since
+          // company_name is editable and a stale slug would silently 404.
+          slug: name ? generateCompanySlug(name) : null,
           tagline: form.tagline.trim() || null,
           logo_url: form.logo_url,
         }
+      }
       case 'about':
         return {
           about: form.about.trim() || null,

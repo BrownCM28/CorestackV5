@@ -26,6 +26,7 @@ function makeProfile(overrides: Partial<CompanyProfile> = {}): CompanyProfile {
     id: 'profile-1',
     user_id: 'user-1',
     company_name: 'Equinix',
+    slug: 'equinix',
     tagline: 'Powering the digital world',
     logo_url: null,
     about: 'A global data center company.',
