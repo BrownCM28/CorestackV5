@@ -50,9 +50,11 @@ export default async function CompanyDetailPage({ params }: PageProps) {
   if (profile?.careers_url) links.push({ label: 'Careers Page', url: profile.careers_url })
   if (profile?.linkedin_url) links.push({ label: 'LinkedIn', url: profile.linkedin_url })
 
+  const hasSidebar = Boolean(profile?.about) || facts.length > 0 || links.length > 0 || updates.length > 0
+
   return (
     <div>
-      {/* ── HEADER ───────────────────────────────────────────────────────── */}
+      {/* ── PAGE HEADER ──────────────────────────────────────────────────── */}
       <section
         className="px-6 pt-10 pb-12 border-b border-black"
         style={{
@@ -72,10 +74,10 @@ export default async function CompanyDetailPage({ params }: PageProps) {
             </Link>
             <span>/</span>
             <Link
-              href="/companies"
+              href="/jobs"
               className="hover:text-black transition-colors focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
             >
-              Companies
+              Jobs
             </Link>
             <span>/</span>
             <span className="text-black/60 truncate max-w-[200px]">{company}</span>
@@ -97,80 +99,18 @@ export default async function CompanyDetailPage({ params }: PageProps) {
                 <span className="text-xs font-semibold text-[#3ecf8e] border border-[#3ecf8e]/30 px-3 py-1 tabular-nums">
                   {jobs.length} open role{jobs.length === 1 ? '' : 's'}
                 </span>
-                {facts.map((f) => (
-                  <span
-                    key={f.label}
-                    className="text-xs font-medium border border-black/20 px-3 py-1"
-                  >
-                    {f.label}: {f.value}
-                  </span>
-                ))}
               </div>
-
-              {links.length > 0 && (
-                <div className="flex items-center gap-2 flex-wrap mt-4">
-                  {links.map((l) => (
-                    <a
-                      key={l.label}
-                      href={l.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs border border-black px-3 py-1.5 transition-colors duration-150 hover:bg-[#3ecf8e] focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
-                    >
-                      {l.label} →
-                    </a>
-                  ))}
-                </div>
-              )}
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── ABOUT ────────────────────────────────────────────────────────── */}
-      {profile?.about && (
-        <section className="border-b border-black">
-          <div className="max-w-5xl mx-auto px-6 py-10">
-            <h2 className="text-xs font-bold uppercase tracking-widest text-black/40 mb-4">
-              About
-            </h2>
-            <p className="text-sm text-black/75 leading-relaxed whitespace-pre-wrap max-w-3xl">
-              {profile.about}
-            </p>
-          </div>
-        </section>
-      )}
+      {/* ── BODY: job listings + sidebar ────────────────────────────────── */}
+      <div className="max-w-5xl mx-auto flex gap-0 divide-x divide-black border-b border-black min-h-screen">
 
-      {/* ── RECENT UPDATES ───────────────────────────────────────────────── */}
-      {updates.length > 0 && (
-        <section className="border-b border-black bg-white/70 backdrop-blur-sm">
-          <div className="max-w-5xl mx-auto px-6 py-10">
-            <h2 className="text-xs font-bold uppercase tracking-widest text-black/40 mb-5">
-              Recent Updates
-            </h2>
-            <ul role="list" className="divide-y divide-black/10">
-              {updates.map((u) => (
-                <li key={u.id} className="py-5 first:pt-0 last:pb-0">
-                  <div className="flex items-baseline justify-between gap-4 flex-wrap">
-                    <h3 className="font-bold text-sm leading-snug">{u.title}</h3>
-                    <span className="text-[11px] text-black/35 whitespace-nowrap">
-                      {daysAgo(u.published_at)}
-                    </span>
-                  </div>
-                  <p className="text-sm text-black/70 leading-relaxed mt-1.5 whitespace-pre-wrap max-w-3xl">
-                    {u.body}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      )}
-
-      {/* ── OPEN ROLES ───────────────────────────────────────────────────── */}
-      <section>
-        <div className="max-w-5xl mx-auto px-6 py-10">
-          <h2 className="text-xs font-bold uppercase tracking-widest text-black/40 mb-5">
+        {/* ── Main: open roles ─── */}
+        <main className="flex-1 min-w-0 p-8 sm:p-10">
+          <h2 className="text-xs font-bold uppercase tracking-widest text-black/40 mb-6">
             Open Roles ({jobs.length})
           </h2>
           <ul role="list" className="grid grid-cols-1 border-l border-t border-black">
@@ -183,8 +123,84 @@ export default async function CompanyDetailPage({ params }: PageProps) {
               </li>
             ))}
           </ul>
-        </div>
-      </section>
+        </main>
+
+        {/* ── Sidebar: about, other info, updates ─── */}
+        {hasSidebar && (
+          <aside className="w-80 flex-shrink-0 hidden xl:block" aria-label="About this company">
+            <div className="sticky top-0 divide-y divide-black">
+
+              {/* About */}
+              {profile?.about && (
+                <div className="p-7">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-black/40 mb-4">
+                    About
+                  </p>
+                  <p className="text-sm text-black/75 leading-relaxed whitespace-pre-wrap">
+                    {profile.about}
+                  </p>
+                </div>
+              )}
+
+              {/* Other info */}
+              {(facts.length > 0 || links.length > 0) && (
+                <div className="p-7">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-black/40 mb-5">
+                    Other Info
+                  </p>
+                  {facts.length > 0 && (
+                    <dl className="space-y-4">
+                      {facts.map((f) => (
+                        <div key={f.label} className="flex justify-between gap-4">
+                          <dt className="text-xs text-black/40">{f.label}</dt>
+                          <dd className="text-xs font-medium text-right">{f.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  )}
+                  {links.length > 0 && (
+                    <div className={`flex flex-col gap-2 ${facts.length > 0 ? 'mt-5' : ''}`}>
+                      {links.map((l) => (
+                        <a
+                          key={l.label}
+                          href={l.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs text-center border border-black px-3 py-2 transition-colors duration-150 hover:bg-[#3ecf8e] focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
+                        >
+                          {l.label} →
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Recent updates */}
+              {updates.length > 0 && (
+                <div className="p-7">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-black/40 mb-4">
+                    Recent Updates
+                  </p>
+                  <ul role="list" className="space-y-5">
+                    {updates.map((u) => (
+                      <li key={u.id}>
+                        <div className="flex items-baseline justify-between gap-2">
+                          <p className="text-xs font-semibold leading-snug">{u.title}</p>
+                        </div>
+                        <p className="text-[11px] text-black/45 mt-1 leading-relaxed">
+                          {u.body}
+                        </p>
+                        <p className="text-[10px] text-black/35 mt-1">{daysAgo(u.published_at)}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </aside>
+        )}
+      </div>
     </div>
   )
 }
