@@ -50,8 +50,6 @@ export default async function CompanyDetailPage({ params }: PageProps) {
   if (profile?.careers_url) links.push({ label: 'Careers Page', url: profile.careers_url })
   if (profile?.linkedin_url) links.push({ label: 'LinkedIn', url: profile.linkedin_url })
 
-  const hasSidebar = Boolean(profile?.about) || facts.length > 0 || links.length > 0 || updates.length > 0
-
   return (
     <div>
       {/* ── PAGE HEADER ──────────────────────────────────────────────────── */}
@@ -108,8 +106,18 @@ export default async function CompanyDetailPage({ params }: PageProps) {
       {/* ── BODY: job listings + sidebar ────────────────────────────────── */}
       <div className="max-w-5xl mx-auto flex gap-0 divide-x divide-black border-b border-black min-h-screen">
 
-        {/* ── Main: open roles ─── */}
+        {/* ── Main: about + open roles ─── */}
         <main className="flex-1 min-w-0 p-8 sm:p-10">
+          {/* About */}
+          <div className="mb-10">
+            <h2 className="text-xs font-bold uppercase tracking-widest text-black/40 mb-4">
+              About
+            </h2>
+            <p className="text-sm text-black/75 leading-relaxed whitespace-pre-wrap max-w-2xl">
+              {profile?.about || 'No company description available yet.'}
+            </p>
+          </div>
+
           <h2 className="text-xs font-bold uppercase tracking-widest text-black/40 mb-6">
             Open Roles ({jobs.length})
           </h2>
@@ -125,81 +133,69 @@ export default async function CompanyDetailPage({ params }: PageProps) {
           </ul>
         </main>
 
-        {/* ── Sidebar: about, other info, updates ─── */}
-        {hasSidebar && (
-          <aside className="w-80 flex-shrink-0 hidden xl:block" aria-label="About this company">
-            <div className="sticky top-0 divide-y divide-black">
+        {/* ── Sidebar: other info, updates ─── */}
+        <aside className="w-80 flex-shrink-0 hidden xl:block" aria-label="Company info and updates">
+          <div className="sticky top-0 divide-y divide-black">
 
-              {/* About */}
-              {profile?.about && (
-                <div className="p-7">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-black/40 mb-4">
-                    About
-                  </p>
-                  <p className="text-sm text-black/75 leading-relaxed whitespace-pre-wrap">
-                    {profile.about}
-                  </p>
-                </div>
-              )}
-
-              {/* Other info */}
-              {(facts.length > 0 || links.length > 0) && (
-                <div className="p-7">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-black/40 mb-5">
-                    Other Info
-                  </p>
-                  {facts.length > 0 && (
-                    <dl className="space-y-4">
-                      {facts.map((f) => (
-                        <div key={f.label} className="flex justify-between gap-4">
-                          <dt className="text-xs text-black/40">{f.label}</dt>
-                          <dd className="text-xs font-medium text-right">{f.value}</dd>
-                        </div>
-                      ))}
-                    </dl>
-                  )}
-                  {links.length > 0 && (
-                    <div className={`flex flex-col gap-2 ${facts.length > 0 ? 'mt-5' : ''}`}>
-                      {links.map((l) => (
-                        <a
-                          key={l.label}
-                          href={l.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-xs text-center border border-black px-3 py-2 transition-colors duration-150 hover:bg-[#3ecf8e] focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
-                        >
-                          {l.label} →
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Recent updates */}
-              {updates.length > 0 && (
-                <div className="p-7">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-black/40 mb-4">
-                    Recent Updates
-                  </p>
-                  <ul role="list" className="space-y-5">
-                    {updates.map((u) => (
-                      <li key={u.id}>
-                        <div className="flex items-baseline justify-between gap-2">
-                          <p className="text-xs font-semibold leading-snug">{u.title}</p>
-                        </div>
-                        <p className="text-[11px] text-black/45 mt-1 leading-relaxed">
-                          {u.body}
-                        </p>
-                        <p className="text-[10px] text-black/35 mt-1">{daysAgo(u.published_at)}</p>
-                      </li>
+            {/* Other info */}
+            {(facts.length > 0 || links.length > 0) && (
+              <div className="p-7">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-black/40 mb-5">
+                  Other Info
+                </p>
+                {facts.length > 0 && (
+                  <dl className="space-y-4">
+                    {facts.map((f) => (
+                      <div key={f.label} className="flex justify-between gap-4">
+                        <dt className="text-xs text-black/40">{f.label}</dt>
+                        <dd className="text-xs font-medium text-right">{f.value}</dd>
+                      </div>
                     ))}
-                  </ul>
-                </div>
+                  </dl>
+                )}
+                {links.length > 0 && (
+                  <div className={`flex flex-col gap-2 ${facts.length > 0 ? 'mt-5' : ''}`}>
+                    {links.map((l) => (
+                      <a
+                        key={l.label}
+                        href={l.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-center border border-black px-3 py-2 transition-colors duration-150 hover:bg-[#3ecf8e] focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
+                      >
+                        {l.label} →
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Recent updates */}
+            <div className="p-7">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-black/40 mb-4">
+                Recent Updates
+              </p>
+              {updates.length > 0 ? (
+                <ul role="list" className="space-y-5">
+                  {updates.map((u) => (
+                    <li key={u.id}>
+                      <div className="flex items-baseline justify-between gap-2">
+                        <p className="text-xs font-semibold leading-snug">{u.title}</p>
+                      </div>
+                      <p className="text-[11px] text-black/45 mt-1 leading-relaxed">
+                        {u.body}
+                      </p>
+                      <p className="text-[10px] text-black/35 mt-1">{daysAgo(u.published_at)}</p>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-xs text-black/40">No recent updates.</p>
               )}
             </div>
-          </aside>
-        )}
+          </div>
+        </aside>
       </div>
     </div>
   )
