@@ -6,7 +6,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getJob, getSimilarJobs } from '@/lib/api'
 import { MOCK_JOBS } from '@/lib/mock-jobs'
 import { CATEGORY_LABELS } from '@/lib/constants'
-import { formatSalary, daysAgo, isUuid } from '@/lib/utils'
+import { formatSalary, daysAgo, isUuid, generateCompanySlug } from '@/lib/utils'
 import CompanyLogo from '@/components/jobs/CompanyLogo'
 import AuthGate from '@/components/auth/AuthGate'
 import SaveJobButton from '@/components/SaveJobButton'
@@ -174,7 +174,13 @@ export default async function JobDetailPage({ params }: PageProps) {
           {/* Header content */}
           <div className="flex items-start gap-6 flex-wrap">
             {/* Logo */}
-            <CompanyLogo company={job.company} size={64} />
+            <Link
+              href={`/companies/${generateCompanySlug(job.company)}`}
+              aria-label={`View ${job.company}'s company page`}
+              className="inline-block focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
+            >
+              <CompanyLogo company={job.company} size={64} />
+            </Link>
 
             {/* Title block */}
             <div className="flex-1 min-w-0">

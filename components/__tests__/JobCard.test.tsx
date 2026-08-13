@@ -58,14 +58,20 @@ describe('JobCard', () => {
 
   it('links to the job detail page by id when there is no slug', () => {
     render(<JobCard job={mockJob} />)
-    const link = screen.getByRole('link')
+    const link = screen.getByRole('link', { name: 'Data Center Technician at Equinix' })
     expect(link).toHaveAttribute('href', '/jobs/test-id-123')
   })
 
   it('prefers the slug over the id when one is set', () => {
     render(<JobCard job={{ ...mockJob, slug: 'data-center-technician-equinix-test-id' }} />)
-    const link = screen.getByRole('link')
+    const link = screen.getByRole('link', { name: 'Data Center Technician at Equinix' })
     expect(link).toHaveAttribute('href', '/jobs/data-center-technician-equinix-test-id')
+  })
+
+  it('links the company logo to the company page, separately from the job link', () => {
+    render(<JobCard job={mockJob} />)
+    const companyLink = screen.getByRole('link', { name: "View Equinix's company page" })
+    expect(companyLink).toHaveAttribute('href', '/companies/equinix')
   })
 
   it('renders as a non-navigable div instead of a link in preview mode', () => {

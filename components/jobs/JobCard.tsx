@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import type { Job } from '@/lib/types'
 import { CATEGORY_LABELS } from '@/lib/constants'
-import { daysAgo, excerpt, formatSalary, getBadge } from '@/lib/utils'
+import { daysAgo, excerpt, formatSalary, getBadge, generateCompanySlug } from '@/lib/utils'
 import { track } from '@/lib/analytics'
 import CompanyLogo from './CompanyLogo'
 
@@ -18,7 +18,7 @@ interface Props {
 }
 
 const CARD_CLASSES =
-  'flex flex-col sm:flex-row gap-4 sm:gap-6 px-5 py-5 sm:px-8 sm:py-7 sm:min-h-[140px] group transition-colors duration-150 hover:bg-black/[0.02] focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-inset outline-none'
+  'relative flex flex-col sm:flex-row gap-4 sm:gap-6 px-5 py-5 sm:px-8 sm:py-7 sm:min-h-[140px] group transition-colors duration-150 hover:bg-black/[0.02]'
 
 export default function JobCard({ job, preview = false, exactSalary = false, hideLogo = false }: Props) {
   const badge = getBadge(job)
@@ -36,8 +36,18 @@ export default function JobCard({ job, preview = false, exactSalary = false, hid
       <div className="flex items-start gap-4 sm:contents">
         {/* Left: logo */}
         {!hideLogo && (
-          <div className="flex-shrink-0 pt-0.5">
-            <CompanyLogo company={job.company} size={64} />
+          <div className="flex-shrink-0 pt-0.5 relative z-10">
+            {preview ? (
+              <CompanyLogo company={job.company} size={64} />
+            ) : (
+              <Link
+                href={`/companies/${generateCompanySlug(job.company)}`}
+                aria-label={`View ${job.company}'s company page`}
+                className="inline-block focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
+              >
+                <CompanyLogo company={job.company} size={64} />
+              </Link>
+            )}
           </div>
         )}
 
@@ -102,12 +112,17 @@ export default function JobCard({ job, preview = false, exactSalary = false, hid
   }
 
   return (
-    <Link
-      href={`/jobs/${job.slug ?? job.id}`}
-      onClick={() => track('job_click', { job_id: job.id, title: job.title, company: job.company })}
-      className={CARD_CLASSES}
-    >
+    <div className={CARD_CLASSES}>
+      {/* Stretched link — the whole card is clickable, but the logo above
+          has its own separate link, so this can't be a single wrapping
+          <Link> (nested <a> tags are invalid). */}
+      <Link
+        href={`/jobs/${job.slug ?? job.id}`}
+        onClick={() => track('job_click', { job_id: job.id, title: job.title, company: job.company })}
+        aria-label={`${job.title} at ${job.company}`}
+        className="absolute inset-0 focus-visible:ring-2 focus-visible:ring-[#3ecf8e] focus-visible:ring-inset outline-none"
+      />
       {content}
-    </Link>
+    </div>
   )
 }
