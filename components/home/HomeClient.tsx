@@ -199,9 +199,9 @@ export default function HomeClient({ jobs, news }: Props) {
           {/* Two-field search bar */}
           <form
             onSubmit={handleSearch}
-            className="mt-9 flex w-full max-w-3xl bg-white border border-white"
+            className="mt-9 flex flex-col sm:flex-row w-full max-w-3xl bg-white border border-white"
           >
-            <div className="flex flex-1 items-center border-r border-black px-4 min-w-0">
+            <div className="flex items-center border-b sm:border-b-0 sm:border-r border-black px-4 sm:flex-1 min-w-0">
               <Search size={14} className="text-black/30 flex-shrink-0 mr-3" aria-hidden="true" />
               <label htmlFor="hero-kw" className="sr-only">
                 Job title or keyword
@@ -215,7 +215,7 @@ export default function HomeClient({ jobs, news }: Props) {
                 className="flex-1 py-3.5 text-sm bg-transparent outline-none placeholder:text-black/30 min-w-0"
               />
             </div>
-            <div className="hidden sm:flex flex-1 items-center border-r border-black px-4 min-w-0">
+            <div className="flex items-center border-b sm:border-b-0 sm:border-r border-black px-4 sm:flex-1 min-w-0">
               <MapPin size={14} className="text-black/30 flex-shrink-0 mr-3" aria-hidden="true" />
               <label htmlFor="hero-loc" className="sr-only">
                 Location
