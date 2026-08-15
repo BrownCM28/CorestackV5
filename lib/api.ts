@@ -10,6 +10,7 @@ import type {
   Category,
   CompanyProfile,
   CompanyUpdate,
+  Article,
 } from '@/lib/types'
 
 export async function getJobs(filters?: JobFilters): Promise<Job[]> {
@@ -115,14 +116,53 @@ export async function getJob(slugOrId: string): Promise<Job> {
   throw new Error('Job not found.')
 }
 
+/**
+ * Merges the external press roundup (`news`) with original Corestack
+ * articles (`articles`) into one feed, sorted by recency. Original articles
+ * carry a `slug` so callers can link to /news/[slug] instead of an
+ * external URL.
+ *
+ * The two sources are queried independently and a failure in either one
+ * degrades to an empty list for that source rather than failing the whole
+ * feed -- otherwise the (separately maintained) `news` table being briefly
+ * unavailable would take the original articles down with it.
+ */
 export async function getNews(): Promise<NewsItem[]> {
   const supabase = await createClient()
+  const [newsResult, articlesResult] = await Promise.all([
+    supabase.from('news').select('*').order('published_at', { ascending: false }),
+    supabase
+      .from('articles')
+      .select('id, slug, title, excerpt, published_at')
+      .order('published_at', { ascending: false }),
+  ])
+  const news = newsResult.error ? [] : newsResult.data ?? []
+  const articles = articlesResult.error ? [] : articlesResult.data ?? []
+
+  const articleItems: NewsItem[] = articles.map((a) => ({
+    id: a.id,
+    headline: a.title,
+    source: 'Corestack',
+    url: `/news/${a.slug}`,
+    excerpt: a.excerpt,
+    published_at: a.published_at,
+    slug: a.slug,
+  }))
+
+  return [...news, ...articleItems].sort(
+    (a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
+  )
+}
+
+export async function getArticleBySlug(slug: string): Promise<Article | null> {
+  const supabase = await createClient()
   const { data, error } = await supabase
-    .from('news')
+    .from('articles')
     .select('*')
-    .order('published_at', { ascending: false })
+    .eq('slug', slug)
+    .maybeSingle()
   if (error) throw error
-  return data ?? []
+  return data
 }
 
 export async function getResources(): Promise<Resource[]> {

@@ -60,6 +60,23 @@ export interface NewsItem {
   url: string
   excerpt: string | null
   published_at: string
+  /** Set only for original Corestack articles merged into the news feed —
+   * when present, link to /news/[slug] instead of treating `url` as an
+   * external link. */
+  slug?: string | null
+}
+
+export interface Article {
+  id: string
+  slug: string
+  title: string
+  excerpt: string
+  body: string
+  category: Category | null
+  author: string
+  published_at: string
+  created_at: string
+  updated_at: string
 }
 
 export interface Resource {

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import Link from 'next/link'
 import type { NewsItem } from '@/lib/types'
 
 function formatDate(dateStr: string) {
@@ -30,6 +31,7 @@ const SOURCE_COLORS: Record<string, string> = {
   Workforce: '#eab308',
   Development: '#ec4899',
   Industry: '#64748b',
+  Corestack: '#000000',
 }
 
 function sourceColor(source: string): string {
@@ -134,14 +136,23 @@ export default function NewsPageClient({ news }: Props) {
                 </div>
 
                 <h2 className="text-xl sm:text-2xl font-bold leading-snug text-balance">
-                  <a
-                    href={featured.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-[#3ecf8e] transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
-                  >
-                    {featured.headline}
-                  </a>
+                  {featured.slug ? (
+                    <Link
+                      href={featured.url}
+                      className="hover:text-[#3ecf8e] transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
+                    >
+                      {featured.headline}
+                    </Link>
+                  ) : (
+                    <a
+                      href={featured.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-[#3ecf8e] transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
+                    >
+                      {featured.headline}
+                    </a>
+                  )}
                 </h2>
 
                 {featured.excerpt && (
@@ -150,15 +161,25 @@ export default function NewsPageClient({ news }: Props) {
                   </p>
                 )}
 
-                <a
-                  href={featured.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-5 inline-flex items-center gap-2 text-xs font-medium border border-black px-4 py-2 transition-colors duration-150 hover:bg-[#3ecf8e] focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
-                  aria-label={`Read full article: ${featured.headline}`}
-                >
-                  Read article →
-                </a>
+                {featured.slug ? (
+                  <Link
+                    href={featured.url}
+                    className="mt-5 inline-flex items-center gap-2 text-xs font-medium border border-black px-4 py-2 transition-colors duration-150 hover:bg-[#3ecf8e] focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
+                    aria-label={`Read full article: ${featured.headline}`}
+                  >
+                    Read article →
+                  </Link>
+                ) : (
+                  <a
+                    href={featured.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-5 inline-flex items-center gap-2 text-xs font-medium border border-black px-4 py-2 transition-colors duration-150 hover:bg-[#3ecf8e] focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
+                    aria-label={`Read full article: ${featured.headline}`}
+                  >
+                    Read article →
+                  </a>
+                )}
               </article>
             )}
 
@@ -181,14 +202,23 @@ export default function NewsPageClient({ news }: Props) {
                     </div>
 
                     <h3 className="font-semibold text-sm leading-snug">
-                      <a
-                        href={item.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:text-[#3ecf8e] transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
-                      >
-                        {item.headline}
-                      </a>
+                      {item.slug ? (
+                        <Link
+                          href={item.url}
+                          className="hover:text-[#3ecf8e] transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
+                        >
+                          {item.headline}
+                        </Link>
+                      ) : (
+                        <a
+                          href={item.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-[#3ecf8e] transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
+                        >
+                          {item.headline}
+                        </a>
+                      )}
                     </h3>
 
                     {item.excerpt && (
@@ -197,15 +227,25 @@ export default function NewsPageClient({ news }: Props) {
                       </p>
                     )}
 
-                    <a
-                      href={item.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs mt-auto border border-black/30 px-3 py-1.5 self-start transition-colors duration-150 hover:bg-[#3ecf8e] hover:border-[#3ecf8e] focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
-                      aria-label={`Read: ${item.headline}`}
-                    >
-                      Read →
-                    </a>
+                    {item.slug ? (
+                      <Link
+                        href={item.url}
+                        className="text-xs mt-auto border border-black/30 px-3 py-1.5 self-start transition-colors duration-150 hover:bg-[#3ecf8e] hover:border-[#3ecf8e] focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
+                        aria-label={`Read: ${item.headline}`}
+                      >
+                        Read →
+                      </Link>
+                    ) : (
+                      <a
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs mt-auto border border-black/30 px-3 py-1.5 self-start transition-colors duration-150 hover:bg-[#3ecf8e] hover:border-[#3ecf8e] focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
+                        aria-label={`Read: ${item.headline}`}
+                      >
+                        Read →
+                      </a>
+                    )}
                   </article>
                 ))}
               </div>

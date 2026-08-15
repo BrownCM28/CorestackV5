@@ -27,6 +27,17 @@ export default async function sitemap() {
     priority: 0.6,
   }))
 
+  const { data: articles } = await supabase
+    .from('articles')
+    .select('slug, updated_at')
+
+  const articleUrls = (articles ?? []).map((article) => ({
+    url: `https://corestackjobs.com/news/${article.slug}`,
+    lastModified: article.updated_at,
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }))
+
   return [
     {
       url: 'https://corestackjobs.com',
@@ -47,6 +58,12 @@ export default async function sitemap() {
       priority: 0.7,
     },
     {
+      url: 'https://corestackjobs.com/news',
+      lastModified: new Date().toISOString(),
+      changeFrequency: 'daily' as const,
+      priority: 0.7,
+    },
+    {
       url: 'https://corestackjobs.com/terms',
       lastModified: new Date().toISOString(),
       changeFrequency: 'yearly' as const,
@@ -60,5 +77,6 @@ export default async function sitemap() {
     },
     ...jobUrls,
     ...companyUrls,
+    ...articleUrls,
   ]
 }
