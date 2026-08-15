@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
+import Link from 'next/link'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { sanitizeNextPath } from '@/lib/utils'
@@ -284,6 +285,20 @@ export default function AuthForm({ mode }: Props) {
           {googleLoading ? 'Redirecting…' : 'Continue with Google'}
         </button>
       </div>
+
+      {mode === 'signup' && (
+        <p className="text-xs text-black/40 text-center leading-relaxed">
+          By creating an account, you agree to our{' '}
+          <Link href="/terms" className="underline hover:text-black transition-colors duration-150">
+            Terms of Service
+          </Link>{' '}
+          and{' '}
+          <Link href="/privacy" className="underline hover:text-black transition-colors duration-150">
+            Privacy Policy
+          </Link>
+          .
+        </p>
+      )}
     </form>
   )
 }

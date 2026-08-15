@@ -3,7 +3,7 @@ import { updateSession } from '@/lib/supabase/middleware'
 import { extractUtmParams, UTM_COOKIE_NAME, UTM_COOKIE_MAX_AGE } from '@/lib/utm'
 
 const ONBOARDING_EXCLUDED_PREFIXES = ['/onboarding', '/auth', '/api', '/admin']
-const ONBOARDING_EXCLUDED_EXACT = ['/signin', '/signup']
+const ONBOARDING_EXCLUDED_EXACT = ['/signin', '/signup', '/terms', '/privacy']
 
 function isExcludedFromOnboardingCheck(pathname: string): boolean {
   return (

@@ -46,6 +46,18 @@ export default async function sitemap() {
       changeFrequency: 'daily' as const,
       priority: 0.7,
     },
+    {
+      url: 'https://corestackjobs.com/terms',
+      lastModified: new Date().toISOString(),
+      changeFrequency: 'yearly' as const,
+      priority: 0.2,
+    },
+    {
+      url: 'https://corestackjobs.com/privacy',
+      lastModified: new Date().toISOString(),
+      changeFrequency: 'yearly' as const,
+      priority: 0.2,
+    },
     ...jobUrls,
     ...companyUrls,
   ]

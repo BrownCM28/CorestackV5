@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import Script from 'next/script'
+import Link from 'next/link'
 import { Analytics } from '@vercel/analytics/next'
 import MosaicNav from '@/components/nav/MosaicNav'
 import NewsTicker from '@/components/nav/NewsTicker'
@@ -54,9 +55,25 @@ export default async function RootLayout({
         </header>
         <main className="flex-1">{children}</main>
         <footer className="border-t border-black mt-16 py-8 px-6">
-          <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-4 text-sm text-black/50">
-            <p>© {new Date().getFullYear()} Corestack</p>
-            <p>Built for the data center industry.</p>
+          <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-4">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-black/50">
+              <p>© {new Date().getFullYear()} Corestack</p>
+              <p>Built for the data center industry.</p>
+            </div>
+            <div className="flex items-center gap-4 text-xs text-black/40">
+              <Link
+                href="/terms"
+                className="hover:text-black transition-colors focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
+              >
+                Terms of Service
+              </Link>
+              <Link
+                href="/privacy"
+                className="hover:text-black transition-colors focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
+              >
+                Privacy Policy
+              </Link>
+            </div>
           </div>
         </footer>
         <Analytics />
