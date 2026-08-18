@@ -4,7 +4,7 @@ import Link from 'next/link'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { getArticleBySlug } from '@/lib/api'
-import { CATEGORY_LABELS } from '@/lib/constants'
+import { CATEGORY_LABELS, SITE_URL } from '@/lib/constants'
 import { daysAgo } from '@/lib/utils'
 
 interface PageProps {
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: article.title,
       description: article.excerpt,
-      url: `https://corestackjobs.com/news/${article.slug}`,
+      url: `${SITE_URL}/news/${article.slug}`,
       siteName: 'Corestack',
       type: 'article',
       publishedTime: article.published_at,
@@ -58,14 +58,14 @@ export default async function ArticlePage({ params }: PageProps) {
       name: 'Corestack',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://corestackjobs.com/corestack-logo.webp',
+        url: `${SITE_URL}/corestack-logo.webp`,
       },
     },
     datePublished: article.published_at,
     dateModified: article.updated_at,
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://corestackjobs.com/news/${article.slug}`,
+      '@id': `${SITE_URL}/news/${article.slug}`,
     },
   }
 

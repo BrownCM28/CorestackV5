@@ -5,7 +5,7 @@ import { getJobs, getJobCompanies } from '@/lib/api'
 import JobGrid from '@/components/jobs/JobGrid'
 import JobFilters from '@/components/jobs/JobFilters'
 import JobsSidebar from '@/components/jobs/JobsSidebar'
-import type { DatePosted } from '@/lib/constants'
+import { SITE_URL, type DatePosted } from '@/lib/constants'
 import type { JobFilters as Filters, Category } from '@/lib/types'
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: 'Data Center Jobs — Corestack',
     description:
       'Browse open roles in data center construction, operations, critical power, cooling, and networking.',
-    url: 'https://corestackjobs.com/jobs',
+    url: `${SITE_URL}/jobs`,
     siteName: 'Corestack',
     type: 'website',
   },

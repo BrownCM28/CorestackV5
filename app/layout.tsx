@@ -7,6 +7,7 @@ import MosaicNav from '@/components/nav/MosaicNav'
 import NewsTicker from '@/components/nav/NewsTicker'
 import { getNews } from '@/lib/api'
 import { MOCK_NEWS } from '@/lib/mock-news'
+import { SITE_URL } from '@/lib/constants'
 import './globals.css'
 
 const geistSans = Geist({
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
   },
   description:
     'The job board for the people building the cloud. Operations, construction, power, cooling, and networking roles across the data center industry.',
-  metadataBase: new URL('https://corestackjobs.com'),
+  metadataBase: new URL(SITE_URL),
   openGraph: {
     siteName: 'Corestack',
     type: 'website',

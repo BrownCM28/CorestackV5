@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getJobCompanies } from '@/lib/api'
 import CompanyCard from '@/components/companies/CompanyCard'
+import { SITE_URL } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Companies — Corestack',
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
     title: 'Companies — Corestack',
     description:
       'Browse data center and infrastructure companies actively hiring on Corestack.',
-    url: 'https://corestackjobs.com/companies',
+    url: `${SITE_URL}/companies`,
     siteName: 'Corestack',
     type: 'website',
   },

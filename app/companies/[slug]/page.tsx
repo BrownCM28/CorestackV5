@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getCompanyBySlug } from '@/lib/api'
 import { daysAgo } from '@/lib/utils'
+import { SITE_URL } from '@/lib/constants'
 import CompanyLogo from '@/components/jobs/CompanyLogo'
 import JobCard from '@/components/jobs/JobCard'
 
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: `${data.company} Jobs`,
       description,
-      url: `https://corestackjobs.com/companies/${slug}`,
+      url: `${SITE_URL}/companies/${slug}`,
       siteName: 'Corestack',
       type: 'website',
     },

@@ -1,5 +1,11 @@
 import type { Category } from './types'
 
+// The apex domain (corestackjobs.com) redirects to this www domain at the
+// DNS/Vercel level -- every absolute URL in metadata, JSON-LD, and the
+// sitemap must use this canonical form, or it 308s before Google (or a
+// share link) ever reaches it.
+export const SITE_URL = 'https://www.corestackjobs.com'
+
 export const CATEGORY_LABELS: Record<Category, string> = {
   operations: 'Operations',
   construction: 'Construction',

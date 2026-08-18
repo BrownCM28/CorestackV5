@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown'
 import { createClient } from '@/lib/supabase/server'
 import { getJob, getSimilarJobs } from '@/lib/api'
 import { MOCK_JOBS } from '@/lib/mock-jobs'
-import { CATEGORY_LABELS } from '@/lib/constants'
+import { CATEGORY_LABELS, SITE_URL } from '@/lib/constants'
 import { formatSalary, daysAgo, isUuid, generateCompanySlug } from '@/lib/utils'
 import CompanyLogo from '@/components/jobs/CompanyLogo'
 import AuthGate from '@/components/auth/AuthGate'
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: `${job.title} at ${job.company}`,
       description,
-      url: `https://corestackjobs.com/jobs/${job.slug ?? slug}`,
+      url: `${SITE_URL}/jobs/${job.slug ?? slug}`,
       siteName: 'Corestack',
       type: 'website',
     },
@@ -385,7 +385,7 @@ export default async function JobDetailPage({ params }: PageProps) {
               </p>
               <div className="flex gap-2">
                 <a
-                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://corestackjobs.com/jobs/${job.slug ?? job.id}`)}`}
+                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`${SITE_URL}/jobs/${job.slug ?? job.id}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 text-center text-[11px] border border-black px-3 py-2 transition-colors hover:bg-[#3ecf8e] hover:text-black focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
@@ -393,7 +393,7 @@ export default async function JobDetailPage({ params }: PageProps) {
                   LinkedIn
                 </a>
                 <a
-                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${job.title} at ${job.company} — via @corestack`)}&url=${encodeURIComponent(`https://corestackjobs.com/jobs/${job.slug ?? job.id}`)}`}
+                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${job.title} at ${job.company} — via @corestack`)}&url=${encodeURIComponent(`${SITE_URL}/jobs/${job.slug ?? job.id}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 text-center text-[11px] border border-black px-3 py-2 transition-colors hover:bg-[#3ecf8e] hover:text-black focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
