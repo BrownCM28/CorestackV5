@@ -21,8 +21,11 @@ const CERT_LEVEL: Record<string, string> = {
   'Registered Communications Distribution Designer (RCDD)': 'Advanced',
   'CompTIA Server+': 'Entry',
   'CompTIA Network+': 'Entry',
-  'Certified Data Center Professional (CDCP)': 'Foundation',
-  'Certified Data Center Specialist (CDCS)': 'Intermediate',
+  'Certified Data Centre Professional (CDCP)': 'Foundation',
+  'Certified Data Centre Specialist (CDCS)': 'Intermediate',
+  'EPA Section 608 Technician Certification': 'Entry',
+  'NETA Certified Electrical Testing Technician': 'Advanced',
+  'Data Center Energy Practitioner (DCEP)': 'Intermediate',
 }
 
 const PATHWAY_STEPS = [
