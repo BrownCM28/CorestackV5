@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import type { NewsItem } from '@/lib/types'
+import { sourceColor } from '@/lib/news-source-colors'
 
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('en-US', {
@@ -20,22 +21,6 @@ function timeSince(dateStr: string) {
   const d = Math.floor(h / 24)
   if (d === 1) return '1d ago'
   return `${d}d ago`
-}
-
-// Assign a display color to each source tag
-const SOURCE_COLORS: Record<string, string> = {
-  Hyperscale: '#3b82f6',
-  'Supply Chain': '#f97316',
-  Policy: '#8b5cf6',
-  Technology: '#3ecf8e',
-  Workforce: '#eab308',
-  Development: '#ec4899',
-  Industry: '#64748b',
-  Corestack: '#000000',
-}
-
-function sourceColor(source: string): string {
-  return SOURCE_COLORS[source] ?? '#64748b'
 }
 
 interface Props {

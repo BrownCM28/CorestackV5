@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getResources } from '@/lib/api'
 import { MOCK_RESOURCES } from '@/lib/mock-resources'
+import { CERT_LEVEL } from '@/lib/resource-levels'
+import { PATHWAY_STEPS } from '@/lib/career-pathway'
 import type { Resource } from '@/lib/types'
 
 export const metadata: Metadata = {
@@ -15,56 +17,6 @@ const TYPE_LABELS: Record<Resource['type'], string> = {
   cert: 'Certifications',
   school: 'Schools & Community Colleges',
 }
-
-const CERT_LEVEL: Record<string, string> = {
-  'Data Center Design Consultant (DCDC)': 'Advanced',
-  'Registered Communications Distribution Designer (RCDD)': 'Advanced',
-  'CompTIA Server+': 'Entry',
-  'CompTIA Network+': 'Entry',
-  'Certified Data Centre Professional (CDCP)': 'Foundation',
-  'Certified Data Centre Specialist (CDCS)': 'Intermediate',
-  'EPA Section 608 Technician Certification': 'Entry',
-  'NETA Certified Electrical Testing Technician': 'Advanced',
-  'Data Center Energy Practitioner (DCEP)': 'Intermediate',
-}
-
-const PATHWAY_STEPS = [
-  {
-    role: 'Data Center Technician',
-    timeframe: '0 – 2 yrs',
-    skills: ['CompTIA Server+', 'CompTIA Network+', 'CDCP'],
-    salary: '$50K – $70K',
-    color: '#3ecf8e',
-  },
-  {
-    role: 'Operations Specialist',
-    timeframe: '2 – 5 yrs',
-    skills: ['CDCS', 'BICSI Installer 2'],
-    salary: '$70K – $90K',
-    color: '#3b82f6',
-  },
-  {
-    role: 'Shift Lead / Senior Tech',
-    timeframe: '4 – 7 yrs',
-    skills: ['Vendor certs (Schneider, Vertiv)', 'OSHA 30'],
-    salary: '$85K – $110K',
-    color: '#8b5cf6',
-  },
-  {
-    role: 'Critical Facilities Manager',
-    timeframe: '7 – 12 yrs',
-    skills: ['BICSI DCDC', 'PE License (preferred)'],
-    salary: '$110K – $145K',
-    color: '#f97316',
-  },
-  {
-    role: 'Campus Director / VP Ops',
-    timeframe: '12+ yrs',
-    skills: ['PMP', 'MBA or equivalent'],
-    salary: '$145K – $200K+',
-    color: '#ec4899',
-  },
-]
 
 function ProgramCard({ resource }: { resource: Resource }) {
   return (

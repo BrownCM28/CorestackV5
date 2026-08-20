@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { isUuid, generateCompanySlug } from '@/lib/utils'
+import { CATEGORY_LIST } from '@/lib/constants'
 import type {
   Job,
   JobFilters,
@@ -69,6 +70,21 @@ export async function getJobCompanies(): Promise<{ company: string; count: numbe
   return Array.from(counts, ([company, count]) => ({ company, count })).sort(
     (a, b) => b.count - a.count
   )
+}
+
+export async function getJobCategoryCounts(): Promise<{ category: Category; count: number }[]> {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('jobs')
+    .select('category')
+    .eq('status', 'active')
+  if (error) throw error
+
+  const counts = new Map<Category, number>()
+  for (const { category } of data ?? []) {
+    counts.set(category, (counts.get(category) ?? 0) + 1)
+  }
+  return CATEGORY_LIST.map((category) => ({ category, count: counts.get(category) ?? 0 }))
 }
 
 export async function getSimilarJobs(category: Category, excludeId: string): Promise<Job[]> {

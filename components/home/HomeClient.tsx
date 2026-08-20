@@ -4,12 +4,21 @@ import { useState, useMemo, useRef, useEffect } from 'react'
 import { Search, MapPin, ChevronDown, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
-import type { Job, NewsItem } from '@/lib/types'
+import type { Job, NewsItem, Resource } from '@/lib/types'
 import type { Category } from '@/lib/types'
 import { CATEGORY_LABELS, CATEGORY_LIST } from '@/lib/constants'
 import CompanyLogo, { hasRealLogo } from '@/components/jobs/CompanyLogo'
 import JobCard from '@/components/jobs/JobCard'
 import { track } from '@/lib/analytics'
+import Reveal from '@/components/home/sections/Reveal'
+import MarketPulse from '@/components/home/sections/MarketPulse'
+import InfrastructureEconomy from '@/components/home/sections/InfrastructureEconomy'
+import JobsAcrossTheStack from '@/components/home/sections/JobsAcrossTheStack'
+import IndustryIntelligence from '@/components/home/sections/IndustryIntelligence'
+import CareerDevelopment from '@/components/home/sections/CareerDevelopment'
+import Certifications from '@/components/home/sections/Certifications'
+import Employers from '@/components/home/sections/Employers'
+import FinalCta from '@/components/home/sections/FinalCta'
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
@@ -32,25 +41,6 @@ const LOGO_STRIP_COMPANIES = [
 ]
 
 const JOBS_PREVIEW = 5
-
-const PATHWAY_STEPS = [
-  { role: 'Data Center Technician', salary: '$50K – $70K', timeframe: '0 – 2 yrs', color: '#3ecf8e' },
-  { role: 'Operations Specialist', salary: '$70K – $90K', timeframe: '2 – 5 yrs', color: '#3b82f6' },
-  { role: 'Shift Lead / Senior Tech', salary: '$85K – $110K', timeframe: '4 – 7 yrs', color: '#8b5cf6' },
-  { role: 'Critical Facilities Manager', salary: '$110K – $145K', timeframe: '7 – 12 yrs', color: '#f97316' },
-  { role: 'Campus Director / VP Ops', salary: '$145K – $200K+', timeframe: '12+ yrs', color: '#ec4899' },
-]
-
-const FEATURED_CERTS = [
-  { name: 'CompTIA Server+', provider: 'CompTIA', level: 'Entry', color: '#3ecf8e', desc: 'First certification for data center technicians. Covers hardware, storage, and disaster recovery.' },
-  { name: 'Certified Data Center Professional', provider: 'EPI / Exin', level: 'Foundation', color: '#3b82f6', desc: 'Foundation-level covering power, cooling, cabling, and operations management.' },
-  { name: 'BICSI RCDD', provider: 'BICSI', level: 'Advanced', color: '#8b5cf6', desc: 'Industry standard for structured cabling and communications infrastructure design.' },
-]
-
-const FEATURED_PROGRAMS = [
-  { name: 'Data Center Technician Training', provider: 'Meta', duration: '16 weeks', stipend: '$2,500 stipend', desc: 'Free hands-on program covering hardware, cabling, power, and cooling. Direct pathway to full-time roles.' },
-  { name: 'Critical Facilities Technician', provider: 'Schneider Electric', duration: '8 weeks', stipend: 'Paid training', desc: 'UPS systems, PDUs, precision cooling, and DCIM fundamentals. Aligned with Schneider equipment certifications.' },
-]
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -80,9 +70,11 @@ function applySort(jobs: Job[], sort: SortKey): Job[] {
 interface Props {
   jobs: Job[]
   news: NewsItem[]
+  resources: Resource[]
+  categoryCounts: { category: Category; count: number }[]
 }
 
-export default function HomeClient({ jobs, news }: Props) {
+export default function HomeClient({ jobs, news, resources, categoryCounts }: Props) {
   const [keyword, setKeyword] = useState('')
   const [location, setLocation] = useState('')
   const [activeCategory, setActiveCategory] = useState<Category | 'all'>('all')
@@ -114,6 +106,14 @@ export default function HomeClient({ jobs, news }: Props) {
     if (!el) return
     el.scrollTo({ left: catAtEnd ? 0 : el.scrollWidth, behavior: 'smooth' })
   }
+
+  const employerCompanies = useMemo(() => {
+    const counts = new Map<string, number>()
+    for (const j of jobs) counts.set(j.company, (counts.get(j.company) ?? 0) + 1)
+    return Array.from(counts.keys())
+      .filter(hasRealLogo)
+      .sort((a, b) => (counts.get(b) ?? 0) - (counts.get(a) ?? 0))
+  }, [jobs])
 
   const companyCount = useMemo(() => new Set(jobs.map((j) => j.company)).size, [jobs])
   const remoteCount = useMemo(() => jobs.filter((j) => j.remote).length, [jobs])
@@ -519,139 +519,31 @@ export default function HomeClient({ jobs, news }: Props) {
         </div>
       </div>
 
-      {/* ── RESOURCES TEASER ─────────────────────────────────────────────── */}
-      <section aria-labelledby="resources-heading" className="border-t border-black">
-
-        {/* Section header */}
-        <div
-          className="px-8 py-10 border-b border-black"
-          style={{
-            backgroundImage:
-              'radial-gradient(circle, rgba(0,0,0,0.07) 1.2px, transparent 1.2px)',
-            backgroundSize: '22px 22px',
-            backgroundColor: '#ffffff',
-          }}
-        >
-          <p className="text-[10px] font-bold uppercase tracking-widest text-black/40 mb-2">
-            Career Development
-          </p>
-          <h2
-            id="resources-heading"
-            className="text-3xl sm:text-4xl font-black uppercase tracking-tight leading-none"
-          >
-            Get Qualified.
-          </h2>
-          <p className="mt-3 text-sm text-black/50 max-w-md leading-relaxed">
-            Certifications, training programs, and schools to start or advance a
-            career in data center infrastructure.
-          </p>
-        </div>
-
-        {/* Career pathway */}
-        <div className="border-b border-black">
-          <div className="flex overflow-x-auto divide-x divide-black">
-            {PATHWAY_STEPS.map((step, i) => (
-              <div key={step.role} className="flex-1 min-w-48 p-6">
-                <div className="flex items-center gap-2 mb-3">
-                  <span
-                    className="w-2 h-2 flex-shrink-0"
-                    style={{ backgroundColor: step.color }}
-                    aria-hidden="true"
-                  />
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-black/30">
-                    Step {i + 1}
-                  </span>
-                </div>
-                <p className="font-bold text-sm leading-snug">{step.role}</p>
-                <p className="text-xs text-black/40 mt-1">{step.timeframe}</p>
-                <p
-                  className="text-xs font-semibold mt-2 tabular-nums"
-                  style={{ color: step.color }}
-                >
-                  {step.salary}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Certifications + programs grid */}
-        <div className="flex divide-x divide-black border-b border-black bg-white/70 backdrop-blur-sm">
-
-          {/* Certs — 3 cells */}
-          <div className="flex-1 min-w-0">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-black/40 px-6 pt-5 pb-3 border-b border-black/10">
-              Top Certifications
-            </p>
-            <ul role="list" className="divide-y divide-black/10">
-              {FEATURED_CERTS.map((cert) => (
-                <li key={cert.name} className="flex items-start gap-4 px-6 py-5">
-                  <div
-                    className="w-1 self-stretch flex-shrink-0 mt-1"
-                    style={{ backgroundColor: cert.color }}
-                    aria-hidden="true"
-                  />
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between gap-2">
-                      <p className="font-semibold text-sm leading-snug">{cert.name}</p>
-                      <span
-                        className="text-[10px] font-bold px-1.5 py-0.5 flex-shrink-0 whitespace-nowrap"
-                        style={{ backgroundColor: `${cert.color}20`, color: cert.color }}
-                      >
-                        {cert.level}
-                      </span>
-                    </div>
-                    <p className="text-[11px] text-black/40 mt-0.5">{cert.provider}</p>
-                    <p className="text-xs text-black/50 mt-1.5 leading-relaxed line-clamp-2">
-                      {cert.desc}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Programs — right column */}
-          <div className="w-96 flex-shrink-0 hidden lg:block">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-black/40 px-6 pt-5 pb-3 border-b border-black/10">
-              Featured Programs
-            </p>
-            <ul role="list" className="divide-y divide-black/10">
-              {FEATURED_PROGRAMS.map((prog) => (
-                <li key={prog.name} className="px-6 py-5">
-                  <div className="flex items-start justify-between gap-2 mb-1.5">
-                    <p className="font-semibold text-sm leading-snug">{prog.name}</p>
-                    <span className="text-[10px] border border-[#3ecf8e]/40 text-[#3ecf8e] px-1.5 py-0.5 whitespace-nowrap flex-shrink-0">
-                      {prog.stipend}
-                    </span>
-                  </div>
-                  <p className="text-[11px] text-black/40 mb-2">
-                    {prog.provider}
-                    <span className="mx-1.5 text-black/20">·</span>
-                    {prog.duration}
-                  </p>
-                  <p className="text-xs text-black/50 leading-relaxed line-clamp-2">{prog.desc}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* CTA row */}
-        <div className="flex flex-wrap items-center justify-between gap-6 px-5 sm:px-8 py-6 bg-white/70 backdrop-blur-sm">
-          <p className="text-sm text-black/50">
-            <span className="font-semibold text-black">6 programs · 6 certifications · 5 schools</span>
-            {' '}tracked in the Corestack directory.
-          </p>
-          <Link
-            href="/resources"
-            className="flex-shrink-0 border border-black px-6 py-2.5 text-xs font-semibold uppercase tracking-wide transition-colors hover:bg-[#3ecf8e] hover:text-black focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none whitespace-nowrap"
-          >
-            View All Resources →
-          </Link>
-        </div>
-
-      </section>
+      {/* ── BELOW-JOBS NARRATIVE ─────────────────────────────────────────── */}
+      <Reveal>
+        <MarketPulse />
+      </Reveal>
+      <Reveal>
+        <InfrastructureEconomy />
+      </Reveal>
+      <Reveal>
+        <JobsAcrossTheStack categoryCounts={categoryCounts} />
+      </Reveal>
+      <Reveal>
+        <IndustryIntelligence news={news} />
+      </Reveal>
+      <Reveal>
+        <CareerDevelopment />
+      </Reveal>
+      <Reveal>
+        <Certifications resources={resources} />
+      </Reveal>
+      <Reveal>
+        <Employers companies={employerCompanies} />
+      </Reveal>
+      <Reveal>
+        <FinalCta />
+      </Reveal>
     </>
   )
 }
