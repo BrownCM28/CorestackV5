@@ -8,6 +8,7 @@ import NewsTicker from '@/components/nav/NewsTicker'
 import { getNews } from '@/lib/api'
 import { MOCK_NEWS } from '@/lib/mock-news'
 import { SITE_URL } from '@/lib/constants'
+import { tabular } from '@/lib/fonts'
 import './globals.css'
 
 const geistSans = Geist({
@@ -49,7 +50,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body className="min-h-screen flex flex-col antialiased">
+      <body className={`min-h-screen flex flex-col antialiased ${tabular.className}`}>
         <header className="sticky top-0 z-50 bg-white">
           <MosaicNav />
           <NewsTicker items={newsItems} />

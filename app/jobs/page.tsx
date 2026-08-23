@@ -31,6 +31,7 @@ interface PageProps {
     companies?: string
     posted?: string
     skills?: string
+    minSalary?: string
   }>
 }
 
@@ -45,6 +46,7 @@ export default async function JobsPage({ searchParams }: PageProps) {
   if (sp.companies) filters.companies = sp.companies.split(',').filter(Boolean)
   if (sp.posted) filters.postedWithin = sp.posted as DatePosted
   if (sp.skills) filters.skills = sp.skills.split(',').filter(Boolean)
+  if (sp.minSalary) filters.minSalary = Number(sp.minSalary)
 
   const [jobs, companies] = await Promise.all([
     getJobs(filters).catch(() => []),
@@ -80,7 +82,7 @@ export default async function JobsPage({ searchParams }: PageProps) {
 
         <div className="mt-8 flex gap-6 items-start">
           <div className="flex-1 min-w-0">
-            <JobGrid jobs={jobs} />
+            <JobGrid jobs={jobs} titleWeight="medium" />
           </div>
 
           <Suspense fallback={null}>

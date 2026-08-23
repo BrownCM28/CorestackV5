@@ -73,6 +73,19 @@
   h1, h2, h3 {
     text-wrap: balance;
   }
+
+  /* Deliberate, scoped exceptions to the square-corner reset above -- the
+     hero background card/image and its search bar are the only two rounded
+     elements on the site. Must live in this same @layer: cascade layers
+     reverse !important priority, so an unlayered !important rule would
+     lose to this layered one regardless of selector specificity. */
+  .hero-card-rounded {
+    border-radius: 20px !important;
+  }
+
+  .hero-search-rounded {
+    border-radius: 10px !important;
+  }
 }
 
 /* News ticker animation */

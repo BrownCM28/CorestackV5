@@ -49,6 +49,9 @@ export async function getJobs(filters?: JobFilters): Promise<Job[]> {
       filters.skills.map((skill) => `description.ilike.%${skill}%`).join(',')
     )
   }
+  if (filters?.minSalary) {
+    query = query.gte('salary_min', filters.minSalary)
+  }
 
   const { data, error } = await query
   if (error) throw error

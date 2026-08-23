@@ -15,12 +15,21 @@ interface Props {
   exactSalary?: boolean
   /** Hide the company logo — for a company's own page, where it already appears once in the header. */
   hideLogo?: boolean
+  /** 'medium' matches the lighter weight used on the homepage's category
+   * labels; defaults to 'bold' everywhere else (e.g. the /jobs listing). */
+  titleWeight?: 'bold' | 'medium'
 }
 
 const CARD_CLASSES =
   'relative flex flex-col sm:flex-row gap-4 sm:gap-6 px-5 py-5 sm:px-8 sm:py-7 sm:min-h-[140px] group transition-colors duration-150 hover:bg-black/[0.02]'
 
-export default function JobCard({ job, preview = false, exactSalary = false, hideLogo = false }: Props) {
+export default function JobCard({
+  job,
+  preview = false,
+  exactSalary = false,
+  hideLogo = false,
+  titleWeight = 'bold',
+}: Props) {
   const badge = getBadge(job)
   const salaryMin = exactSalary
     ? (job.salary_max ?? job.salary_min)
@@ -54,7 +63,9 @@ export default function JobCard({ job, preview = false, exactSalary = false, hid
         {/* Centre: title, company, description */}
         <div className="flex-1 min-w-0">
           <div className="flex items-start gap-3 mb-1.5">
-            <h3 className="font-bold text-base leading-snug group-hover:text-black/70 transition-colors">
+            <h3
+              className={`${titleWeight === 'medium' ? 'font-medium' : 'font-bold'} text-base leading-snug group-hover:text-black/70 transition-colors`}
+            >
               {job.title}
             </h3>
             {badge && (

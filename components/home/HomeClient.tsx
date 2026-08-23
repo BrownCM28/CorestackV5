@@ -7,9 +7,10 @@ import Image from 'next/image'
 import type { Job, NewsItem, Resource } from '@/lib/types'
 import type { Category } from '@/lib/types'
 import { CATEGORY_LABELS, CATEGORY_LIST } from '@/lib/constants'
-import CompanyLogo, { hasRealLogo } from '@/components/jobs/CompanyLogo'
+import { hasRealLogo } from '@/components/jobs/CompanyLogo'
 import JobCard from '@/components/jobs/JobCard'
 import { track } from '@/lib/analytics'
+import HeroFilters from '@/components/home/HeroFilters'
 import Reveal from '@/components/home/sections/Reveal'
 import MarketPulse from '@/components/home/sections/MarketPulse'
 import InfrastructureEconomy from '@/components/home/sections/InfrastructureEconomy'
@@ -30,15 +31,6 @@ const MARKET_PULSE = [
   { label: 'Active US Projects', value: '2,847', delta: '+47 this week' },
 ]
 
-// Companies with real logos — shown as circular logo tiles in the hero strip
-const LOGO_STRIP_COMPANIES = [
-  'Equinix',
-  'Iron Mountain',
-  'Meta',
-  'CyrusOne',
-  'Turner Construction',
-  'Schneider Electric',
-]
 
 const JOBS_PREVIEW = 5
 
@@ -160,8 +152,8 @@ export default function HomeClient({ jobs, news, resources, categoryCounts }: Pr
     <>
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
       <section
-        className="relative flex flex-col items-center justify-center px-6 py-16 sm:py-28 lg:py-36 text-center overflow-hidden mx-4 sm:mx-6 mt-4"
-        style={{ backgroundColor: '#e5e5e5', borderRadius: '20px' }}
+        className="hero-card-rounded relative flex flex-col items-center justify-center px-6 py-16 sm:py-28 lg:py-36 text-center overflow-hidden mx-4 sm:mx-6 mt-4"
+        style={{ backgroundColor: '#e5e5e5' }}
       >
         {/* Background photo */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -192,14 +184,23 @@ export default function HomeClient({ jobs, news, resources, categoryCounts }: Pr
 
         {/* Content sits above image + overlay */}
         <div className="relative z-10 flex flex-col items-center w-full">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.25rem] font-black uppercase tracking-tight leading-[1.05] sm:leading-none text-balance max-w-4xl text-black">
-            Infrastructure Jobs For The People Who Keep The World Running.
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.25rem] font-black uppercase tracking-tight leading-[1.05] sm:leading-none text-black">
+            <span className="lg:hidden text-balance max-w-4xl inline-block">
+              Infrastructure Jobs For The People Who Keep The World Running.
+            </span>
+            <span className="hidden lg:block">
+              Infrastructure Jobs For
+              <br />
+              The People Who Keep
+              <br />
+              The World Running.
+            </span>
           </h1>
 
           {/* Two-field search bar */}
           <form
             onSubmit={handleSearch}
-            className="mt-9 flex flex-col sm:flex-row w-full max-w-3xl bg-white border border-white"
+            className="hero-search-rounded mt-9 flex flex-col sm:flex-row w-full max-w-3xl bg-white border border-white overflow-hidden"
           >
             <div className="flex items-center border-b sm:border-b-0 sm:border-r border-black px-4 sm:flex-1 min-w-0">
               <Search size={14} className="text-black/30 flex-shrink-0 mr-3" aria-hidden="true" />
@@ -281,17 +282,8 @@ export default function HomeClient({ jobs, news, resources, categoryCounts }: Pr
             )}
           </div>
 
-          {/* Hiring companies strip — logo tiles */}
-          <div className="mt-12 flex flex-col items-center gap-3">
-            <p className="text-[10px] uppercase tracking-widest font-medium text-black/35">
-              Roles from top employers
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              {LOGO_STRIP_COMPANIES.map((c) => (
-                <CompanyLogo key={c} company={c} size={72} radius="14px" />
-              ))}
-            </div>
-          </div>
+          {/* Additional filter shortcuts + popular searches */}
+          <HeroFilters />
 
           {/* Scroll down */}
           <button
@@ -422,7 +414,7 @@ export default function HomeClient({ jobs, news, resources, categoryCounts }: Pr
                       key={job.id}
                       className="border-r border-b border-black bg-white/75 backdrop-blur-sm"
                     >
-                      <JobCard job={job} exactSalary />
+                      <JobCard job={job} exactSalary titleWeight="medium" />
                     </li>
                   ))}
                 </ul>
