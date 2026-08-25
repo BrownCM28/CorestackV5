@@ -5,16 +5,20 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Menu, X } from 'lucide-react'
 import NavAuth from '@/components/NavAuth'
+import { useAuthUser } from '@/lib/useAuthUser'
 
-const navLinks = [
+const BASE_NAV_LINKS = [
   { href: '/jobs', label: 'Jobs' },
   { href: '/news', label: 'News' },
   { href: '/resources', label: 'Resources' },
-  { href: '/dashboard', label: 'Dashboard' },
 ]
 
 export default function MosaicNav() {
   const [open, setOpen] = useState(false)
+  const user = useAuthUser()
+  const navLinks = user
+    ? [...BASE_NAV_LINKS, { href: '/dashboard', label: 'Dashboard' }]
+    : BASE_NAV_LINKS
 
   return (
     <nav aria-label="Main navigation" className="border-b border-black">
