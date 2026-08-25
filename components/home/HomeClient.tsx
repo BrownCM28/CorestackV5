@@ -12,13 +12,10 @@ import JobCard from '@/components/jobs/JobCard'
 import { track } from '@/lib/analytics'
 import HeroFilters from '@/components/home/HeroFilters'
 import Reveal from '@/components/home/sections/Reveal'
-import MarketPulse from '@/components/home/sections/MarketPulse'
-import InfrastructureEconomy from '@/components/home/sections/InfrastructureEconomy'
 import JobsAcrossTheStack from '@/components/home/sections/JobsAcrossTheStack'
 import IndustryIntelligence from '@/components/home/sections/IndustryIntelligence'
 import CareerDevelopment from '@/components/home/sections/CareerDevelopment'
 import Certifications from '@/components/home/sections/Certifications'
-import Employers from '@/components/home/sections/Employers'
 import FinalCta from '@/components/home/sections/FinalCta'
 
 // ── Constants ─────────────────────────────────────────────────────────────────
@@ -32,7 +29,7 @@ const MARKET_PULSE = [
 ]
 
 
-const JOBS_PREVIEW = 5
+const JOBS_PREVIEW = 12
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -98,14 +95,6 @@ export default function HomeClient({ jobs, news, resources, categoryCounts }: Pr
     if (!el) return
     el.scrollTo({ left: catAtEnd ? 0 : el.scrollWidth, behavior: 'smooth' })
   }
-
-  const employerCompanies = useMemo(() => {
-    const counts = new Map<string, number>()
-    for (const j of jobs) counts.set(j.company, (counts.get(j.company) ?? 0) + 1)
-    return Array.from(counts.keys())
-      .filter(hasRealLogo)
-      .sort((a, b) => (counts.get(b) ?? 0) - (counts.get(a) ?? 0))
-  }, [jobs])
 
   const companyCount = useMemo(() => new Set(jobs.map((j) => j.company)).size, [jobs])
   const remoteCount = useMemo(() => jobs.filter((j) => j.remote).length, [jobs])
@@ -407,12 +396,12 @@ export default function HomeClient({ jobs, news, resources, categoryCounts }: Pr
               <>
                 <ul
                   role="list"
-                  className="grid grid-cols-1 border-l border-t border-black"
+                  className="grid grid-cols-1 gap-3"
                 >
                   {filtered.slice(0, JOBS_PREVIEW).map((job) => (
                     <li
                       key={job.id}
-                      className="border-r border-b border-black bg-white/75 backdrop-blur-sm"
+                      className="border border-black bg-white/75 backdrop-blur-sm"
                     >
                       <JobCard job={job} exactSalary titleWeight="medium" />
                     </li>
@@ -420,7 +409,7 @@ export default function HomeClient({ jobs, news, resources, categoryCounts }: Pr
                 </ul>
 
                 {/* Explore more jobs */}
-                <div className="border-l border-r border-b border-black bg-white/70 backdrop-blur-sm px-5 sm:px-8 py-6 flex flex-wrap items-center justify-end gap-4">
+                <div className="mt-3 border border-black bg-white/70 backdrop-blur-sm px-5 sm:px-8 py-6 flex flex-wrap items-center justify-end gap-4">
                   <Link
                     href="/jobs"
                     className="border border-black px-6 py-2.5 text-xs font-semibold uppercase tracking-wide transition-colors hover:bg-[#3ecf8e] hover:text-black focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
@@ -513,12 +502,6 @@ export default function HomeClient({ jobs, news, resources, categoryCounts }: Pr
 
       {/* ── BELOW-JOBS NARRATIVE ─────────────────────────────────────────── */}
       <Reveal>
-        <MarketPulse />
-      </Reveal>
-      <Reveal>
-        <InfrastructureEconomy />
-      </Reveal>
-      <Reveal>
         <JobsAcrossTheStack categoryCounts={categoryCounts} />
       </Reveal>
       <Reveal>
@@ -529,9 +512,6 @@ export default function HomeClient({ jobs, news, resources, categoryCounts }: Pr
       </Reveal>
       <Reveal>
         <Certifications resources={resources} />
-      </Reveal>
-      <Reveal>
-        <Employers companies={employerCompanies} />
       </Reveal>
       <Reveal>
         <FinalCta />

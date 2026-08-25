@@ -18,9 +18,9 @@ export default function JobGrid({ jobs, titleWeight }: Props) {
   }
 
   return (
-    <ul role="list" className="grid grid-cols-1 border-l border-t border-black">
+    <ul role="list" className="grid grid-cols-1 gap-3">
       {jobs.map((job) => (
-        <li key={job.id} className="border-r border-b border-black bg-white/75 backdrop-blur-sm">
+        <li key={job.id} className="border border-black bg-white/75 backdrop-blur-sm">
           <JobCard job={job} exactSalary titleWeight={titleWeight} />
         </li>
       ))}

@@ -133,17 +133,37 @@ interface Props {
   round?: boolean
   /** Explicit border-radius override — takes precedence over round */
   radius?: string
+  /** false removes the border + white background tile around a real logo
+   * image, so it reads as a plain floating logo instead of a boxed swatch.
+   * The fallback initials tile always keeps its colored background (the
+   * text needs a surface) but drops its border too. Defaults to true. */
+  boxed?: boolean
 }
 
-export default function CompanyLogo({ company, size = 36, round = false, radius }: Props) {
+export default function CompanyLogo({
+  company,
+  size = 36,
+  round = false,
+  radius,
+  boxed = true,
+}: Props) {
   const logo = REAL_LOGOS[company]
   const borderRadius = radius ?? (round ? '50%' : 0)
 
   if (logo) {
     return (
       <div
-        style={{ width: size, height: size, flexShrink: 0, borderRadius, overflow: 'hidden' }}
-        className="border border-black/10 bg-white flex items-center justify-center"
+        style={{
+          width: size,
+          height: size,
+          flexShrink: 0,
+          borderRadius,
+          overflow: 'hidden',
+        }}
+        className={[
+          'flex items-center justify-center',
+          boxed ? 'border border-black/10 bg-white' : '',
+        ].join(' ')}
       >
         <Image
           src={logo.src}
@@ -154,7 +174,7 @@ export default function CompanyLogo({ company, size = 36, round = false, radius 
             width: '100%',
             height: '100%',
             objectFit: 'contain',
-            padding: '4px',
+            padding: boxed ? '4px' : 0,
             transform: logo.scale ? `scale(${logo.scale})` : undefined,
           }}
         />
@@ -175,7 +195,7 @@ export default function CompanyLogo({ company, size = 36, round = false, radius 
         flexShrink: 0,
         borderRadius,
       }}
-      className="flex items-center justify-center font-semibold border border-black/10"
+      className={['flex items-center justify-center font-semibold', boxed ? 'border border-black/10' : ''].join(' ')}
     >
       {initials(company)}
     </div>

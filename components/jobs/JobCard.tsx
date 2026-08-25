@@ -47,14 +47,14 @@ export default function JobCard({
         {!hideLogo && (
           <div className="flex-shrink-0 pt-0.5 relative z-10">
             {preview ? (
-              <CompanyLogo company={job.company} size={64} />
+              <CompanyLogo company={job.company} size={84} boxed={false} />
             ) : (
               <Link
                 href={`/companies/${generateCompanySlug(job.company)}`}
                 aria-label={`View ${job.company}'s company page`}
                 className="inline-block focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
               >
-                <CompanyLogo company={job.company} size={64} />
+                <CompanyLogo company={job.company} size={84} boxed={false} />
               </Link>
             )}
           </div>
