@@ -88,6 +88,18 @@
   }
 }
 
+/* Apply lead-capture bottom sheet */
+@keyframes apply-sheet-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-\[apply-sheet-up_0\.25s_ease-out\] {
+    animation: none;
+  }
+}
+
 /* News ticker animation */
 @keyframes scroll-x {
   from { transform: translateX(0); }

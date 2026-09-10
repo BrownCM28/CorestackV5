@@ -8,7 +8,7 @@ import { MOCK_JOBS } from '@/lib/mock-jobs'
 import { CATEGORY_LABELS, SITE_URL } from '@/lib/constants'
 import { formatSalary, daysAgo, isUuid, generateCompanySlug } from '@/lib/utils'
 import CompanyLogo from '@/components/jobs/CompanyLogo'
-import AuthGate from '@/components/auth/AuthGate'
+import ApplySheet from '@/components/jobs/ApplySheet'
 import SaveJobButton from '@/components/SaveJobButton'
 import type { Job } from '@/lib/types'
 
@@ -239,7 +239,7 @@ export default async function JobDetailPage({ params }: PageProps) {
           <div className="mt-8 pt-6 border-t border-black/10 xl:hidden">
             <div className="flex items-start gap-2">
               <div className="flex-1">
-                <AuthGate jobId={job.id} />
+                <ApplySheet jobId={job.id} applyTarget={job.apply_target} />
               </div>
               <SaveJobButton jobId={job.id} />
             </div>
@@ -274,7 +274,7 @@ export default async function JobDetailPage({ params }: PageProps) {
             </p>
             <div className="flex items-start gap-2">
               <div className="flex-1">
-                <AuthGate jobId={job.id} />
+                <ApplySheet jobId={job.id} applyTarget={job.apply_target} />
               </div>
               <SaveJobButton jobId={job.id} />
             </div>
@@ -295,7 +295,7 @@ export default async function JobDetailPage({ params }: PageProps) {
               </p>
               <div className="flex items-start gap-2">
                 <div className="flex-1">
-                  <AuthGate jobId={job.id} />
+                  <ApplySheet jobId={job.id} applyTarget={job.apply_target} />
                 </div>
                 <SaveJobButton jobId={job.id} />
               </div>
