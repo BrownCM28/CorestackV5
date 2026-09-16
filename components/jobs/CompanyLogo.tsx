@@ -18,6 +18,9 @@ const REAL_LOGOS: Record<string, LogoConfig> = {
   // keep both keys since older mock data may still reference the long form.
   'AWS': { src: '/Company Logos/AWSlogo.webp' },
   'Amazon Web Services (AWS)': { src: '/Company Logos/AWSlogo.webp' },
+  'Amazon AWS': { src: '/Company Logos/AWSlogo.webp' },
+  'AWS America': { src: '/Company Logos/AWSlogo.webp' },
+  'AWS Americas': { src: '/Company Logos/AWSlogo.webp' },
 
   'Google': { src: '/Company Logos/Google.webp' },
   'Oracle': { src: '/Company Logos/images (4).png' },
