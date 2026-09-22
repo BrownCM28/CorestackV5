@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
-import { getNews } from '@/lib/api'
-import { MOCK_NEWS } from '@/lib/mock-news'
+import { getNewsWithFallback } from '@/lib/api'
 import NewsPageClient from './NewsPageClient'
 
 export const metadata: Metadata = {
@@ -10,8 +9,7 @@ export const metadata: Metadata = {
 }
 
 export default async function NewsPage() {
-  const dbNews = await getNews().catch(() => [])
-  const news = dbNews.length > 0 ? dbNews : MOCK_NEWS
+  const news = await getNewsWithFallback()
 
   return <NewsPageClient news={news} />
 }

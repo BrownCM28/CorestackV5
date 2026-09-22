@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
-import { getNews, getResources, getJobCategoryCounts } from '@/lib/api'
-import { MOCK_NEWS } from '@/lib/mock-news'
+import { getNewsWithFallback, getResources, getJobCategoryCounts } from '@/lib/api'
 import { MOCK_RESOURCES } from '@/lib/mock-resources'
 import HomeClient from '@/components/home/HomeClient'
 
@@ -25,8 +24,7 @@ export default async function HomePage() {
     console.error('Failed to fetch jobs:', jobsError.message)
   }
 
-  const dbNews = await getNews().catch(() => [])
-  const news = dbNews.length > 0 ? dbNews : MOCK_NEWS
+  const news = await getNewsWithFallback()
 
   const dbResources = await getResources().catch(() => [])
   const resources = dbResources.length > 0 ? dbResources : MOCK_RESOURCES

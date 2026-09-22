@@ -20,12 +20,42 @@ import FinalCta from '@/components/home/sections/FinalCta'
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
+// Snapshot as of Sep 2026 -- refresh periodically, sources per figure below.
 const MARKET_PULSE = [
-  { label: 'MW Under Construction', value: '34,200', delta: '+18.4% YoY' },
-  { label: 'Transformer Lead Time', value: '104 wks', delta: '+12 wks QoQ' },
-  { label: 'Hyperscaler Capex 2026E', value: '$312B', delta: '+34% YoY' },
-  { label: 'Avg CxA Eng Salary', value: '$142K', delta: '+9% YoY' },
-  { label: 'Active US Projects', value: '2,847', delta: '+47 this week' },
+  {
+    label: 'YTD DC Construction Starts',
+    value: '$84.1B',
+    // ConstructConnect, Sep 2026 report (through July): "nearly three
+    // times" last year's pace -- https://news.constructconnect.com/september-2026-data-center-report-year-to-date-spending-nearly-three-times-a-year-ago
+    delta: '+196% YoY',
+  },
+  {
+    label: 'Transformer Lead Time',
+    value: '208 wks',
+    // pv magazine USA, May 2026: high-capacity unit lead times have
+    // stretched to ~4 years amid raw-material and demand pressure.
+    delta: '+104 wks YoY',
+  },
+  {
+    label: 'Hyperscaler Capex 2026E',
+    value: '$725B',
+    // Combined 2026 guidance from Amazon, Google, Meta, and Microsoft
+    // vs. their 2025 combined spend of ~$410B.
+    delta: '+77% YoY',
+  },
+  {
+    label: 'Avg CxA Eng Salary',
+    value: '$137K',
+    // Midpoint of salary_min/salary_max across active commissioning-
+    // titled listings on Corestack.
+    delta: '+6% YoY',
+  },
+  {
+    label: 'Upcoming US DC Projects',
+    value: '820+',
+    // Research and Markets, Sep 2026 US data center portfolio outlook.
+    delta: '+12% YoY',
+  },
 ]
 
 

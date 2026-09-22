@@ -173,6 +173,24 @@ export async function getNews(): Promise<NewsItem[]> {
   )
 }
 
+/**
+ * getNews() plus CURATED_NEWS's hand-verified real-world headlines, merged
+ * in rather than used as an all-or-nothing fallback -- the live `news`
+ * table this feed expects doesn't currently exist in the database (see
+ * supabase/migrations/0001_init.sql), so without this, the homepage and
+ * /news page would only ever show the handful of evergreen Corestack
+ * articles and go stale. Dedupes by url in case a real `news` row and a
+ * CURATED_NEWS entry both cite the same source article.
+ */
+export async function getNewsWithFallback(): Promise<NewsItem[]> {
+  const { CURATED_NEWS } = await import('@/lib/curated-news')
+  const dbNews = await getNews().catch(() => [])
+  const seen = new Set<string>()
+  return [...dbNews, ...CURATED_NEWS]
+    .filter((item) => (seen.has(item.url) ? false : (seen.add(item.url), true)))
+    .sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime())
+}
+
 export async function getArticleBySlug(slug: string): Promise<Article | null> {
   const supabase = await createClient()
   const { data, error } = await supabase

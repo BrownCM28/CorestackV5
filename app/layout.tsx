@@ -5,8 +5,7 @@ import Link from 'next/link'
 import { Analytics } from '@vercel/analytics/next'
 import MosaicNav from '@/components/nav/MosaicNav'
 import NewsTicker from '@/components/nav/NewsTicker'
-import { getNews } from '@/lib/api'
-import { MOCK_NEWS } from '@/lib/mock-news'
+import { getNewsWithFallback } from '@/lib/api'
 import { SITE_URL } from '@/lib/constants'
 import { tabular } from '@/lib/fonts'
 import './globals.css'
@@ -40,13 +39,16 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  let newsItems: Awaited<ReturnType<typeof getNews>> = []
+  let newsItems: Awaited<ReturnType<typeof getNewsWithFallback>> = []
   try {
-    newsItems = await getNews()
+    newsItems = await getNewsWithFallback()
   } catch {
-    // Supabase not configured — fall through to mock data
+    // Supabase not configured at all (createClient() itself threw) --
+    // getNewsWithFallback() already absorbs a failed `news`/`articles`
+    // query on its own, so this only fires in that harder-broken case.
+    const { CURATED_NEWS } = await import('@/lib/curated-news')
+    newsItems = CURATED_NEWS
   }
-  if (newsItems.length === 0) newsItems = MOCK_NEWS
 
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
