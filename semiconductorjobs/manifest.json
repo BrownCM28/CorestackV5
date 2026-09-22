@@ -1,0 +1,2224 @@
+{
+  "generated_at": "2026-09-10T21:44:00Z",
+  "filter_window": {
+    "today": "2026-09-10",
+    "posted_on_or_after": "2026-08-31",
+    "days": 10
+  },
+  "total_jobs": 167,
+  "counts_by_company": {
+    "Micron": 36,
+    "American Electric Power": 24,
+    "Duke Energy": 23,
+    "GE Vernova": 23,
+    "GlobalFoundries": 11,
+    "Applied Materials": 9,
+    "Intel": 7,
+    "Lumilens": 7,
+    "SpaceX": 6,
+    "fab2": 5,
+    "Graphcore": 5,
+    "Samsung Semiconductor": 5,
+    "Invenergy": 4,
+    "Black Semiconductor": 1,
+    "Cerebras": 1
+  },
+  "counts_by_source_board": {
+    "workday": 142,
+    "ashby": 14,
+    "greenhouse": 11
+  },
+  "counts_by_category": {
+    "power_grid": 61,
+    "semiconductor": 93,
+    "critical_infrastructure": 21
+  },
+  "files": [
+    {
+      "file": "american-electric-power-electrical-engineer-ug-transmission-senior-principal-staff-r15703.json",
+      "title": "Electrical Engineer-UG Transmission   Senior-Principal-Staff",
+      "company": "American Electric Power",
+      "location": "New Albany, OH",
+      "posted_date": "2026-09-01",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://aep.wd1.myworkdayjobs.com/en-US/AEPCareerSite/job/New-Albany-OH/Engineer-Senior-Principal-Staff_R15703",
+      "job_id": "R15703"
+    },
+    {
+      "file": "american-electric-power-engineer-associate-engineer-sr-protection-and-controls-p-c-engineer-r16985.json",
+      "title": "Engineer Associate - Engineer Sr(Protection and Controls P&C Engineer)",
+      "company": "American Electric Power",
+      "location": "Roanoke, VA",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://aep.wd1.myworkdayjobs.com/en-US/AEPCareerSite/job/Roanoke-VA/Engineer-Associate---Engineer-Sr-Protection-and-Controls-P-C-Engineer-_R16985",
+      "job_id": "R16985"
+    },
+    {
+      "file": "american-electric-power-engineer-engineering-technologist-transmission-scada-engineering-r17080.json",
+      "title": "Engineer/Engineering Technologist/Transmission SCADA Engineering",
+      "company": "American Electric Power",
+      "location": "2 Locations",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://aep.wd1.myworkdayjobs.com/en-US/AEPCareerSite/job/New-Albany-OH/Engineer-Engineering-Technologist---Associate-Principal-Transmission-SCADA-Engineering_R17080",
+      "job_id": "R17080"
+    },
+    {
+      "file": "american-electric-power-engineer-transmission-line-r16596.json",
+      "title": "Engineer (Transmission Line)",
+      "company": "American Electric Power",
+      "location": "Tulsa, OK",
+      "posted_date": "2026-09-03",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://aep.wd1.myworkdayjobs.com/en-US/AEPCareerSite/job/Tulsa-OK/Engineer--Transmission-Line-_R16596",
+      "job_id": "R16596"
+    },
+    {
+      "file": "american-electric-power-engineer-transmission-line-r17186.json",
+      "title": "Engineer (Transmission Line)",
+      "company": "American Electric Power",
+      "location": "New Albany, OH",
+      "posted_date": "2026-09-04",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://aep.wd1.myworkdayjobs.com/en-US/AEPCareerSite/job/New-Albany-OH/Engineer--Transmission-Line-_R17186",
+      "job_id": "R17186"
+    },
+    {
+      "file": "american-electric-power-engineer-transmission-line-r17238.json",
+      "title": "Engineer (Transmission Line)",
+      "company": "American Electric Power",
+      "location": "Roanoke, VA",
+      "posted_date": "2026-09-03",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://aep.wd1.myworkdayjobs.com/en-US/AEPCareerSite/job/Roanoke-VA/Engineer--Transmission-Line-_R17238",
+      "job_id": "R17238"
+    },
+    {
+      "file": "american-electric-power-p-c-technician-ii-r13568.json",
+      "title": "P&C Technician II",
+      "company": "American Electric Power",
+      "location": "Laredo, TX",
+      "posted_date": "2026-09-04",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://aep.wd1.myworkdayjobs.com/en-US/AEPCareerSite/job/Laredo-TX/P-C-Technician-II_R13568",
+      "job_id": "R13568"
+    },
+    {
+      "file": "american-electric-power-p-c-technician-ii-r18343.json",
+      "title": "P&C Technician II",
+      "company": "American Electric Power",
+      "location": "Abilene, TX",
+      "posted_date": "2026-09-02",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://aep.wd1.myworkdayjobs.com/en-US/AEPCareerSite/job/Abilene-TX/P-C-Technician-II_R18343",
+      "job_id": "R18343"
+    },
+    {
+      "file": "american-electric-power-p-c-technician-ii-r18418.json",
+      "title": "P&C Technician II",
+      "company": "American Electric Power",
+      "location": "San Angelo, TX",
+      "posted_date": "2026-09-02",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://aep.wd1.myworkdayjobs.com/en-US/AEPCareerSite/job/San-Angelo-TX/P-C-Technician-II_R18418",
+      "job_id": "R18418"
+    },
+    {
+      "file": "american-electric-power-p-c-technician-ii-senior-r18384.json",
+      "title": "P&C Technician II - Senior",
+      "company": "American Electric Power",
+      "location": "Kingsport, TN",
+      "posted_date": "2026-09-01",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://aep.wd1.myworkdayjobs.com/en-US/AEPCareerSite/job/Kingsport-TN/P-C-Technician-II---Senior_R18384-1",
+      "job_id": "R18384"
+    },
+    {
+      "file": "american-electric-power-protection-and-control-p-c-engineer-transmission-system-operations-engineering-t-r18209.json",
+      "title": "Protection and Control (P&C) Engineer - Transmission System Operations Engineering (TSOE)",
+      "company": "American Electric Power",
+      "location": "2 Locations",
+      "posted_date": "2026-09-03",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://aep.wd1.myworkdayjobs.com/en-US/AEPCareerSite/job/New-Albany-OH/Protection-and-Control--P-C--Engineer---Transmission-System-Operations-Engineering--TSOE-_R18209",
+      "job_id": "R18209"
+    },
+    {
+      "file": "american-electric-power-protection-control-field-supv-r17789.json",
+      "title": "Protection & Control Field Supv",
+      "company": "American Electric Power",
+      "location": "Columbus, OH",
+      "posted_date": "2026-09-02",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://aep.wd1.myworkdayjobs.com/en-US/AEPCareerSite/job/Columbus-OH/Protection---Control-Field-Supv_R17789-1",
+      "job_id": "R17789"
+    },
+    {
+      "file": "american-electric-power-station-engineer-engineering-technologist-associate-transmission-system-operatio-r18462.json",
+      "title": "Station Engineer/Engineering Technologist Associate - Transmission System Operations Engineering (TSOE)",
+      "company": "American Electric Power",
+      "location": "2 Locations",
+      "posted_date": "2026-09-03",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://aep.wd1.myworkdayjobs.com/en-US/AEPCareerSite/job/New-Albany-OH/Station-Engineer-Engineering-Technologist-Associate---Transmission-System-Operations-Engineering--TSOE-_R18462",
+      "job_id": "R18462"
+    },
+    {
+      "file": "american-electric-power-transmission-line-asset-engineer-assc-sr-r18614.json",
+      "title": "Transmission Line Asset Engineer (Assc - Sr)",
+      "company": "American Electric Power",
+      "location": "8 Locations",
+      "posted_date": "2026-09-02",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://aep.wd1.myworkdayjobs.com/en-US/AEPCareerSite/job/Corpus-Christi-TX/Transmission-Line-Asset-Engineer--Assc---Sr-_R18614",
+      "job_id": "R18614"
+    },
+    {
+      "file": "american-electric-power-transmission-line-mechanic-c-a-r16507.json",
+      "title": "Transmission Line Mechanic C-A",
+      "company": "American Electric Power",
+      "location": "Texarkana, TX",
+      "posted_date": "2026-09-04",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://aep.wd1.myworkdayjobs.com/en-US/AEPCareerSite/job/Texarkana-TX/Transmission-Line-Mechanic-C-A_R16507",
+      "job_id": "R16507"
+    },
+    {
+      "file": "american-electric-power-transmission-line-mechanic-c-transmission-line-mechanic-a-r18504.json",
+      "title": "Transmission Line Mechanic C- Transmission Line Mechanic A",
+      "company": "American Electric Power",
+      "location": "Gilmer, TX",
+      "posted_date": "2026-09-02",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://aep.wd1.myworkdayjobs.com/en-US/AEPCareerSite/job/Gilmer-TX/Transmission-Line-Mechanic-C--Transmission-Line-Mechanic-A_R18504",
+      "job_id": "R18504"
+    },
+    {
+      "file": "american-electric-power-transmission-line-mechanic-d-r17338.json",
+      "title": "Transmission Line Mechanic-D",
+      "company": "American Electric Power",
+      "location": "Muncie, IN",
+      "posted_date": "2026-09-02",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://aep.wd1.myworkdayjobs.com/en-US/AEPCareerSite/job/Muncie-IN/Transmission-Line-Mechanic-D_R17338",
+      "job_id": "R17338"
+    },
+    {
+      "file": "american-electric-power-transmission-line-mechanic-d-r18421.json",
+      "title": "Transmission Line Mechanic D",
+      "company": "American Electric Power",
+      "location": "San Angelo, TX",
+      "posted_date": "2026-09-02",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://aep.wd1.myworkdayjobs.com/en-US/AEPCareerSite/job/San-Angelo-TX/Transmission-Line-Mechanic-D_R18421",
+      "job_id": "R18421"
+    },
+    {
+      "file": "american-electric-power-transmission-modeling-engineer-mid-sr-r18688.json",
+      "title": "Transmission Modeling Engineer (Mid-Sr)",
+      "company": "American Electric Power",
+      "location": "Tulsa, OK",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://aep.wd1.myworkdayjobs.com/en-US/AEPCareerSite/job/Tulsa-OK/Transmission-Modeling-Engineer--Mid-Sr-_R18688",
+      "job_id": "R18688"
+    },
+    {
+      "file": "american-electric-power-transmission-right-of-way-agent-r15046.json",
+      "title": "Transmission Right of Way Agent",
+      "company": "American Electric Power",
+      "location": "New Albany, OH",
+      "posted_date": "2026-09-04",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://aep.wd1.myworkdayjobs.com/en-US/AEPCareerSite/job/New-Albany-OH/Transmission-Right-of-Way-Agent-Associate_R15046",
+      "job_id": "R15046"
+    },
+    {
+      "file": "american-electric-power-transmission-right-of-way-agent-r15332.json",
+      "title": "Transmission Right of Way Agent",
+      "company": "American Electric Power",
+      "location": "New Albany, OH",
+      "posted_date": "2026-09-04",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://aep.wd1.myworkdayjobs.com/en-US/AEPCareerSite/job/New-Albany-OH/Transmission-Right-of-Way-Agent-Associate-level---Senior-level_R15332",
+      "job_id": "R15332"
+    },
+    {
+      "file": "american-electric-power-transmission-right-of-way-agent-r16500.json",
+      "title": "Transmission Right of Way Agent",
+      "company": "American Electric Power",
+      "location": "New Albany, OH",
+      "posted_date": "2026-09-04",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://aep.wd1.myworkdayjobs.com/en-US/AEPCareerSite/job/New-Albany-OH/Transmission-Right-of-Way-Agent--Senior-Principal-Staff_R16500-1",
+      "job_id": "R16500"
+    },
+    {
+      "file": "american-electric-power-transmission-right-of-way-agent-r18677.json",
+      "title": "Transmission Right of Way Agent",
+      "company": "American Electric Power",
+      "location": "New Albany, OH",
+      "posted_date": "2026-09-04",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://aep.wd1.myworkdayjobs.com/en-US/AEPCareerSite/job/New-Albany-OH/Transmission-Right-of-Way-Agent_R18677",
+      "job_id": "R18677"
+    },
+    {
+      "file": "american-electric-power-transmission-siting-and-outreach-manager-r18358.json",
+      "title": "Transmission Siting and Outreach Manager",
+      "company": "American Electric Power",
+      "location": "2 Locations",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://aep.wd1.myworkdayjobs.com/en-US/AEPCareerSite/job/Corpus-Christi-TX/Transmission-Siting-and-Outreach-Manager_R18358",
+      "job_id": "R18358"
+    },
+    {
+      "file": "applied-materials-electrical-engineer-ii-semiconductor-equipment-r2621310.json",
+      "title": "Electrical Engineer II – Semiconductor Equipment",
+      "company": "Applied Materials",
+      "location": "Santa Clara,CA",
+      "posted_date": "2026-09-08",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://amat.wd1.myworkdayjobs.com/en-US/External/job/Santa-ClaraCA/Electrical-Engineer-II---Semiconductor-Equipment_R2621310",
+      "job_id": "R2621310"
+    },
+    {
+      "file": "applied-materials-electrical-engineer-semiconductor-equipment-customer-specification-compliance-r2627755.json",
+      "title": "Electrical Engineer (Semiconductor Equipment – Customer Specification & Compliance)",
+      "company": "Applied Materials",
+      "location": "Hwaseong-Lucestar,KOR",
+      "posted_date": "2026-09-01",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://amat.wd1.myworkdayjobs.com/en-US/External/job/Hwaseong-LucestarKOR/Electrical-Engineer--Semiconductor-Equipment---Customer-Specification---Compliance-_R2627755",
+      "job_id": "R2627755"
+    },
+    {
+      "file": "applied-materials-process-engineer-r2614950.json",
+      "title": "Process Engineer",
+      "company": "Applied Materials",
+      "location": "Xi'an,CHN",
+      "posted_date": "2026-09-03",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://amat.wd1.myworkdayjobs.com/en-US/External/job/XianCHN/Process-Engineer_R2614950-1",
+      "job_id": "R2614950"
+    },
+    {
+      "file": "applied-materials-process-engineer-r2626234.json",
+      "title": "Process Engineer",
+      "company": "Applied Materials",
+      "location": "Santa Clara,CA",
+      "posted_date": "2026-08-31",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://amat.wd1.myworkdayjobs.com/en-US/External/job/Santa-ClaraCA/Process-Engineer_R2626234",
+      "job_id": "R2626234"
+    },
+    {
+      "file": "applied-materials-process-engineer-r2627282.json",
+      "title": "Process Engineer",
+      "company": "Applied Materials",
+      "location": "Santa Clara,CA",
+      "posted_date": "2026-08-31",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://amat.wd1.myworkdayjobs.com/en-US/External/job/Santa-ClaraCA/Process-Engineer_R2627282",
+      "job_id": "R2627282"
+    },
+    {
+      "file": "applied-materials-process-engineer-r2628161.json",
+      "title": "Process Engineer",
+      "company": "Applied Materials",
+      "location": "Hudson,MA",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://amat.wd1.myworkdayjobs.com/en-US/External/job/HudsonMA/Process-Engineer_R2628161",
+      "job_id": "R2628161"
+    },
+    {
+      "file": "applied-materials-process-engineer-r2628167.json",
+      "title": "Process Engineer",
+      "company": "Applied Materials",
+      "location": "Santa Clara,CA",
+      "posted_date": "2026-09-08",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://amat.wd1.myworkdayjobs.com/en-US/External/job/Santa-ClaraCA/Process-Engineer_R2628167-1",
+      "job_id": "R2628167"
+    },
+    {
+      "file": "applied-materials-process-engineer-r2628182.json",
+      "title": "Process Engineer",
+      "company": "Applied Materials",
+      "location": "Santa Clara,CA",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://amat.wd1.myworkdayjobs.com/en-US/External/job/Santa-ClaraCA/Process-Engineer_R2628182",
+      "job_id": "R2628182"
+    },
+    {
+      "file": "applied-materials-process-engineer-r2628196.json",
+      "title": "Process Engineer",
+      "company": "Applied Materials",
+      "location": "Santa Clara,CA",
+      "posted_date": "2026-09-08",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://amat.wd1.myworkdayjobs.com/en-US/External/job/Santa-ClaraCA/Process-Engineer_R2628196",
+      "job_id": "R2628196"
+    },
+    {
+      "file": "black-semiconductor-defect-inspection-engineer-f-m-d-11c60e98-036a-4ef2-aba9-3f49552b6d95.json",
+      "title": "Defect Inspection Engineer (f/m/d)",
+      "company": "Black Semiconductor",
+      "location": "Aachen, Germany",
+      "posted_date": "2026-09-04",
+      "source_board": "ashby",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://jobs.ashbyhq.com/blacksemiconductor/11c60e98-036a-4ef2-aba9-3f49552b6d95",
+      "job_id": "11c60e98-036a-4ef2-aba9-3f49552b6d95"
+    },
+    {
+      "file": "cerebras-physical-security-lead-manufacturing-operations-099d8b10-9bf1-4287-88ab-f9a3274f45e1.json",
+      "title": "Physical Security Lead, Manufacturing Operations",
+      "company": "Cerebras",
+      "location": "Sunnyvale, CA",
+      "posted_date": "2026-09-02",
+      "source_board": "ashby",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://jobs.ashbyhq.com/cerebras/099d8b10-9bf1-4287-88ab-f9a3274f45e1",
+      "job_id": "099d8b10-9bf1-4287-88ab-f9a3274f45e1"
+    },
+    {
+      "file": "duke-energy-assistant-or-system-protection-and-control-technician-brooksville-fl-r40794.json",
+      "title": "Assistant or System Protection and Control Technician (Brooksville, FL)",
+      "company": "Duke Energy",
+      "location": "Brooksville, FL",
+      "posted_date": "2026-09-03",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://dukeenergy.wd1.myworkdayjobs.com/en-US/search/job/Brooksville-FL/Assistant-or-System-Protection-and-Control-Technician--Brooksville--FL-_R40794",
+      "job_id": "R40794"
+    },
+    {
+      "file": "duke-energy-assistant-or-system-protection-and-control-technician-odessa-fl-r40621.json",
+      "title": "Assistant or System Protection and Control Technician (Odessa, FL)",
+      "company": "Duke Energy",
+      "location": "Odessa, FL",
+      "posted_date": "2026-09-03",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://dukeenergy.wd1.myworkdayjobs.com/en-US/search/job/Odessa-FL/Assistant-or-System-Protection-and-Control-Technician--Odessa--FL-_R40621",
+      "job_id": "R40621"
+    },
+    {
+      "file": "duke-energy-civil-engineer-level-iii-or-senior-level-substation-engineering-cincinnati-oh-r41125.json",
+      "title": "Civil Engineer (Level III or Senior Level) – Substation Engineering, Cincinnati, OH",
+      "company": "Duke Energy",
+      "location": "Cincinnati, OH",
+      "posted_date": "2026-09-04",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://dukeenergy.wd1.myworkdayjobs.com/en-US/search/job/Cincinnati-OH/Civil-Engineer--Level-III-or-Senior-Level----Substation-Engineering--Cincinnati--OH_R41125",
+      "job_id": "R41125"
+    },
+    {
+      "file": "duke-energy-civil-nuclear-engineer-iii-or-senior-civil-nuclear-engineer-mcguire-nuclear-stat-r41361.json",
+      "title": "Civil Nuclear Engineer III or Senior Civil Nuclear Engineer – McGuire Nuclear Station",
+      "company": "Duke Energy",
+      "location": "Huntersville, NC",
+      "posted_date": "2026-09-02",
+      "source_board": "workday",
+      "categories": [
+        "critical_infrastructure"
+      ],
+      "application_url": "https://dukeenergy.wd1.myworkdayjobs.com/en-US/search/job/Huntersville-NC/Civil-Nuclear-Engineer-III-or-Senior-Civil-Nuclear-Engineer---McGuire-Nuclear-Station_R41361",
+      "job_id": "R41361"
+    },
+    {
+      "file": "duke-energy-electrical-instrumentation-controls-computer-engineer-catawba-nuclear-station-r40767.json",
+      "title": "Electrical/Instrumentation &Controls/Computer Engineer – Catawba Nuclear Station",
+      "company": "Duke Energy",
+      "location": "York, SC",
+      "posted_date": "2026-09-08",
+      "source_board": "workday",
+      "categories": [
+        "critical_infrastructure"
+      ],
+      "application_url": "https://dukeenergy.wd1.myworkdayjobs.com/en-US/search/job/York-SC/Nuclear-Engineer-III---Sr-Nuclear-Engineer_R40767",
+      "job_id": "R40767"
+    },
+    {
+      "file": "duke-energy-engineer-i-or-engineer-ii-transmission-r41324.json",
+      "title": "Engineer I or Engineer II - Transmission",
+      "company": "Duke Energy",
+      "location": "Plainfield, IN",
+      "posted_date": "2026-09-01",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://dukeenergy.wd1.myworkdayjobs.com/en-US/search/job/Plainfield-IN/Engineer-I-or-Engineer-II---Transmission_R41324",
+      "job_id": "R41324"
+    },
+    {
+      "file": "duke-energy-engineer-iii-or-senior-engineer-transmission-production-standards-r41375.json",
+      "title": "Engineer III or Senior Engineer – Transmission Production Standards",
+      "company": "Duke Energy",
+      "location": "Charlotte, NC",
+      "posted_date": "2026-09-03",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://dukeenergy.wd1.myworkdayjobs.com/en-US/search/job/Charlotte-NC/Engineer-III-or-Senior-Engineer---Transmission-Production-Standards_R41375",
+      "job_id": "R41375"
+    },
+    {
+      "file": "duke-energy-engineer-iii-or-senior-engineer-transmission-r41329.json",
+      "title": "Engineer III or Senior Engineer - Transmission",
+      "company": "Duke Energy",
+      "location": "Plainfield, IN",
+      "posted_date": "2026-09-01",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://dukeenergy.wd1.myworkdayjobs.com/en-US/search/job/Plainfield-IN/Engineer-III-or-Senior-Engineer---Transmission_R41329",
+      "job_id": "R41329"
+    },
+    {
+      "file": "duke-energy-engineer-iii-or-senior-engineer-transmission-substation-engineering-r41194.json",
+      "title": "Engineer III or Senior Engineer - Transmission Substation Engineering",
+      "company": "Duke Energy",
+      "location": "Raleigh, NC",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://dukeenergy.wd1.myworkdayjobs.com/en-US/search/job/Raleigh-NC/Engineer-III-or-Senior-Engineer---Transmission-Substation-Engineering_R41194",
+      "job_id": "R41194"
+    },
+    {
+      "file": "duke-energy-engineer-level-ii-or-iii-power-grid-planning-florida-transmission-r41367.json",
+      "title": "Engineer (Level II or III) - Power Grid Planning (Florida Transmission)",
+      "company": "Duke Energy",
+      "location": "St. Petersburg, FL",
+      "posted_date": "2026-09-03",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://dukeenergy.wd1.myworkdayjobs.com/en-US/search/job/St-Petersburg-FL/Engineer--Level-II-or-III----Power-Grid-Planning--Florida-Transmission-_R41367",
+      "job_id": "R41367"
+    },
+    {
+      "file": "duke-energy-lead-engineer-balance-of-station-bos-sme-r41085.json",
+      "title": "Lead Engineer - Balance of Station (BOS) SME",
+      "company": "Duke Energy",
+      "location": "3 Locations",
+      "posted_date": "2026-09-08",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://dukeenergy.wd1.myworkdayjobs.com/en-US/search/job/Charlotte-NC/Balance-of-Station-SME-Lead-Engineer---Equipment-Engineering_R41085",
+      "job_id": "R41085"
+    },
+    {
+      "file": "duke-energy-lead-engineer-transmission-planning-carolinas-r41343.json",
+      "title": "Lead Engineer - Transmission Planning (Carolinas)",
+      "company": "Duke Energy",
+      "location": "2 Locations",
+      "posted_date": "2026-09-02",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://dukeenergy.wd1.myworkdayjobs.com/en-US/search/job/Charlotte-NC/Lead-Engineer---Transmission-Planning--Carolinas-_R41343",
+      "job_id": "R41343"
+    },
+    {
+      "file": "duke-energy-lead-engineer-transmission-production-standards-r41376.json",
+      "title": "Lead Engineer – Transmission Production Standards",
+      "company": "Duke Energy",
+      "location": "Charlotte, NC",
+      "posted_date": "2026-09-03",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://dukeenergy.wd1.myworkdayjobs.com/en-US/search/job/Charlotte-NC/Lead-Engineer---Transmission-Production-Standards_R41376",
+      "job_id": "R41376"
+    },
+    {
+      "file": "duke-energy-nuclear-engineer-i-or-ii-design-mechanical-civil-mcguire-nuclear-station-r41485.json",
+      "title": "Nuclear Engineer I or II (Design Mechanical/Civil) - McGuire Nuclear Station",
+      "company": "Duke Energy",
+      "location": "Huntersville, NC",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "critical_infrastructure"
+      ],
+      "application_url": "https://dukeenergy.wd1.myworkdayjobs.com/en-US/search/job/Huntersville-NC/Nuclear-Engineer-I-or-II--Design-Mechanical-Civil----McGuire-Nuclear-Station_R41485",
+      "job_id": "R41485"
+    },
+    {
+      "file": "duke-energy-nuclear-engineer-iii-or-senior-nuclear-engineer-risk-informed-strategic-capital-r41479.json",
+      "title": "Nuclear Engineer III OR Senior Nuclear Engineer - Risk Informed Strategic Capital",
+      "company": "Duke Energy",
+      "location": "6 Locations",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "critical_infrastructure"
+      ],
+      "application_url": "https://dukeenergy.wd1.myworkdayjobs.com/en-US/search/job/Charlotte-NC/Nuclear-Engineer-III-OR-Senior-Nuclear-Engineer---Risk-Informed-Strategic-Capital_R41479",
+      "job_id": "R41479"
+    },
+    {
+      "file": "duke-energy-nuclear-radiation-protection-technician-ii-or-nuclear-radiation-protection-techn-r41290.json",
+      "title": "Nuclear Radiation Protection Technician II or Nuclear Radiation Protection Technician III - Robinson Nuclear Plant",
+      "company": "Duke Energy",
+      "location": "Hartsville, SC",
+      "posted_date": "2026-08-31",
+      "source_board": "workday",
+      "categories": [
+        "critical_infrastructure"
+      ],
+      "application_url": "https://dukeenergy.wd1.myworkdayjobs.com/en-US/search/job/Hartsville-SC/Nuclear-Radiation-Protection-Technician-II-or-Nuclear-Radiation-Protection-Technician-III---Robinson-Nuclear-Plant_R41290",
+      "job_id": "R41290"
+    },
+    {
+      "file": "duke-energy-pgo-carolinas-west-p-c-scada-engineer-i-or-engineer-ii-r41467.json",
+      "title": "PGO Carolinas West P&C SCADA Engineer I or Engineer II",
+      "company": "Duke Energy",
+      "location": "Charlotte, NC",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://dukeenergy.wd1.myworkdayjobs.com/en-US/search/job/Charlotte-NC/PGO-Carolinas-West-P-C-SCADA-Engineer-I-or-Engineer-II_R41467",
+      "job_id": "R41467"
+    },
+    {
+      "file": "duke-energy-relay-tech-carolinas-internship-summer-2027-r41170.json",
+      "title": "Relay Tech (Carolinas) Internship - Summer 2027",
+      "company": "Duke Energy",
+      "location": "14 Locations",
+      "posted_date": "2026-08-31",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://dukeenergy.wd1.myworkdayjobs.com/en-US/search/job/Charlotte-NC/Relay-Tech--Carolinas--Internship---Summer-2027_R41170",
+      "job_id": "R41170"
+    },
+    {
+      "file": "duke-energy-relay-tech-midwest-internship-summer-2027-r41185.json",
+      "title": "Relay Tech (Midwest) Internship - Summer 2027",
+      "company": "Duke Energy",
+      "location": "2 Locations",
+      "posted_date": "2026-08-31",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://dukeenergy.wd1.myworkdayjobs.com/en-US/search/job/Plainfield-IN/Relay-Tech--Midwest--Internship---Summer-2027_R41185",
+      "job_id": "R41185"
+    },
+    {
+      "file": "duke-energy-senior-engineer-grid-operations-midwest-r41385.json",
+      "title": "Senior Engineer - Grid Operations Midwest",
+      "company": "Duke Energy",
+      "location": "2 Locations",
+      "posted_date": "2026-09-08",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://dukeenergy.wd1.myworkdayjobs.com/en-US/search/job/Plainfield-IN/Senior-Engineer---Grid-Operations-Midwest_R41385-2",
+      "job_id": "R41385"
+    },
+    {
+      "file": "duke-energy-substation-line-tech-internship-carolinas-summer-2027-r41173.json",
+      "title": "Substation / Line Tech Internship (Carolinas) - Summer 2027",
+      "company": "Duke Energy",
+      "location": "3 Locations",
+      "posted_date": "2026-08-31",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://dukeenergy.wd1.myworkdayjobs.com/en-US/search/job/Leland-NC/Substation---Line-Tech-Internship--Carolinas----Summer-2027_R41173",
+      "job_id": "R41173"
+    },
+    {
+      "file": "duke-energy-system-protection-and-control-technician-st-petersburg-fl-r40793.json",
+      "title": "System Protection and Control Technician (St. Petersburg, FL)",
+      "company": "Duke Energy",
+      "location": "St. Petersburg, FL",
+      "posted_date": "2026-09-03",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://dukeenergy.wd1.myworkdayjobs.com/en-US/search/job/St-Petersburg-FL/System-Protection-and-Control-Technician--St-Petersburg--FL-_R40793",
+      "job_id": "R40793"
+    },
+    {
+      "file": "duke-energy-transmission-nuclear-switchyard-technician-ii-or-iii-r40995.json",
+      "title": "Transmission Nuclear Switchyard Technician II or III",
+      "company": "Duke Energy",
+      "location": "Kings Mountain, NC",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "power_grid",
+        "critical_infrastructure"
+      ],
+      "application_url": "https://dukeenergy.wd1.myworkdayjobs.com/en-US/search/job/Kings-Mountain-NC/Transmission-Nuclear-Switchyard-Technician-II-or-III_R40995",
+      "job_id": "R40995"
+    },
+    {
+      "file": "fab2-fab-software-engineering-intern-summer-36ab33ab-82e7-4cc4-8137-f451fd6036a0.json",
+      "title": "Fab Software Engineering Intern - Summer",
+      "company": "fab2",
+      "location": "Austin",
+      "posted_date": "2026-09-05",
+      "source_board": "ashby",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://jobs.ashbyhq.com/fab2/36ab33ab-82e7-4cc4-8137-f451fd6036a0",
+      "job_id": "36ab33ab-82e7-4cc4-8137-f451fd6036a0"
+    },
+    {
+      "file": "fab2-packaging-engineering-intern-summer-832baa82-d5e1-44b9-bd6f-ef9dbf200a54.json",
+      "title": "Packaging Engineering Intern - Summer",
+      "company": "fab2",
+      "location": "Austin",
+      "posted_date": "2026-09-05",
+      "source_board": "ashby",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://jobs.ashbyhq.com/fab2/832baa82-d5e1-44b9-bd6f-ef9dbf200a54",
+      "job_id": "832baa82-d5e1-44b9-bd6f-ef9dbf200a54"
+    },
+    {
+      "file": "fab2-process-development-engineer-etch-ddeb1ae2-7342-40ec-a223-dce512d7f1a3.json",
+      "title": "Process Development Engineer, Etch",
+      "company": "fab2",
+      "location": "Austin",
+      "posted_date": "2026-09-04",
+      "source_board": "ashby",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://jobs.ashbyhq.com/fab2/ddeb1ae2-7342-40ec-a223-dce512d7f1a3",
+      "job_id": "ddeb1ae2-7342-40ec-a223-dce512d7f1a3"
+    },
+    {
+      "file": "fab2-process-engineering-intern-summer-c8c9b760-8c9f-4481-8566-27282f8c0a07.json",
+      "title": "Process Engineering Intern - Summer",
+      "company": "fab2",
+      "location": "Austin",
+      "posted_date": "2026-09-05",
+      "source_board": "ashby",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://jobs.ashbyhq.com/fab2/c8c9b760-8c9f-4481-8566-27282f8c0a07",
+      "job_id": "c8c9b760-8c9f-4481-8566-27282f8c0a07"
+    },
+    {
+      "file": "fab2-staff-process-development-engineer-etch-15a6302f-d37c-4d05-818b-19a89df8739b.json",
+      "title": "Staff Process Development Engineer, Etch",
+      "company": "fab2",
+      "location": "Austin",
+      "posted_date": "2026-09-04",
+      "source_board": "ashby",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://jobs.ashbyhq.com/fab2/15a6302f-d37c-4d05-818b-19a89df8739b",
+      "job_id": "15a6302f-d37c-4d05-818b-19a89df8739b"
+    },
+    {
+      "file": "ge-vernova-automation-engineer-r5049393-779d0df6.json",
+      "title": "Automation Engineer",
+      "company": "GE Vernova",
+      "location": "Bangor",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "critical_infrastructure"
+      ],
+      "application_url": "https://gevernova.wd5.myworkdayjobs.com/en-US/vernova_externalsite/job/Bangor/Automation-Engineer_R5049393-3",
+      "job_id": "R5049393"
+    },
+    {
+      "file": "ge-vernova-automation-engineer-r5049393.json",
+      "title": "Automation Engineer",
+      "company": "GE Vernova",
+      "location": "Bangor",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "critical_infrastructure"
+      ],
+      "application_url": "https://gevernova.wd5.myworkdayjobs.com/en-US/Vernova_ExternalSite/job/Bangor/Automation-Engineer_R5049393-3",
+      "job_id": "R5049393"
+    },
+    {
+      "file": "ge-vernova-automation-technician-r5050020.json",
+      "title": "Automation Technician",
+      "company": "GE Vernova",
+      "location": "Parsippany",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "critical_infrastructure"
+      ],
+      "application_url": "https://gevernova.wd5.myworkdayjobs.com/en-US/vernova_externalsite/job/Parsippany/Automation-Technician_R5050020-2",
+      "job_id": "R5050020"
+    },
+    {
+      "file": "ge-vernova-field-service-engineer-automation-protection-control-systems-taubat-sp-r5052019-e2bd0d51.json",
+      "title": "Field Service Engineer – Automation, Protection & Control Systems (Taubaté/SP)",
+      "company": "GE Vernova",
+      "location": "Taubate",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "power_grid",
+        "critical_infrastructure"
+      ],
+      "application_url": "https://gevernova.wd5.myworkdayjobs.com/en-US/vernova_externalsite/job/Taubate/Field-Service-Engineer---Automation--Protection---Control-Systems--Taubat-SP-_R5052019",
+      "job_id": "R5052019"
+    },
+    {
+      "file": "ge-vernova-field-service-engineer-automation-protection-control-systems-taubat-sp-r5052019.json",
+      "title": "Field Service Engineer – Automation, Protection & Control Systems (Taubaté/SP)",
+      "company": "GE Vernova",
+      "location": "Taubate",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "power_grid",
+        "critical_infrastructure"
+      ],
+      "application_url": "https://gevernova.wd5.myworkdayjobs.com/en-US/Vernova_ExternalSite/job/Taubate/Field-Service-Engineer---Automation--Protection---Control-Systems--Taubat-SP-_R5052019",
+      "job_id": "R5052019"
+    },
+    {
+      "file": "ge-vernova-field-service-engineer-automation-protection-control-systems-taubat-sp-r5052021-94e8f614.json",
+      "title": "Field Service Engineer – Automation, Protection & Control Systems (Taubaté/SP)",
+      "company": "GE Vernova",
+      "location": "Taubate",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "power_grid",
+        "critical_infrastructure"
+      ],
+      "application_url": "https://gevernova.wd5.myworkdayjobs.com/en-US/vernova_externalsite/job/Taubate/Field-Service-Engineer---Automation--Protection---Control-Systems--Taubat-SP-_R5052021-1",
+      "job_id": "R5052021"
+    },
+    {
+      "file": "ge-vernova-field-service-engineer-automation-protection-control-systems-taubat-sp-r5052021.json",
+      "title": "Field Service Engineer – Automation, Protection & Control Systems (Taubaté/SP)",
+      "company": "GE Vernova",
+      "location": "Taubate",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "power_grid",
+        "critical_infrastructure"
+      ],
+      "application_url": "https://gevernova.wd5.myworkdayjobs.com/en-US/Vernova_ExternalSite/job/Taubate/Field-Service-Engineer---Automation--Protection---Control-Systems--Taubat-SP-_R5052021-1",
+      "job_id": "R5052021"
+    },
+    {
+      "file": "ge-vernova-hvdc-portfolio-technical-director-apac-r5051674.json",
+      "title": "HVDC Portfolio Technical Director - APAC",
+      "company": "GE Vernova",
+      "location": "2 Locations",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://gevernova.wd5.myworkdayjobs.com/en-US/Vernova_ExternalSite/job/Noida/HVDC-Portfolio-Technical-Director---APAC_R5051674-1",
+      "job_id": "R5051674"
+    },
+    {
+      "file": "ge-vernova-lead-analyst-energy-forecasting-advanced-analytics-r5051473.json",
+      "title": "Lead Analyst, Energy Forecasting & Advanced Analytics",
+      "company": "GE Vernova",
+      "location": "7 Locations",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "critical_infrastructure"
+      ],
+      "application_url": "https://gevernova.wd5.myworkdayjobs.com/en-US/vernova_externalsite/job/Cambridge/Lead-Analyst--Energy-Forecasting---Advanced-Analytics_R5051473-2",
+      "job_id": "R5051473"
+    },
+    {
+      "file": "ge-vernova-lead-engineer-hv-substations-r5052468.json",
+      "title": "Lead Engineer – HV Substations",
+      "company": "GE Vernova",
+      "location": "2 Locations",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://gevernova.wd5.myworkdayjobs.com/en-US/Vernova_ExternalSite/job/Bogota/Lead-Engineer---HV-Substations_R5052468-2",
+      "job_id": "R5052468"
+    },
+    {
+      "file": "ge-vernova-lead-primary-engineer-hv-substations-r5052473.json",
+      "title": "Lead Primary Engineer - HV Substations",
+      "company": "GE Vernova",
+      "location": "2 Locations",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://gevernova.wd5.myworkdayjobs.com/en-US/Vernova_ExternalSite/job/Bogota/Lead-Primary-Engineer---HV-Substations_R5052473-3",
+      "job_id": "R5052473"
+    },
+    {
+      "file": "ge-vernova-lead-robotics-automation-engineer-f-h-r5050548.json",
+      "title": "Lead Robotics & Automation Engineer F/H",
+      "company": "GE Vernova",
+      "location": "Villeurbanne",
+      "posted_date": "2026-09-04",
+      "source_board": "workday",
+      "categories": [
+        "critical_infrastructure"
+      ],
+      "application_url": "https://gevernova.wd5.myworkdayjobs.com/en-US/vernova_externalsite/job/Villeurbanne/Lead-Robotics---Automation-Engineer-F-H_R5050548-3",
+      "job_id": "R5050548"
+    },
+    {
+      "file": "ge-vernova-lead-sourcing-specialist-substations-r5051720.json",
+      "title": "Lead Sourcing Specialist – Substations",
+      "company": "GE Vernova",
+      "location": "4 Locations",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://gevernova.wd5.myworkdayjobs.com/en-US/Vernova_ExternalSite/job/Sao-Paulo/Lead-Sourcing-Specialist---Substations_R5051720-2",
+      "job_id": "R5051720"
+    },
+    {
+      "file": "ge-vernova-power-system-panel-design-engineer-grid-automation-r5048539.json",
+      "title": "Power System Panel Design Engineer - Grid Automation",
+      "company": "GE Vernova",
+      "location": "Salt Lake City",
+      "posted_date": "2026-09-08",
+      "source_board": "workday",
+      "categories": [
+        "power_grid",
+        "critical_infrastructure"
+      ],
+      "application_url": "https://gevernova.wd5.myworkdayjobs.com/en-US/Vernova_ExternalSite/job/Salt-Lake-City/Power-System-Panel-Design-Engineer---Grid-Automation_R5048539-1",
+      "job_id": "R5048539"
+    },
+    {
+      "file": "ge-vernova-primary-design-team-leader-hvdc-r5052180.json",
+      "title": "Primary Design Team Leader HVDC",
+      "company": "GE Vernova",
+      "location": "Stafford",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://gevernova.wd5.myworkdayjobs.com/en-US/Vernova_ExternalSite/job/Stafford/Primary-Design-Team-Leader-HVDC_R5052180-3",
+      "job_id": "R5052180"
+    },
+    {
+      "file": "ge-vernova-principal-hvdc-transmission-transformer-design-engineer-electrical-r5032611.json",
+      "title": "Principal HVDC Transmission Transformer Design Engineer (Electrical)",
+      "company": "GE Vernova",
+      "location": "Stafford",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://gevernova.wd5.myworkdayjobs.com/en-US/Vernova_ExternalSite/job/Stafford/Principal-HVDC-Transmission-Transformer-Design-Engineer--Electrical-_R5032611-2",
+      "job_id": "R5032611"
+    },
+    {
+      "file": "ge-vernova-protection-control-systems-engineer-grid-automation-r5051547.json",
+      "title": "Protection & Control Systems Engineer (GRID AUTOMATION)",
+      "company": "GE Vernova",
+      "location": "Zamudio",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "power_grid",
+        "critical_infrastructure"
+      ],
+      "application_url": "https://gevernova.wd5.myworkdayjobs.com/en-US/Vernova_ExternalSite/job/Zamudio/Protection---Control-Systems-Engineer--GRID-AUTOMATION-_R5051547-2",
+      "job_id": "R5051547"
+    },
+    {
+      "file": "ge-vernova-resident-engineer-ac-substations-r5045906.json",
+      "title": "Resident Engineer - AC Substations",
+      "company": "GE Vernova",
+      "location": "3 Locations",
+      "posted_date": "2026-09-05",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://gevernova.wd5.myworkdayjobs.com/en-US/Vernova_ExternalSite/job/Calgary/Resident-Engineer---AC-Substations_R5045906-2",
+      "job_id": "R5045906"
+    },
+    {
+      "file": "ge-vernova-robotics-automation-engineer-r5049654.json",
+      "title": "Robotics & Automation Engineer",
+      "company": "GE Vernova",
+      "location": "SuZhou",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "critical_infrastructure"
+      ],
+      "application_url": "https://gevernova.wd5.myworkdayjobs.com/en-US/vernova_externalsite/job/SuZhou/Robotics---Automation-Engineer_R5049654-2",
+      "job_id": "R5049654"
+    },
+    {
+      "file": "ge-vernova-senior-control-automation-system-engineer-r5052449-8159fba4.json",
+      "title": "Senior Control Automation  System Engineer",
+      "company": "GE Vernova",
+      "location": "Stafford",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "critical_infrastructure"
+      ],
+      "application_url": "https://gevernova.wd5.myworkdayjobs.com/en-US/vernova_externalsite/job/Stafford/Senior-Control-Automation--System-Engineer_R5052449-2",
+      "job_id": "R5052449"
+    },
+    {
+      "file": "ge-vernova-senior-control-automation-system-engineer-r5052449.json",
+      "title": "Senior Control Automation  System Engineer",
+      "company": "GE Vernova",
+      "location": "Stafford",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "power_grid",
+        "critical_infrastructure"
+      ],
+      "application_url": "https://gevernova.wd5.myworkdayjobs.com/en-US/Vernova_ExternalSite/job/Stafford/Senior-Control-Automation--System-Engineer_R5052449-2",
+      "job_id": "R5052449"
+    },
+    {
+      "file": "ge-vernova-supplier-quality-manager-controls-r5051447.json",
+      "title": "Supplier Quality Manager – Controls",
+      "company": "GE Vernova",
+      "location": "2 Locations",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "critical_infrastructure"
+      ],
+      "application_url": "https://gevernova.wd5.myworkdayjobs.com/en-US/vernova_externalsite/job/Hyderabad/Supplier-Quality-Manager---Controls_R5051447-2",
+      "job_id": "R5051447"
+    },
+    {
+      "file": "ge-vernova-technical-leader-scada-hmi-cybersecurity-network-equipment-iec61850-r5051383.json",
+      "title": "Technical Leader-SCADA/HMI - cybersecurity - network equipment - IEC61850",
+      "company": "GE Vernova",
+      "location": "7 Locations",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://gevernova.wd5.myworkdayjobs.com/en-US/Vernova_ExternalSite/job/Remote/Technical-Leader-SCADA-HMI---cybersecurity---network-equipment---IEC61850_R5051383-2",
+      "job_id": "R5051383"
+    },
+    {
+      "file": "globalfoundries-assoc-eng-equipment-engineering-etch-jr-2603607.json",
+      "title": "Assoc Eng Equipment Engineering (Etch)",
+      "company": "GlobalFoundries",
+      "location": "SGP - Woodlands",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://globalfoundries.wd1.myworkdayjobs.com/en-US/External/job/SGP---Woodlands/Assoc-Eng-Equipment-Engineering--Etch-_JR-2603607",
+      "job_id": "JR-2603607"
+    },
+    {
+      "file": "globalfoundries-engineer-process-engineering-diff-jr-2601488.json",
+      "title": "Engineer Process Engineering (Diff)",
+      "company": "GlobalFoundries",
+      "location": "Penang",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://globalfoundries.wd1.myworkdayjobs.com/en-US/External/job/Penang/Engineer-Process-Engineering--Diff-_JR-2601488",
+      "job_id": "JR-2601488"
+    },
+    {
+      "file": "globalfoundries-mts-principal-process-module-engineer-advanced-packaging-program-2-5d-and-3d-het-jr-2600420.json",
+      "title": "MTS/Principal Process Module Engineer - Advanced Packaging Program (2.5D and 3D Heterogeneous Integration)",
+      "company": "GlobalFoundries",
+      "location": "Singapore",
+      "posted_date": "2026-09-02",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://globalfoundries.wd1.myworkdayjobs.com/en-US/External/job/Singapore/MTS-Principal-Process-Module-Engineer---Advanced-Packaging-Program--25D-and-3D-Heterogeneous-Integration-_JR-2600420",
+      "job_id": "JR-2600420"
+    },
+    {
+      "file": "globalfoundries-mts-process-engineering-lithography-jr-2603671.json",
+      "title": "MTS Process Engineering (Lithography)",
+      "company": "GlobalFoundries",
+      "location": "Singapore",
+      "posted_date": "2026-09-07",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://globalfoundries.wd1.myworkdayjobs.com/en-US/External/job/Singapore/MTS-Process-Engineering--Lithography-_JR-2603671",
+      "job_id": "JR-2603671"
+    },
+    {
+      "file": "globalfoundries-pmts-quantum-metrology-engineer-jr-2605390.json",
+      "title": "PMTS Quantum Metrology Engineer",
+      "company": "GlobalFoundries",
+      "location": "USA - New York - Malta",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://globalfoundries.wd1.myworkdayjobs.com/en-US/External/job/USA---New-York---Malta/PMTS-Quantum-Metrology-Engineer_JR-2605390",
+      "job_id": "JR-2605390"
+    },
+    {
+      "file": "globalfoundries-principal-eng-process-engineering-jr-2603600.json",
+      "title": "Principal Eng Process Engineering",
+      "company": "GlobalFoundries",
+      "location": "Singapore",
+      "posted_date": "2026-09-02",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://globalfoundries.wd1.myworkdayjobs.com/en-US/External/job/Singapore/Principal-Eng-Process-Engineering_JR-2603600",
+      "job_id": "JR-2603600"
+    },
+    {
+      "file": "globalfoundries-principal-engineer-process-engineering-cmp-jr-2603664.json",
+      "title": "Principal Engineer Process Engineering (CMP)",
+      "company": "GlobalFoundries",
+      "location": "Singapore",
+      "posted_date": "2026-09-03",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://globalfoundries.wd1.myworkdayjobs.com/en-US/External/job/Singapore/Principal-Engineer-Process-Engineering--CMP-_JR-2603664",
+      "job_id": "JR-2603664"
+    },
+    {
+      "file": "globalfoundries-principal-engineer-process-engineering-lithography-200mm-jr-2603699.json",
+      "title": "Principal Engineer, Process Engineering (Lithography) 200mm",
+      "company": "GlobalFoundries",
+      "location": "Singapore",
+      "posted_date": "2026-09-07",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://globalfoundries.wd1.myworkdayjobs.com/en-US/External/job/Singapore/Principal-Engineer--Process-Engineering--Lithography--200mm_JR-2603699",
+      "job_id": "JR-2603699"
+    },
+    {
+      "file": "globalfoundries-process-engineer-cln-jr-2601380.json",
+      "title": "Process Engineer CLN",
+      "company": "GlobalFoundries",
+      "location": "Penang",
+      "posted_date": "2026-09-03",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://globalfoundries.wd1.myworkdayjobs.com/en-US/External/job/Penang/Process-Engineer-CLN_JR-2601380",
+      "job_id": "JR-2601380"
+    },
+    {
+      "file": "globalfoundries-process-engineer-jr-2601483.json",
+      "title": "Process Engineer",
+      "company": "GlobalFoundries",
+      "location": "Penang",
+      "posted_date": "2026-09-03",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://globalfoundries.wd1.myworkdayjobs.com/en-US/External/job/Penang/Process-Engineer_JR-2601483",
+      "job_id": "JR-2601483"
+    },
+    {
+      "file": "globalfoundries-sr-engineer-process-engineering-lithography-jr-2603670.json",
+      "title": "Sr Engineer, Process Engineering (Lithography)",
+      "company": "GlobalFoundries",
+      "location": "Singapore",
+      "posted_date": "2026-09-03",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://globalfoundries.wd1.myworkdayjobs.com/en-US/External/job/Singapore/Sr-Engineer--Process-Engineering--Lithography-_JR-2603670",
+      "job_id": "JR-2603670"
+    },
+    {
+      "file": "graphcore-manufacturing-operational-excellence-manager-8785929002.json",
+      "title": "Manufacturing Operational Excellence Manager",
+      "company": "Graphcore",
+      "location": "Bristol, UK",
+      "posted_date": "2026-09-08",
+      "source_board": "greenhouse",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://job-boards.greenhouse.io/graphcore/jobs/8785929002",
+      "job_id": "8785929002"
+    },
+    {
+      "file": "graphcore-senior-silicon-logical-design-engineer-bengaluru-8759523002.json",
+      "title": "Senior Silicon Logical Design Engineer - Bengaluru",
+      "company": "Graphcore",
+      "location": "Bengaluru, India",
+      "posted_date": "2026-09-01",
+      "source_board": "greenhouse",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://job-boards.greenhouse.io/graphcore/jobs/8759523002",
+      "job_id": "8759523002"
+    },
+    {
+      "file": "graphcore-senior-silicon-verification-engineer-bengaluru-8759472002.json",
+      "title": "Senior Silicon Verification Engineer - Bengaluru",
+      "company": "Graphcore",
+      "location": "Bengaluru, India",
+      "posted_date": "2026-09-01",
+      "source_board": "greenhouse",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://job-boards.greenhouse.io/graphcore/jobs/8759472002",
+      "job_id": "8759472002"
+    },
+    {
+      "file": "graphcore-staff-silicon-physical-design-engineer-bengaluru-8784128002.json",
+      "title": "Staff Silicon Physical Design Engineer - Bengaluru",
+      "company": "Graphcore",
+      "location": "Bengaluru, India",
+      "posted_date": "2026-09-05",
+      "source_board": "greenhouse",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://job-boards.greenhouse.io/graphcore/jobs/8784128002",
+      "job_id": "8784128002"
+    },
+    {
+      "file": "graphcore-staff-silicon-verification-engineer-bengaluru-8759454002.json",
+      "title": "Staff Silicon Verification Engineer - Bengaluru",
+      "company": "Graphcore",
+      "location": "Bengaluru, India",
+      "posted_date": "2026-09-01",
+      "source_board": "greenhouse",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://job-boards.greenhouse.io/graphcore/jobs/8759454002",
+      "job_id": "8759454002"
+    },
+    {
+      "file": "intel-defect-metrology-engineer-jr0284843.json",
+      "title": "Defect Metrology Engineer",
+      "company": "Intel",
+      "location": "Ireland, Leixlip",
+      "posted_date": "2026-09-02",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://intel.wd1.myworkdayjobs.com/en-US/External/job/Ireland-Leixlip/Defect-Metrology-Engineer_JR0284843",
+      "job_id": "JR0284843"
+    },
+    {
+      "file": "intel-manufacturing-and-process-development-intern-bachelor-s-jr0286825.json",
+      "title": "Manufacturing and Process Development - Intern, Bachelor’s",
+      "company": "Intel",
+      "location": "3 Locations",
+      "posted_date": "2026-09-02",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://intel.wd1.myworkdayjobs.com/en-US/External/job/US-Oregon-Hillsboro/Manufacturing-and-Process-Development---Intern--Bachelor-s_JR0286825",
+      "job_id": "JR0286825"
+    },
+    {
+      "file": "intel-manufacturing-and-process-development-intern-graduate-jr0286833.json",
+      "title": "Manufacturing and Process Development - Intern, Graduate",
+      "company": "Intel",
+      "location": "3 Locations",
+      "posted_date": "2026-09-02",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://intel.wd1.myworkdayjobs.com/en-US/External/job/US-Oregon-Hillsboro/Manufacturing-and-Process-Development---Intern--Graduate_JR0286833",
+      "job_id": "JR0286833"
+    },
+    {
+      "file": "intel-ocotillo-technology-fabrication-wet-etch-module-engineer-jr0285573.json",
+      "title": "Ocotillo Technology Fabrication Wet Etch Module Engineer",
+      "company": "Intel",
+      "location": "US, Arizona, Phoenix",
+      "posted_date": "2026-09-03",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://intel.wd1.myworkdayjobs.com/en-US/External/job/US-Arizona-Phoenix/Ocotillo-Technology-Fabrication-Wet-Etch-Module-Engineer_JR0285573-1",
+      "job_id": "JR0285573"
+    },
+    {
+      "file": "intel-package-assembly-process-development-integration-engineer-jr0286724.json",
+      "title": "Package Assembly Process Development Integration Engineer",
+      "company": "Intel",
+      "location": "US, Arizona, Phoenix",
+      "posted_date": "2026-09-01",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://intel.wd1.myworkdayjobs.com/en-US/External/job/US-Arizona-Phoenix/Package-Assembly-Process-Development-Integration-Engineer_JR0286724",
+      "job_id": "JR0286724"
+    },
+    {
+      "file": "intel-silicon-photonics-td-process-product-integration-engineer-jr0285227.json",
+      "title": "Silicon Photonics TD Process/Product Integration Engineer",
+      "company": "Intel",
+      "location": "US, New Mexico, Albuquerque",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://intel.wd1.myworkdayjobs.com/en-US/External/job/US-New-Mexico-Albuquerque/Silicon-Photonics-TD-Process-Product-Integration-Engineer_JR0285227",
+      "job_id": "JR0285227"
+    },
+    {
+      "file": "intel-sr-yield-and-process-control-automation-engineer-jr0286891.json",
+      "title": "Sr. Yield and Process Control Automation Engineer",
+      "company": "Intel",
+      "location": "US, Arizona, Phoenix",
+      "posted_date": "2026-09-03",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://intel.wd1.myworkdayjobs.com/en-US/External/job/US-Arizona-Phoenix/Sr-Yield-and-Process-Control-Automation-Engineer_JR0286891",
+      "job_id": "JR0286891"
+    },
+    {
+      "file": "invenergy-director-transmission-development-r11203.json",
+      "title": "Director, Transmission Development",
+      "company": "Invenergy",
+      "location": "Chicago, IL",
+      "posted_date": "2026-09-08",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://invenergyllc.wd1.myworkdayjobs.com/en-US/invenergycareers/job/Chicago-IL/Director--Transmission-Development_R11203-1",
+      "job_id": "R11203"
+    },
+    {
+      "file": "invenergy-principal-engineer-scada-engineering-bess-r10878.json",
+      "title": "Principal Engineer, SCADA Engineering (BESS)",
+      "company": "Invenergy",
+      "location": "55 Locations",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://invenergyllc.wd1.myworkdayjobs.com/en-US/invenergycareers/job/Chicago-IL/Principal-Engineer--SCADA-Engineering--BESS-_R10878-1",
+      "job_id": "R10878"
+    },
+    {
+      "file": "invenergy-project-engineer-renewable-electrical-engineering-scada-r11231.json",
+      "title": "Project Engineer, Renewable Electrical Engineering (SCADA)",
+      "company": "Invenergy",
+      "location": "48 Locations",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://invenergyllc.wd1.myworkdayjobs.com/en-US/invenergycareers/job/Home-Office-IL/Project-Engineer--Renewable-Electrical-Engineering--SCADA-_R11231-1",
+      "job_id": "R11231"
+    },
+    {
+      "file": "invenergy-senior-scada-engineer-solar-storage-bess-operations-engineering-field-oem-r11071.json",
+      "title": "Senior SCADA Engineer, Solar/Storage (BESS) Operations Engineering (Field/OEM)",
+      "company": "Invenergy",
+      "location": "18 Locations",
+      "posted_date": "2026-09-01",
+      "source_board": "workday",
+      "categories": [
+        "power_grid"
+      ],
+      "application_url": "https://invenergyllc.wd1.myworkdayjobs.com/en-US/invenergycareers/job/Chicago-IL/Senior-SCADA-Engineer--Operations-Engineering--Field-OEM-_R11071-1",
+      "job_id": "R11071"
+    },
+    {
+      "file": "lumilens-active-alignment-npi-process-development-engineer-4783b8af-097d-48f0-aaf3-e8740d13925f.json",
+      "title": "Active Alignment & NPI Process Development Engineer",
+      "company": "Lumilens",
+      "location": "Singapore",
+      "posted_date": "2026-09-09",
+      "source_board": "ashby",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://jobs.ashbyhq.com/lumilens/4783b8af-097d-48f0-aaf3-e8740d13925f",
+      "job_id": "4783b8af-097d-48f0-aaf3-e8740d13925f"
+    },
+    {
+      "file": "lumilens-process-technician-0cfdf766-f63d-4e60-9467-3de9d04acfbc.json",
+      "title": "Process Technician",
+      "company": "Lumilens",
+      "location": "Chon Buri",
+      "posted_date": "2026-09-10",
+      "source_board": "ashby",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://jobs.ashbyhq.com/lumilens/0cfdf766-f63d-4e60-9467-3de9d04acfbc",
+      "job_id": "0cfdf766-f63d-4e60-9467-3de9d04acfbc"
+    },
+    {
+      "file": "lumilens-senior-staff-npi-wafer-bumping-fan-out-process-engineer-887d46b7-3e3a-4b6f-865f-06b0cb390e9d.json",
+      "title": "Senior/ Staff NPI Wafer Bumping/Fan-Out Process Engineer",
+      "company": "Lumilens",
+      "location": "Singapore",
+      "posted_date": "2026-09-07",
+      "source_board": "ashby",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://jobs.ashbyhq.com/lumilens/887d46b7-3e3a-4b6f-865f-06b0cb390e9d",
+      "job_id": "887d46b7-3e3a-4b6f-865f-06b0cb390e9d"
+    },
+    {
+      "file": "lumilens-sourcing-manager-foundry-osat-fc7d2d54-87df-48ff-a962-a7b56017cc63.json",
+      "title": "Sourcing Manager (Foundry & OSAT)",
+      "company": "Lumilens",
+      "location": "Singapore",
+      "posted_date": "2026-09-07",
+      "source_board": "ashby",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://jobs.ashbyhq.com/lumilens/fc7d2d54-87df-48ff-a962-a7b56017cc63",
+      "job_id": "fc7d2d54-87df-48ff-a962-a7b56017cc63"
+    },
+    {
+      "file": "lumilens-staff-engineer-foundry-operations-5f74d275-40b0-49f5-ac31-8ce42018910a.json",
+      "title": "Staff Engineer (Foundry Operations)",
+      "company": "Lumilens",
+      "location": "Singapore",
+      "posted_date": "2026-09-09",
+      "source_board": "ashby",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://jobs.ashbyhq.com/lumilens/5f74d275-40b0-49f5-ac31-8ce42018910a",
+      "job_id": "5f74d275-40b0-49f5-ac31-8ce42018910a"
+    },
+    {
+      "file": "lumilens-staff-wafer-level-testing-engineer-operations-process-5d04b231-704f-4ea3-837f-7d4d4f54247f.json",
+      "title": "Staff Wafer-level Testing Engineer (Operations & Process)",
+      "company": "Lumilens",
+      "location": "Singapore",
+      "posted_date": "2026-09-07",
+      "source_board": "ashby",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://jobs.ashbyhq.com/lumilens/5d04b231-704f-4ea3-837f-7d4d4f54247f",
+      "job_id": "5d04b231-704f-4ea3-837f-7d4d4f54247f"
+    },
+    {
+      "file": "lumilens-staff-wafer-level-testing-equipment-engineer-98d9ab73-4865-45b3-82fa-4de3cb91b50f.json",
+      "title": "Staff Wafer-Level Testing Equipment Engineer",
+      "company": "Lumilens",
+      "location": "Singapore",
+      "posted_date": "2026-09-07",
+      "source_board": "ashby",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://jobs.ashbyhq.com/lumilens/98d9ab73-4865-45b3-82fa-4de3cb91b50f",
+      "job_id": "98d9ab73-4865-45b3-82fa-4de3cb91b50f"
+    },
+    {
+      "file": "micron-cmp-bonding-engineer-f15-mfg-cmp-bonding-equipment-engineer-jr109527.json",
+      "title": "CMP・BONDING装置エンジニア（最先端半導体技術開発）/ ENGINEER - F15 MFG CMP/BONDING Equipment Engineer",
+      "company": "Micron",
+      "location": "Hiroshima - Fab 15, Japan",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Hiroshima---Fab-15-Japan/ENGINEER---F15-MFG-CMP-Equipment-Engineer_JR109527",
+      "job_id": "JR109527"
+    },
+    {
+      "file": "micron-director-or-sr-manager-cvd-diffusion-advanced-dram-process-development-jr109867.json",
+      "title": "Director or Sr Manager, CVD/Diffusion - Advanced DRAM Process Development",
+      "company": "Micron",
+      "location": "Boise, ID - Main Site",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Boise-ID---Main-Site/Director--CVD-Diffusion---Advanced-DRAM-Process-Development_JR109867",
+      "job_id": "JR109867"
+    },
+    {
+      "file": "micron-engineer-yield-enhancement-laboratory-jr111637.json",
+      "title": "Engineer, Yield Enhancement Laboratory",
+      "company": "Micron",
+      "location": "Fab 10N/X, Singapore",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Fab-10NX-Singapore/Engineer--Yield-Enhancement-Laboratory_JR111637",
+      "job_id": "JR111637"
+    },
+    {
+      "file": "micron-equipment-engineer-jr111622.json",
+      "title": "Equipment Engineer",
+      "company": "Micron",
+      "location": "Boise, ID - Main Site",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Boise-ID---Main-Site/Equipment-Engineer_JR111622",
+      "job_id": "JR111622"
+    },
+    {
+      "file": "micron-equipment-engineer-mask-technology-center-mtc-jr108730.json",
+      "title": "Equipment Engineer – Mask Technology Center (MTC)",
+      "company": "Micron",
+      "location": "Boise, ID - Main Site",
+      "posted_date": "2026-09-01",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Boise-ID---Main-Site/Equipment-Engineer---Mask-Technology-Center--MTC-_JR108730",
+      "job_id": "JR108730"
+    },
+    {
+      "file": "micron-equipment-technician-jr110936.json",
+      "title": "Equipment Technician",
+      "company": "Micron",
+      "location": "Penang, Malaysia - Mini-Grande",
+      "posted_date": "2026-09-03",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Penang-Malaysia---Mini-Grande/Equipment-Technician_JR110936",
+      "job_id": "JR110936"
+    },
+    {
+      "file": "micron-fab-support-safety-testing-technician-jr111076.json",
+      "title": "Fab Support Safety Testing Technician",
+      "company": "Micron",
+      "location": "Boise, ID - ID1",
+      "posted_date": "2026-09-08",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Boise-ID---ID1/Fab-Support-Safety-Testing-Technician_JR111076",
+      "job_id": "JR111076"
+    },
+    {
+      "file": "micron-hvm-dry-equipment-engineer-jr111006.json",
+      "title": "HVM DRY Equipment Engineer",
+      "company": "Micron",
+      "location": "Hiroshima - Fab 15, Japan",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Hiroshima---Fab-15-Japan/HVM-DRY-Equipment-Engineer_JR111006",
+      "job_id": "JR111006"
+    },
+    {
+      "file": "micron-intern-technician-fab-equipment-jr111002.json",
+      "title": "Intern - Technician, Fab Equipment",
+      "company": "Micron",
+      "location": "2 Locations",
+      "posted_date": "2026-09-03",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Boise-ID---ID1/Intern--Equipment-Technician_JR111002",
+      "job_id": "JR111002"
+    },
+    {
+      "file": "micron-manufacturing-shift-lead-photolithography-jr106285.json",
+      "title": "MANUFACTURING SHIFT LEAD  - PHOTOLITHOGRAPHY",
+      "company": "Micron",
+      "location": "Boise, ID - Main Site",
+      "posted_date": "2026-09-03",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Boise-ID---Main-Site/SHIFT-LEAD--ID1-ME---PH-PROCESS_JR106285",
+      "job_id": "JR106285"
+    },
+    {
+      "file": "micron-metrology-process-development-engineer-open-jr108388.json",
+      "title": "Metrology Process Development Engineer (Open)",
+      "company": "Micron",
+      "location": "Hiroshima - Fab 15, Japan",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Hiroshima---Fab-15-Japan/Metrology-Process-Development-Engineer--Open-_JR108388",
+      "job_id": "JR108388"
+    },
+    {
+      "file": "micron-mgr-tainan-photo-scanner-equipment-jr104839.json",
+      "title": "MGR, Tainan Photo Scanner Equipment",
+      "company": "Micron",
+      "location": "Tainan, Taiwan",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Tainan-Taiwan/MGR--Tainan-Photo-Scanner-Equipment_JR104839",
+      "job_id": "JR104839"
+    },
+    {
+      "file": "micron-mgr-tainan-photo-scanner-process-jr105453.json",
+      "title": "MGR, Tainan Photo Scanner Process",
+      "company": "Micron",
+      "location": "Tainan, Taiwan",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Tainan-Taiwan/MGR--Tainan-Photo-Scanner-Process_JR105453",
+      "job_id": "JR105453"
+    },
+    {
+      "file": "micron-mtc-shift-equipment-technician-jr110661.json",
+      "title": "MTC Shift Equipment Technician",
+      "company": "Micron",
+      "location": "Boise, ID - Main Site",
+      "posted_date": "2026-09-04",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Boise-ID---Main-Site/MTC-Shift-Equipment-Technician_JR110661",
+      "job_id": "JR110661"
+    },
+    {
+      "file": "micron-mts-yield-deviation-yt-engineer-jr111215.json",
+      "title": "MTS Yield Deviation/YT Engineer",
+      "company": "Micron",
+      "location": "Boise, ID - ID1",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Boise-ID---ID1/MTS-Yield-Deviation-YT-Engineer_JR111215",
+      "job_id": "JR111215"
+    },
+    {
+      "file": "micron-new-college-grad-fab-process-engineer-jr110885.json",
+      "title": "New College Grad - FAB Process Engineer",
+      "company": "Micron",
+      "location": "Manassas, VA -  Fab 6",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Manassas-VA----Fab-6/New-College-Grad---FAB-Process-Engineer_JR110885",
+      "job_id": "JR110885"
+    },
+    {
+      "file": "micron-new-college-grad-ram-rda-process-engineer-jr110442.json",
+      "title": "New College Grad - RAM RDA Process Engineer",
+      "company": "Micron",
+      "location": "Boise, ID - Main Site",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Boise-ID---Main-Site/New-College-Grad---RAM-RDA-Process-Engineer_JR110442",
+      "job_id": "JR110442"
+    },
+    {
+      "file": "micron-new-college-grad-yield-enhancement-electrical-failure-analysis-engineer-jr109479.json",
+      "title": "New College Grad - Yield Enhancement Electrical Failure Analysis Engineer",
+      "company": "Micron",
+      "location": "Boise, ID - ID1",
+      "posted_date": "2026-09-03",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Boise-ID---ID1/New-College-Grad---Yield-Enhancement-Electrical-Failure-Analysis-Engineer_JR109479",
+      "job_id": "JR109479"
+    },
+    {
+      "file": "micron-pde-npi-pwf-process-engineer-jr105575.json",
+      "title": "PDE NPI PWF Process Engineer",
+      "company": "Micron",
+      "location": "Taichung - Fab 16, Taiwan",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Taichung---Fab-16-Taiwan/PDE-NPI-PWF-Process-Engineer_JR105575-1",
+      "job_id": "JR105575"
+    },
+    {
+      "file": "micron-photo-mask-technician-jr107697.json",
+      "title": "Photo Mask Technician",
+      "company": "Micron",
+      "location": "3 Locations",
+      "posted_date": "2026-09-04",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Taichung---Fab-16-Taiwan/Photo-Mask-Technician_JR107697",
+      "job_id": "JR107697"
+    },
+    {
+      "file": "micron-poste-equipment-technician-jr107244.json",
+      "title": "Poste Equipment Technician",
+      "company": "Micron",
+      "location": "Sanand - 303A - AT/SSD/MOD, India",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Sanand---303A---ATSSDMOD-India/Poste-Equipment-Technician_JR107244",
+      "job_id": "JR107244"
+    },
+    {
+      "file": "micron-principal-engineer-package-silicon-integration-jr108624.json",
+      "title": "Principal Engineer, Package Silicon Integration",
+      "company": "Micron",
+      "location": "Boise, ID - Main Site",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Boise-ID---Main-Site/Principal-Engineer--Package-Silicon-Integration_JR108624",
+      "job_id": "JR108624"
+    },
+    {
+      "file": "micron-process-technician-jr106737.json",
+      "title": "Process Technician",
+      "company": "Micron",
+      "location": "Manassas, VA -  Fab 6",
+      "posted_date": "2026-09-02",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Manassas-VA----Fab-6/Process-Technician_JR106737",
+      "job_id": "JR106737"
+    },
+    {
+      "file": "micron-process-technician-pi-overall-process-jr107514.json",
+      "title": "Process Technician - PI Overall Process",
+      "company": "Micron",
+      "location": "Boise, ID - ID1",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Boise-ID---ID1/Process-Technician---PI-Overall-Process_JR107514",
+      "job_id": "JR107514"
+    },
+    {
+      "file": "micron-product-yield-enhancement-engineer-jr110481.json",
+      "title": "Product Yield Enhancement Engineer",
+      "company": "Micron",
+      "location": "Boise, ID - Main Site",
+      "posted_date": "2026-09-08",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Boise-ID---Main-Site/Product-Yield-Enhancement-Engineer_JR110481",
+      "job_id": "JR110481"
+    },
+    {
+      "file": "micron-pye-product-yield-enhancement-lab-technician-jr109993.json",
+      "title": "PYE (Product Yield Enhancement) Lab Technician",
+      "company": "Micron",
+      "location": "Boise, ID - Main Site",
+      "posted_date": "2026-09-02",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Boise-ID---Main-Site/PYE--Product-Yield-Enhancement--Lab-Technician_JR109993",
+      "job_id": "JR109993"
+    },
+    {
+      "file": "micron-senior-pcvd-equipment-engineer-jr101248.json",
+      "title": "Senior PCVD Equipment Engineer",
+      "company": "Micron",
+      "location": "2 Locations",
+      "posted_date": "2026-09-08",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Boise-ID---Main-Site/Senior-PCVD-Equipment-Engineer_JR101248",
+      "job_id": "JR101248"
+    },
+    {
+      "file": "micron-senior-principal-eng-fe-oct-cpee-photo-metrology-jr111380.json",
+      "title": "Senior/Principal Eng, FE OCT CPEE PHOTO METROLOGY",
+      "company": "Micron",
+      "location": "Taichung - Fab 16, Taiwan",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Taichung---Fab-16-Taiwan/Senior-Principal-Eng--FE-OCT-CPEE-PHOTO-METROLOGY_JR111380",
+      "job_id": "JR111380"
+    },
+    {
+      "file": "micron-shift-process-engineer-advanced-packaging-technology-development-aptd-jr107856.json",
+      "title": "Shift Process Engineer, Advanced Packaging Technology Development (APTD)",
+      "company": "Micron",
+      "location": "Boise, ID - Main Site",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Boise-ID---Main-Site/Shift-Process-Engineer--Advanced-Packaging-Technology-Development--APTD-_JR107856",
+      "job_id": "JR107856"
+    },
+    {
+      "file": "micron-sr-dry-etch-equipment-engineer-jr93934.json",
+      "title": "Sr Dry Etch Equipment Engineer",
+      "company": "Micron",
+      "location": "Manassas, VA -  Fab 6",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Manassas-VA----Fab-6/Sr-Dry-Etch-Equipment-Engineer_JR93934",
+      "job_id": "JR93934"
+    },
+    {
+      "file": "micron-sr-hbm-equipment-engineer-jr61760.json",
+      "title": "SR. HBM EQUIPMENT ENGINEER",
+      "company": "Micron",
+      "location": "Taichung - MTB, Taiwan",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Taichung---MTB-Taiwan/SR-HBM-EQUIPMENT-ENGINEER_JR61760",
+      "job_id": "JR61760"
+    },
+    {
+      "file": "micron-yield-analysis-engineer-jr111117.json",
+      "title": "Yield Analysis Engineer",
+      "company": "Micron",
+      "location": "Boise, ID - ID1",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Boise-ID---ID1/Yield-Analysis-Engineer_JR111117",
+      "job_id": "JR111117"
+    },
+    {
+      "file": "micron-yield-analysis-manager-jr111216.json",
+      "title": "Yield Analysis Manager",
+      "company": "Micron",
+      "location": "Boise, ID - ID1",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Boise-ID---ID1/Yield-Analysis-Manager_JR111216",
+      "job_id": "JR111216"
+    },
+    {
+      "file": "micron-yield-enhancement-electrical-failure-analysis-engineer-jr109607.json",
+      "title": "Yield Enhancement Electrical Failure Analysis Engineer",
+      "company": "Micron",
+      "location": "Boise, ID - ID1",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Boise-ID---ID1/Yield-Enhancement-Electrical-Failure-Analysis-Engineer_JR109607",
+      "job_id": "JR109607"
+    },
+    {
+      "file": "micron-yield-enhancement-sem-etm-process-shift-technician-jr110900.json",
+      "title": "Yield Enhancement SEM & ETM Process Shift Technician",
+      "company": "Micron",
+      "location": "Boise, ID - ID1",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Boise-ID---ID1/Yield-Enhancement-SEM---ETM-Process-Shift-Technician_JR110900",
+      "job_id": "JR110900"
+    },
+    {
+      "file": "micron-yield-enhancement-senior-failure-analysis-shift-technician-jr109314.json",
+      "title": "Yield Enhancement Senior Failure Analysis Shift Technician",
+      "company": "Micron",
+      "location": "Boise, ID - ID1",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://micron.wd1.myworkdayjobs.com/en-US/External/job/Boise-ID---ID1/Yield-Enhancement-Senior-Failure-Analysis-Shift-Technician_JR109314",
+      "job_id": "JR109314"
+    },
+    {
+      "file": "samsung-semiconductor-etch-senior-process-engineer-r120313.json",
+      "title": "Etch Senior Process Engineer",
+      "company": "Samsung Semiconductor",
+      "location": "12100 Samsung Blvd, Austin, TX, USA",
+      "posted_date": "2026-09-04",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://sec.wd3.myworkdayjobs.com/en-US/samsung_careers/job/12100-Samsung-Blvd-Austin-TX-USA/Etch-Senior-Process-Engineer_R120313",
+      "job_id": "R120313"
+    },
+    {
+      "file": "samsung-semiconductor-photo-equipment-technician-r116801.json",
+      "title": "Photo Equipment Technician",
+      "company": "Samsung Semiconductor",
+      "location": "1530 FM 973 Taylor, TX, USA",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://sec.wd3.myworkdayjobs.com/en-US/samsung_careers/job/1530-FM-973-Taylor-TX-USA/Photo-Equipment-Technician_R116801",
+      "job_id": "R116801"
+    },
+    {
+      "file": "samsung-semiconductor-planar-nodes-experienced-process-integration-engineer-r120249.json",
+      "title": "Planar Nodes, Experienced Process Integration Engineer",
+      "company": "Samsung Semiconductor",
+      "location": "12100 Samsung Blvd, Austin, TX, USA",
+      "posted_date": "2026-09-10",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://sec.wd3.myworkdayjobs.com/en-US/samsung_careers/job/12100-Samsung-Blvd-Austin-TX-USA/Planar-Nodes--Experienced-Process-Integration-Engineer_R120249",
+      "job_id": "R120249"
+    },
+    {
+      "file": "samsung-semiconductor-staff-equipment-engineer-scanner-r120060.json",
+      "title": "Staff Equipment Engineer - Scanner",
+      "company": "Samsung Semiconductor",
+      "location": "12100 Samsung Blvd, Austin, TX, USA",
+      "posted_date": "2026-09-09",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://sec.wd3.myworkdayjobs.com/en-US/samsung_careers/job/12100-Samsung-Blvd-Austin-TX-USA/Staff-Equipment-Engineer---Scanner_R120060",
+      "job_id": "R120060"
+    },
+    {
+      "file": "samsung-semiconductor-yield-and-process-control-innovation-engineer-r120134.json",
+      "title": "Yield and Process Control Innovation Engineer",
+      "company": "Samsung Semiconductor",
+      "location": "1530 FM 973 Taylor, TX, USA",
+      "posted_date": "2026-09-04",
+      "source_board": "workday",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://sec.wd3.myworkdayjobs.com/en-US/samsung_careers/job/1530-FM-973-Taylor-TX-USA/Yield-and-Process-Control-Innovation-Engineer_R120134",
+      "job_id": "R120134"
+    },
+    {
+      "file": "spacex-materials-engineer-solar-cell-characterization-8753733002.json",
+      "title": "Materials Engineer, Solar Cell Characterization",
+      "company": "SpaceX",
+      "location": "Bastrop, TX",
+      "posted_date": "2026-08-31",
+      "source_board": "greenhouse",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://boards.greenhouse.io/spacex/jobs/8753733002?gh_jid=8753733002",
+      "job_id": "8753733002"
+    },
+    {
+      "file": "spacex-materials-r-d-technician-solar-cell-characterization-8753709002.json",
+      "title": "Materials R&D Technician, Solar Cell Characterization",
+      "company": "SpaceX",
+      "location": "Bastrop, TX",
+      "posted_date": "2026-09-01",
+      "source_board": "greenhouse",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://boards.greenhouse.io/spacex/jobs/8753709002?gh_jid=8753709002",
+      "job_id": "8753709002"
+    },
+    {
+      "file": "spacex-metrology-specialist-starship-8769829002.json",
+      "title": "Metrology Specialist (Starship)",
+      "company": "SpaceX",
+      "location": "Starbase, TX",
+      "posted_date": "2026-09-03",
+      "source_board": "greenhouse",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://boards.greenhouse.io/spacex/jobs/8769829002?gh_jid=8769829002",
+      "job_id": "8769829002"
+    },
+    {
+      "file": "spacex-sr-failure-analysis-engineer-microelectronics-starlink-8769926002.json",
+      "title": "Sr. Failure Analysis Engineer, Microelectronics (Starlink)",
+      "company": "SpaceX",
+      "location": "Bastrop, TX",
+      "posted_date": "2026-09-01",
+      "source_board": "greenhouse",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://boards.greenhouse.io/spacex/jobs/8769926002?gh_jid=8769926002",
+      "job_id": "8769926002"
+    },
+    {
+      "file": "spacex-sr-global-supply-manager-construction-terafab-8761380002.json",
+      "title": "Sr. Global Supply Manager, Construction (Terafab)",
+      "company": "SpaceX",
+      "location": "Bastrop, TX",
+      "posted_date": "2026-08-31",
+      "source_board": "greenhouse",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://boards.greenhouse.io/spacex/jobs/8761380002?gh_jid=8761380002",
+      "job_id": "8761380002"
+    },
+    {
+      "file": "spacex-sr-materials-engineer-silicon-crystal-growth-starlink-8734423002.json",
+      "title": "Sr. Materials Engineer, Silicon Crystal Growth (Starlink)",
+      "company": "SpaceX",
+      "location": "Bastrop, TX",
+      "posted_date": "2026-08-31",
+      "source_board": "greenhouse",
+      "categories": [
+        "semiconductor"
+      ],
+      "application_url": "https://boards.greenhouse.io/spacex/jobs/8734423002?gh_jid=8734423002",
+      "job_id": "8734423002"
+    }
+  ],
+  "notes": [
+    "LinkedIn and Glassdoor were not used.",
+    "Descriptions are full original HTML/text from board APIs.",
+    "Workday posted_date often derived from startDate or relative Posted N Days Ago.",
+    "Some target company Workday site tokens (Dominion, NextEra, National Grid, Lam, ASML, etc.) failed path discovery (404/500); GE Vernova wd5 succeeded.",
+    "Greenhouse SpaceX + Graphcore; Ashby Black Semiconductor, fab2, Lumilens, Quantware, Periodic Labs, Cerebras."
+  ]
+}
