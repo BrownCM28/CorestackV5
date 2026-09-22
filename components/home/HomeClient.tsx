@@ -35,16 +35,40 @@ const JOBS_PREVIEW = 12
 
 type SortKey = 'newest' | 'salary' | 'relevance'
 
-function applySort(jobs: Job[], sort: SortKey): Job[] {
-  return [...jobs].sort((a, b) => {
-    if (sort === 'salary') return (b.salary_min ?? 0) - (a.salary_min ?? 0)
-    if (sort === 'newest')
-      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+// Round-robins a pre-sorted list across companies -- each company's
+// best-ranked job surfaces before any company's second-best, so one prolific
+// poster (e.g. a company with hundreds of live reqs) can't fill the whole
+// homepage preview by itself. Order within each company is preserved.
+function diversifyByCompany(jobs: Job[]): Job[] {
+  const byCompany = new Map<string, Job[]>()
+  for (const job of jobs) {
+    const bucket = byCompany.get(job.company)
+    if (bucket) bucket.push(job)
+    else byCompany.set(job.company, [job])
+  }
+  const buckets = [...byCompany.values()]
+  const result: Job[] = []
+  for (let round = 0; result.length < jobs.length; round++) {
+    for (const bucket of buckets) {
+      if (round < bucket.length) result.push(bucket[round])
+    }
+  }
+  return result
+}
 
-    // "relevance" -- what actually surfaces on the home page. Real company
-    // logos read as more trustworthy than an initials placeholder, so those
-    // come first; then the best-paying roles; then paid/sponsored
-    // placement; newest breaks any remaining tie.
+function applySort(jobs: Job[], sort: SortKey): Job[] {
+  if (sort === 'salary') return [...jobs].sort((a, b) => (b.salary_min ?? 0) - (a.salary_min ?? 0))
+  if (sort === 'newest')
+    return [...jobs].sort(
+      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    )
+
+  // "relevance" -- what actually surfaces on the home page. Real company
+  // logos read as more trustworthy than an initials placeholder, so those
+  // come first; then the best-paying roles; then paid/sponsored placement;
+  // newest breaks any remaining tie. Diversified afterward so the preview
+  // doesn't read as a single company's job board.
+  const ranked = [...jobs].sort((a, b) => {
     const logoDiff = Number(hasRealLogo(b.company)) - Number(hasRealLogo(a.company))
     if (logoDiff !== 0) return logoDiff
     const salaryDiff = (b.salary_max ?? b.salary_min ?? 0) - (a.salary_max ?? a.salary_min ?? 0)
@@ -52,6 +76,7 @@ function applySort(jobs: Job[], sort: SortKey): Job[] {
     const paidDiff = (b.paid_amount_cents ?? 0) - (a.paid_amount_cents ?? 0)
     return paidDiff !== 0 ? paidDiff : new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
   })
+  return diversifyByCompany(ranked)
 }
 
 // ── Main component ────────────────────────────────────────────────────────────

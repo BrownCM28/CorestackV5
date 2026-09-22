@@ -136,15 +136,17 @@ export default function ApplySheet({ jobId, applyTarget }: Props) {
     }
   }
 
-  function handleSkip() {
+  // Closes the sheet without opening the apply target -- guests must submit
+  // their info through the form to proceed. This intentionally does NOT
+  // navigate anywhere; it's a cancel, not a bypass.
+  function handleClose() {
     setSheetOpen(false)
-    openApplyTarget(applyTarget)
   }
 
   useEffect(() => {
     if (!sheetOpen) return
     function handleKey(e: KeyboardEvent) {
-      if (e.key === 'Escape') handleSkip()
+      if (e.key === 'Escape') handleClose()
     }
     document.addEventListener('keydown', handleKey)
     return () => document.removeEventListener('keydown', handleKey)
@@ -170,7 +172,7 @@ export default function ApplySheet({ jobId, applyTarget }: Props) {
           <div
             aria-hidden="true"
             className="absolute inset-0 bg-black/40"
-            onClick={handleSkip}
+            onClick={handleClose}
           />
           <div
             role="dialog"
@@ -244,13 +246,6 @@ export default function ApplySheet({ jobId, applyTarget }: Props) {
                 className="mt-1 bg-black text-white px-6 py-3 text-sm font-medium transition-colors duration-150 hover:bg-[#3ecf8e] hover:text-black disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
               >
                 {submitting ? 'Submitting…' : 'Continue to Application'}
-              </button>
-              <button
-                type="button"
-                onClick={handleSkip}
-                className="text-xs text-black/40 hover:text-black underline transition-colors duration-150 self-center"
-              >
-                No thanks, take me there
               </button>
             </form>
           </div>

@@ -114,7 +114,7 @@ describe('ApplySheet', () => {
     openSpy.mockRestore()
   })
 
-  it('lets a guest skip the sheet without submitting anything, and still opens the target', async () => {
+  it('closes on backdrop click without submitting anything or opening the target -- there is no skip', async () => {
     const user = userEvent.setup()
     const openSpy = vi.spyOn(window, 'open').mockImplementation(() => null)
 
@@ -125,10 +125,14 @@ describe('ApplySheet', () => {
     await user.click(link)
     await screen.findByText('Quick details before you go')
 
-    await user.click(screen.getByRole('button', { name: 'No thanks, take me there' }))
+    expect(screen.queryByRole('button', { name: /no thanks/i })).not.toBeInTheDocument()
+
+    // eslint-disable-next-line testing-library/no-node-access -- the backdrop is aria-hidden, not queryable by role
+    const backdrop = document.querySelector('[aria-hidden="true"]')
+    await user.click(backdrop as Element)
 
     expect(mocks.submitApplicationLead).not.toHaveBeenCalled()
-    expect(openSpy).toHaveBeenCalledWith(APPLY_TARGET, '_blank', 'noopener,noreferrer')
+    expect(openSpy).not.toHaveBeenCalled()
     expect(screen.queryByText('Quick details before you go')).not.toBeInTheDocument()
 
     openSpy.mockRestore()
@@ -151,9 +155,9 @@ describe('ApplySheet', () => {
     // No sheet -- the click was never intercepted (preventDefault not
     // called), so the browser's native <a target="_blank"> handles the
     // navigation itself. That's exactly why there's nothing to assert
-    // against window.open here (unlike the submit/skip paths, which call
-    // it explicitly): jsdom doesn't simulate real anchor navigation, so
-    // the absence of the sheet is the meaningful, observable outcome.
+    // against window.open here (unlike the submit path, which calls it
+    // explicitly): jsdom doesn't simulate real anchor navigation, so the
+    // absence of the sheet is the meaningful, observable outcome.
     expect(screen.queryByText('Quick details before you go')).not.toBeInTheDocument()
   })
 
