@@ -36,6 +36,7 @@ const REAL_LOGOS: Record<string, LogoConfig> = {
   'Microsoft': { src: '/Company Logos/Microsoft-logo.png' },
   'Vantage Data Centers': { src: '/Company Logos/Vantage_Logo.jpg' },
   'Stack Infrastructure': { src: '/Company Logos/images (5).jpeg' },
+  'STACK Infrastructure': { src: '/Company Logos/images (5).jpeg' },
   'NTT Global Data Centers': { src: '/Company Logos/ntt_global_data_centers_americas_logo.jpeg' },
   'Schweitzer Engineering Laboratories': { src: '/Company Logos/Schweitzer.png' },
   'Schweitzer Engineering Laboratories, Inc.': { src: '/Company Logos/Schweitzer.png' },
@@ -98,6 +99,15 @@ const REAL_LOGOS: Record<string, LogoConfig> = {
   'Siemens': { src: '/Company Logos/corestack_company_logos_2/siemens.png' },
   'Switch': { src: '/Company Logos/corestack_company_logos_2/switch.png' },
   'xAI': { src: '/Company Logos/corestack_company_logos_2/xai.png' },
+
+  'Aligned Data Centers': { src: '/Company Logos/corestack_company_logos_3/aligned-data-centers.png' },
+  'American Electric Power': { src: '/Company Logos/corestack_company_logos_3/american-electric-power.png' },
+  'Anduril Industries': { src: '/Company Logos/corestack_company_logos_3/anduril.jpg' },
+  'Duke Energy': { src: '/Company Logos/corestack_company_logos_3/duke-energy.png' },
+  'GE Vernova': { src: '/Company Logos/corestack_company_logos_3/ge-vernova.jpg' },
+  'GlobalFoundries': { src: '/Company Logos/corestack_company_logos_3/globalfoundries.jpg' },
+  'Micron': { src: '/Company Logos/corestack_company_logos_3/micron.png' },
+  'SpaceX': { src: '/Company Logos/corestack_company_logos_3/spacex.png' },
 }
 
 const PALETTES = [
