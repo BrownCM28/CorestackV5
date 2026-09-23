@@ -16,7 +16,6 @@ import JobsAcrossTheStack from '@/components/home/sections/JobsAcrossTheStack'
 import IndustryIntelligence from '@/components/home/sections/IndustryIntelligence'
 import CareerDevelopment from '@/components/home/sections/CareerDevelopment'
 import Certifications from '@/components/home/sections/Certifications'
-import FinalCta from '@/components/home/sections/FinalCta'
 import EmployerInquiry from '@/components/home/sections/EmployerInquiry'
 
 // ── Constants ─────────────────────────────────────────────────────────────────
@@ -568,9 +567,6 @@ export default function HomeClient({ jobs, news, resources, categoryCounts }: Pr
       </Reveal>
       <Reveal>
         <Certifications resources={resources} />
-      </Reveal>
-      <Reveal>
-        <FinalCta />
       </Reveal>
       <Reveal>
         <EmployerInquiry />
