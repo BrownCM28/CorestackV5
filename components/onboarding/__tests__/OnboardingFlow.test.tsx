@@ -4,8 +4,7 @@ import OnboardingFlow from '../OnboardingFlow'
 
 const mocks = vi.hoisted(() => ({
   push: vi.fn(),
-  update: vi.fn(),
-  eq: vi.fn(),
+  upsert: vi.fn(),
   searchParams: new URLSearchParams(),
   getUtmCookie: vi.fn(),
   clearUtmCookie: vi.fn(),
@@ -19,7 +18,7 @@ vi.mock('next/navigation', () => ({
 vi.mock('@/lib/supabase/client', () => ({
   createClient: () => ({
     from: () => ({
-      update: mocks.update,
+      upsert: mocks.upsert,
     }),
   }),
 }))
@@ -39,8 +38,7 @@ function selectJobSeekerThroughStep2() {
 describe('OnboardingFlow', () => {
   beforeEach(() => {
     mocks.push.mockReset()
-    mocks.eq.mockReset().mockResolvedValue({ error: null })
-    mocks.update.mockReset().mockReturnValue({ eq: mocks.eq })
+    mocks.upsert.mockReset().mockResolvedValue({ error: null })
     mocks.getUtmCookie.mockReset().mockReturnValue(null)
     mocks.clearUtmCookie.mockReset()
     mocks.searchParams = new URLSearchParams()
@@ -140,7 +138,8 @@ describe('OnboardingFlow', () => {
 
     await waitFor(() => expect(mocks.push).toHaveBeenCalledWith('/'))
 
-    expect(mocks.update).toHaveBeenCalledWith({
+    expect(mocks.upsert).toHaveBeenCalledWith({
+      id: 'user-1',
       user_type: 'job_seeker',
       interested_categories: ['operations'],
       preferred_markets: ['Remote'],
@@ -154,7 +153,6 @@ describe('OnboardingFlow', () => {
       utm_content: null,
       updated_at: expect.any(String),
     })
-    expect(mocks.eq).toHaveBeenCalledWith('id', 'user-1')
   })
 
   it('attaches captured UTM data to the profile update and clears the cookie on completion', async () => {
@@ -172,7 +170,7 @@ describe('OnboardingFlow', () => {
 
     await waitFor(() => expect(mocks.push).toHaveBeenCalledWith('/'))
 
-    expect(mocks.update).toHaveBeenCalledWith(
+    expect(mocks.upsert).toHaveBeenCalledWith(
       expect.objectContaining({
         utm_source: 'linkedin',
         utm_medium: 'cold_outreach',
@@ -206,7 +204,7 @@ describe('OnboardingFlow', () => {
   })
 
   it('shows an inline error and re-enables Continue when the update fails', async () => {
-    mocks.eq.mockResolvedValue({ error: { message: 'Update failed' } })
+    mocks.upsert.mockResolvedValue({ error: { message: 'Update failed' } })
     render(<OnboardingFlow userId="user-1" />)
     selectJobSeekerThroughStep2()
     fireEvent.click(screen.getByRole('button', { name: 'Actively applying' }))

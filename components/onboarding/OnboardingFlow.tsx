@@ -74,9 +74,17 @@ export default function OnboardingFlow({ userId }: Props) {
     try {
       const supabase = createClient()
       const utm = getUtmCookie()
+      // upsert, not update: the profiles row is normally created by the
+      // handle_new_user() DB trigger on signup, but a handful of accounts
+      // from a period where that trigger was broken have no row at all.
+      // update() against a missing row matches zero rows and silently does
+      // nothing -- the user picks "I'm hiring," sees no error, and lands
+      // back on a site that still thinks they're a job seeker. upsert()
+      // self-heals regardless of whether the trigger ran.
       const { error: updateError } = await supabase
         .from('profiles')
-        .update({
+        .upsert({
+          id: userId,
           user_type: userType,
           interested_categories: categories,
           preferred_markets: userType === 'job_seeker' ? markets : null,
@@ -90,7 +98,6 @@ export default function OnboardingFlow({ userId }: Props) {
           utm_content: utm?.utm_content ?? null,
           updated_at: new Date().toISOString(),
         })
-        .eq('id', userId)
 
       if (updateError) {
         setError(updateError.message)

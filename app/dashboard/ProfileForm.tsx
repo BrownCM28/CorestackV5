@@ -72,10 +72,10 @@ export default function ProfileForm({ profile }: Props) {
       return
     }
 
+    // upsert, not update -- see handleSubmit()'s comment below for why.
     const { error: profileError } = await supabase
       .from('profiles')
-      .update({ resume_url: path })
-      .eq('id', user.id)
+      .upsert({ id: user.id, resume_url: path })
 
     if (profileError) {
       setResumeError(profileError.message)
@@ -108,8 +108,7 @@ export default function ProfileForm({ profile }: Props) {
     if (user) {
       await supabase
         .from('profiles')
-        .update({ resume_url: null })
-        .eq('id', user.id)
+        .upsert({ id: user.id, resume_url: null })
     }
 
     setResumeUrl(null)
@@ -122,9 +121,14 @@ export default function ProfileForm({ profile }: Props) {
     setSaved(false)
 
     const supabase = createClient()
+    // upsert, not update: a handful of accounts from a window where the
+    // signup trigger that creates this row was broken have no profiles
+    // row at all. update() against a missing row matches nothing and
+    // silently no-ops -- the form reports success but nothing saves.
     const { error: updateError } = await supabase
       .from('profiles')
-      .update({
+      .upsert({
+        id: profile.id,
         full_name: fullName || null,
         title: title || null,
         location: location || null,
@@ -133,7 +137,6 @@ export default function ProfileForm({ profile }: Props) {
         profile_visible: profileVisible,
         updated_at: new Date().toISOString(),
       })
-      .eq('id', profile.id)
 
     if (updateError) {
       setError(updateError.message)
