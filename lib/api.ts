@@ -52,6 +52,9 @@ export async function getJobs(filters?: JobFilters): Promise<Job[]> {
   if (filters?.minSalary) {
     query = query.gte('salary_min', filters.minSalary)
   }
+  if (filters?.collection) {
+    query = query.eq('collection', filters.collection)
+  }
 
   const { data, error } = await query
   if (error) throw error

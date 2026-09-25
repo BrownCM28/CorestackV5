@@ -37,6 +37,10 @@ export interface Job {
   paid_at: string | null
   is_featured: boolean
   updated_at: string
+  /** Tags this job into a featured collection (e.g. 'texas-dc-construction')
+   * with its own sub-page at /jobs/collections/[slug]. Null for ordinary
+   * listings -- see FEATURED_COLLECTIONS in lib/constants.ts. */
+  collection?: string | null
 }
 
 export interface Application {
@@ -132,6 +136,7 @@ export interface JobFilters {
   postedWithin?: '24h' | '7d' | '30d'
   skills?: string[]
   minSalary?: number
+  collection?: string
 }
 
 export interface CreateJobPayload {

@@ -30,6 +30,29 @@ export const CATEGORY_LIST: Category[] = [
   'semiconductor_fabrication',
 ]
 
+export interface FeaturedCollection {
+  /** Matches jobs.collection and the /jobs/collections/[slug] route. */
+  slug: string
+  /** Full heading used on the collection's own page. */
+  label: string
+  /** Compact label for the featured-collections bar on /jobs. */
+  shortLabel: string
+  description: string
+}
+
+// New featured collection = tag the relevant jobs.collection to a new slug
+// (see scripts used for prior imports) and add an entry here -- no new
+// column, page, or component needed.
+export const FEATURED_COLLECTIONS: FeaturedCollection[] = [
+  {
+    slug: 'texas-dc-construction',
+    label: 'Texas Data Center Construction',
+    shortLabel: 'Texas DC Construction',
+    description:
+      'Construction, electrical, mechanical, and commissioning roles building out data centers across Texas.',
+  },
+]
+
 export const MARKET_LIST = [
   'Northern Virginia',
   'Dallas–Fort Worth',

@@ -5,6 +5,7 @@ import { getJobs, getJobCompanies } from '@/lib/api'
 import JobGrid from '@/components/jobs/JobGrid'
 import JobFilters from '@/components/jobs/JobFilters'
 import JobsSidebar from '@/components/jobs/JobsSidebar'
+import FeaturedCollectionsBar from '@/components/jobs/FeaturedCollectionsBar'
 import { SITE_URL, type DatePosted } from '@/lib/constants'
 import type { JobFilters as Filters, Category } from '@/lib/types'
 
@@ -66,6 +67,8 @@ export default async function JobsPage({ searchParams }: PageProps) {
     >
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold mb-8">Browse Jobs</h1>
+
+        <FeaturedCollectionsBar />
 
         <Suspense fallback={null}>
           <JobFilters />
