@@ -1,0 +1,1 @@
+Corestack's Texas Data Center Construction jobs page, showing the search bar, trade filters (Electrical, HVAC, Mechanical, Welding, Concrete, Carpentry, Pipefitting, Civil), and a Texas state outline icon.
