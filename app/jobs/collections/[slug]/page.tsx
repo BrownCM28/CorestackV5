@@ -67,14 +67,14 @@ export default async function JobCollectionPage({ params }: PageProps) {
           ← All Jobs
         </Link>
 
-        <div className="flex items-start justify-between gap-6 mt-3 mb-8">
+        <div className="flex flex-col-reverse sm:flex-row items-start justify-between gap-4 sm:gap-6 mt-3 mb-8">
           <div>
             <h1 className="text-3xl font-bold mb-2">{collection.label}</h1>
             <p className="text-sm text-black/50 max-w-2xl leading-relaxed">
               {collection.description}
             </p>
           </div>
-          {Icon && <Icon size={88} className="text-black flex-shrink-0 hidden sm:block" />}
+          {Icon && <Icon size={88} className="text-black flex-shrink-0" />}
         </div>
 
         <CollectionJobsClient jobs={jobs} trades={collection.trades} />
