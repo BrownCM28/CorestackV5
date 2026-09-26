@@ -108,6 +108,10 @@ const REAL_LOGOS: Record<string, LogoConfig> = {
   'GlobalFoundries': { src: '/Company Logos/corestack_company_logos_3/globalfoundries.jpg' },
   'Micron': { src: '/Company Logos/corestack_company_logos_3/micron.png' },
   'SpaceX': { src: '/Company Logos/corestack_company_logos_3/spacex.png' },
+
+  'Galaxy': { src: '/Company Logos/corestack_company_logos_4/galaxy.jpg' },
+  'Loenbro': { src: '/Company Logos/corestack_company_logos_4/loenbro.jpeg' },
+  'Olsson': { src: '/Company Logos/corestack_company_logos_4/olsson.jpg' },
 }
 
 const PALETTES = [
