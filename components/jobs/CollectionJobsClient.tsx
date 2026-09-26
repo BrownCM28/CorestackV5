@@ -83,13 +83,7 @@ export default function CollectionJobsClient({ jobs, trades = [] }: Props) {
         </div>
       )}
 
-      {trades.length === 0 && <div className="mb-6" />}
-
-      <p className="text-xs text-black/40 mb-3">
-        {filtered.length} {filtered.length === 1 ? 'job' : 'jobs'}
-        {activeTrade && ` in ${trades.find((t) => t.keyword === activeTrade)?.label}`}
-        {search && ` matching "${search}"`}
-      </p>
+      <div className={trades.length === 0 ? 'mb-6' : 'mb-3'} />
 
       <JobGrid jobs={filtered} titleWeight="medium" />
     </div>
