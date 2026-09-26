@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { getJobs } from '@/lib/api'
-import JobGrid from '@/components/jobs/JobGrid'
+import CollectionJobsClient from '@/components/jobs/CollectionJobsClient'
 import { FEATURED_COLLECTIONS, SITE_URL } from '@/lib/constants'
 
 interface PageProps {
@@ -63,7 +63,7 @@ export default async function JobCollectionPage({ params }: PageProps) {
           {collection.description}
         </p>
 
-        <JobGrid jobs={jobs} titleWeight="medium" />
+        <CollectionJobsClient jobs={jobs} trades={collection.trades} />
       </div>
     </div>
   )

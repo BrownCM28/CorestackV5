@@ -30,6 +30,15 @@ export const CATEGORY_LIST: Category[] = [
   'semiconductor_fabrication',
 ]
 
+export interface CollectionTrade {
+  /** Button label shown on the collection page. */
+  label: string
+  /** Case-insensitive substring matched against job.title client-side --
+   * these are trades/crafts, not the broader jobs.category enum, so a
+   * plain keyword match is simpler than adding one-off category values. */
+  keyword: string
+}
+
 export interface FeaturedCollection {
   /** Matches jobs.collection and the /jobs/collections/[slug] route. */
   slug: string
@@ -38,6 +47,9 @@ export interface FeaturedCollection {
   /** Compact label for the featured-collections bar on /jobs. */
   shortLabel: string
   description: string
+  /** Trade quick-filter buttons shown under the search bar on the
+   * collection's own page. Omit or leave empty for just a search bar. */
+  trades?: CollectionTrade[]
 }
 
 // New featured collection = tag the relevant jobs.collection to a new slug
@@ -50,6 +62,16 @@ export const FEATURED_COLLECTIONS: FeaturedCollection[] = [
     shortLabel: 'Texas DC Construction',
     description:
       'Construction, electrical, mechanical, and commissioning roles building out data centers across Texas.',
+    trades: [
+      { label: 'Electrical', keyword: 'electric' },
+      { label: 'HVAC', keyword: 'hvac' },
+      { label: 'Mechanical', keyword: 'mechanic' },
+      { label: 'Welding', keyword: 'weld' },
+      { label: 'Concrete', keyword: 'concrete' },
+      { label: 'Carpentry', keyword: 'carpen' },
+      { label: 'Pipefitting', keyword: 'pipe' },
+      { label: 'Civil', keyword: 'civil' },
+    ],
   },
 ]
 
