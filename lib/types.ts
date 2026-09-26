@@ -38,8 +38,8 @@ export interface Job {
   is_featured: boolean
   updated_at: string
   /** Tags this job into a featured collection (e.g. 'texas-dc-construction')
-   * with its own sub-page at /jobs/collections/[slug]. Null for ordinary
-   * listings -- see FEATURED_COLLECTIONS in lib/constants.ts. */
+   * with its own page (see `path` on FEATURED_COLLECTIONS in
+   * lib/constants.ts). Null for ordinary listings. */
   collection?: string | null
 }
 

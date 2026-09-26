@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { generateCompanySlug } from '@/lib/utils'
-import { SITE_URL } from '@/lib/constants'
+import { SITE_URL, FEATURED_COLLECTIONS } from '@/lib/constants'
 
 export default async function sitemap() {
   const supabase = await createClient()
@@ -64,6 +64,12 @@ export default async function sitemap() {
       changeFrequency: 'daily' as const,
       priority: 0.7,
     },
+    ...FEATURED_COLLECTIONS.map((c) => ({
+      url: `${SITE_URL}${c.path}`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: 'daily' as const,
+      priority: 0.7,
+    })),
     {
       url: `${SITE_URL}/news`,
       lastModified: new Date().toISOString(),

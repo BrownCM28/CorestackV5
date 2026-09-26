@@ -40,8 +40,13 @@ export interface CollectionTrade {
 }
 
 export interface FeaturedCollection {
-  /** Matches jobs.collection and the /jobs/collections/[slug] route. */
+  /** Matches jobs.collection -- the DB tag used to filter into this set. */
   slug: string
+  /** The page's actual route, e.g. '/jobs/texas'. Each collection with a
+   * page needs its own route.tsx under app/ -- there's no shared dynamic
+   * route, so a location-style URL like /jobs/texas doesn't collide with
+   * the /jobs/[slug] individual job-detail route. */
+  path: string
   /** Full heading used on the collection's own page. */
   label: string
   /** Compact label for the featured-collections bar on /jobs. */
@@ -53,11 +58,12 @@ export interface FeaturedCollection {
 }
 
 // New featured collection = tag the relevant jobs.collection to a new slug
-// (see scripts used for prior imports) and add an entry here -- no new
-// column, page, or component needed.
+// (see scripts used for prior imports), add an entry here, and create its
+// page.tsx at `path`.
 export const FEATURED_COLLECTIONS: FeaturedCollection[] = [
   {
     slug: 'texas-dc-construction',
+    path: '/jobs/texas',
     label: 'Texas Data Center Construction',
     shortLabel: 'Texas DC Construction',
     description:

@@ -16,7 +16,7 @@ export default function FeaturedCollectionsBar() {
       {FEATURED_COLLECTIONS.map((c) => (
         <Link
           key={c.slug}
-          href={`/jobs/collections/${c.slug}`}
+          href={c.path}
           className="border border-black px-3 py-1.5 text-xs font-medium whitespace-nowrap transition-colors duration-150 hover:bg-[#3ecf8e] hover:text-black focus-visible:ring-2 focus-visible:ring-[#3ecf8e] outline-none"
         >
           {c.shortLabel} →
