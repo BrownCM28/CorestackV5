@@ -79,6 +79,22 @@ export const FEATURED_COLLECTIONS: FeaturedCollection[] = [
       { label: 'Civil', keyword: 'civil' },
     ],
   },
+  {
+    slug: 'virginia-dc',
+    path: '/jobs/virginia',
+    label: 'Virginia Data Center Jobs',
+    shortLabel: 'Virginia DC Jobs',
+    description:
+      'Critical facilities, electrical, mechanical, and commissioning roles across Northern Virginia’s Data Center Alley and beyond.',
+    trades: [
+      { label: 'Electrical', keyword: 'electric' },
+      { label: 'Mechanical', keyword: 'mechanic' },
+      { label: 'Commissioning', keyword: 'commission' },
+      { label: 'Critical Facilities', keyword: 'critical facilit' },
+      { label: 'Controls', keyword: 'control' },
+      { label: 'Construction', keyword: 'construction' },
+    ],
+  },
 ]
 
 export const MARKET_LIST = [
