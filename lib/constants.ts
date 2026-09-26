@@ -95,6 +95,19 @@ export const FEATURED_COLLECTIONS: FeaturedCollection[] = [
       { label: 'Construction', keyword: 'construction' },
     ],
   },
+  {
+    slug: 'georgia-dc',
+    path: '/jobs/georgia',
+    label: 'Georgia Data Center Jobs',
+    shortLabel: 'Georgia DC Jobs',
+    description:
+      'Electrical, commissioning, and construction roles across metro Atlanta’s growing data center market.',
+    trades: [
+      { label: 'Electrical', keyword: 'electric' },
+      { label: 'Commissioning', keyword: 'commission' },
+      { label: 'Construction', keyword: 'construction' },
+    ],
+  },
 ]
 
 export const MARKET_LIST = [
