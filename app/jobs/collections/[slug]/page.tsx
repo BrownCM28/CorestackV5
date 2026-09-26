@@ -3,6 +3,7 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 import { getJobs } from '@/lib/api'
 import CollectionJobsClient from '@/components/jobs/CollectionJobsClient'
+import TexasIcon from '@/components/icons/TexasIcon'
 import { FEATURED_COLLECTIONS, SITE_URL } from '@/lib/constants'
 
 interface PageProps {
@@ -11,6 +12,13 @@ interface PageProps {
 
 function findCollection(slug: string) {
   return FEATURED_COLLECTIONS.find((c) => c.slug === slug)
+}
+
+// Per-collection header icon -- a plain lookup here rather than a component
+// reference on FeaturedCollection itself, since lib/constants.ts stays
+// framework-agnostic data (imported by both server and client code).
+const COLLECTION_ICONS: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
+  'texas-dc-construction': TexasIcon,
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -38,6 +46,7 @@ export default async function JobCollectionPage({ params }: PageProps) {
   if (!collection) notFound()
 
   const jobs = await getJobs({ collection: slug }).catch(() => [])
+  const Icon = COLLECTION_ICONS[slug]
 
   return (
     <div
@@ -58,10 +67,15 @@ export default async function JobCollectionPage({ params }: PageProps) {
           ← All Jobs
         </Link>
 
-        <h1 className="text-3xl font-bold mt-3 mb-2">{collection.label}</h1>
-        <p className="text-sm text-black/50 mb-8 max-w-2xl leading-relaxed">
-          {collection.description}
-        </p>
+        <div className="flex items-start justify-between gap-6 mt-3 mb-8">
+          <div>
+            <h1 className="text-3xl font-bold mb-2">{collection.label}</h1>
+            <p className="text-sm text-black/50 max-w-2xl leading-relaxed">
+              {collection.description}
+            </p>
+          </div>
+          {Icon && <Icon size={88} className="text-black flex-shrink-0 hidden sm:block" />}
+        </div>
 
         <CollectionJobsClient jobs={jobs} trades={collection.trades} />
       </div>
