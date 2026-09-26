@@ -112,6 +112,10 @@ const REAL_LOGOS: Record<string, LogoConfig> = {
   'Galaxy': { src: '/Company Logos/corestack_company_logos_4/galaxy.jpg' },
   'Loenbro': { src: '/Company Logos/corestack_company_logos_4/loenbro.jpeg' },
   'Olsson': { src: '/Company Logos/corestack_company_logos_4/olsson.jpg' },
+
+  'Carrier': { src: '/Company Logos/corestack_company_logos_5/carrier.webp' },
+  'Kiewit': { src: '/Company Logos/corestack_company_logos_5/kiewit.webp' },
+  'Saulsbury Industries': { src: '/Company Logos/corestack_company_logos_5/saulsbury.png' },
 }
 
 const PALETTES = [
