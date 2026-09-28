@@ -108,6 +108,27 @@ export const FEATURED_COLLECTIONS: FeaturedCollection[] = [
       { label: 'Construction', keyword: 'construction' },
     ],
   },
+  {
+    // Not a jobs.collection tag -- this page filters on jobs.category
+    // ('construction') directly instead, since it's nationwide rather than
+    // one hand-tagged batch. The slug here is a display/lookup id only.
+    slug: 'datacenter-construction',
+    path: '/datacenterconstruction',
+    label: 'Data Center Construction Jobs',
+    shortLabel: 'DC Construction',
+    description:
+      'Construction, project management, and field supervision roles building data centers nationwide.',
+    trades: [
+      { label: 'Electrical', keyword: 'electric' },
+      { label: 'Civil', keyword: 'civil' },
+      { label: 'Project Management', keyword: 'project manager' },
+      { label: 'Superintendent', keyword: 'superintend' },
+      { label: 'Estimating', keyword: 'estimat' },
+      { label: 'Commissioning', keyword: 'commission' },
+      { label: 'BIM', keyword: 'bim' },
+      { label: 'Concrete', keyword: 'concrete' },
+    ],
+  },
 ]
 
 export const MARKET_LIST = [
